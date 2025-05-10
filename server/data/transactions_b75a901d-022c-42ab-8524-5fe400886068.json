@@ -1,17 +1,25 @@
 [
   {
-    "id": "txn_af67b96e",
-    "type": "expense",
-    "amount": 100,
-    "categoryId": "cat_exp_a534e4",
-    "date": "2025-05-10T00:00:00.000Z",
-    "comment": "пмнпм"
-  },
-  {
     "id": "txn_cfb0af7b",
     "type": "income",
     "amount": 2000,
     "categoryId": "cat_inc_f3cfc2",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_7823d86d",
+    "type": "expense",
+    "amount": 2200,
+    "categoryId": "cat_exp_915ee1",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_3d831d16",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_faf24c",
     "date": "2025-05-10T00:00:00.000Z",
     "comment": ""
   }

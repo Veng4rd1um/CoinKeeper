@@ -5,9 +5,9 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts';
 import { fetchTransactions, fetchCategories } from '../api/index.js';
-import { ExclamationTriangleIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon, CalendarDaysIcon, TagIcon as DefaultCategoryIcon } from '@heroicons/react/24/outline';
 
-const PIE_CHART_COLORS = ['#037DD6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#10b981', '#ec4899', '#6366f1', '#d946ef', '#06b6d4'];
+const defaultCategoryColorHEX = '#6b7280'; // HEX для gray-500
 
 const formatCurrency = (amount, currency = 'RUB') => {
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 0, maximumFractionDigits:0 }).format(amount);
@@ -15,24 +15,52 @@ const formatCurrency = (amount, currency = 'RUB') => {
 
 const CustomTooltipContent = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-        const data = payload[0].payload;
+        const data = payload[0].payload; // Это { name, value, color (HEX) }
         const value = payload[0].value;
         const name = payload[0].name;
 
         return (
             <div className="bg-surface dark:bg-surface-dark/90 backdrop-blur-sm p-3 rounded-md shadow-lg border border-slate-200 dark:border-slate-600">
                 {label && <p className="text-sm font-semibold text-text dark:text-text-dark mb-1">{label}</p>}
-                <p className="text-sm text-text dark:text-text-dark">
-                    {data?.name || name}: <span className="font-semibold">{formatCurrency(data?.value || value)}</span>
-                </p>
-                {data?.percent && (
-                    <p className="text-xs text-text-muted dark:text-text-dark_muted">({(data.percent * 100).toFixed(1)}%)</p>
+                <div className="flex items-center">
+                    {data.color && <span
+                        className="w-3 h-3 rounded-sm mr-2 border border-black/10 dark:border-white/10"
+                        style={{ backgroundColor: data.color }}
+                    ></span>}
+                    <p className="text-sm text-text dark:text-text-dark">
+                        {name}: <span className="font-semibold">{formatCurrency(value)}</span>
+                    </p>
+                </div>
+                {(payload[0].percent) && (
+                    <p className="text-xs text-text-muted dark:text-text-dark_muted">({(payload[0].percent * 100).toFixed(1)}%)</p>
                 )}
             </div>
         );
     }
     return null;
 };
+
+const renderCustomPieLegend = (props) => {
+    const { payload } = props;
+    return (
+        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs mt-3">
+            {payload.map((entry, index) => {
+                // entry.payload - это оригинальный элемент данных, переданный в Pie ({ name, value, color })
+                const categoryColorHEX = entry.payload?.color || defaultCategoryColorHEX;
+                return (
+                    <li key={`item-${index}`} className="flex items-center">
+                        <span
+                            className="w-3 h-3 rounded-sm mr-1.5 border border-black/10 dark:border-white/10"
+                            style={{ backgroundColor: categoryColorHEX }}
+                        ></span>
+                        <span className="text-text-muted dark:text-text-dark_muted">{entry.value}</span>
+                    </li>
+                );
+            })}
+        </ul>
+    );
+};
+
 
 const StatsPage = () => {
     const [transactions, setTransactions] = useState([]);
@@ -49,7 +77,7 @@ const StatsPage = () => {
         try {
             const [transRes, catRes] = await Promise.all([
                 fetchTransactions(),
-                fetchCategories()
+                fetchCategories() // API должен возвращать категории с HEX color
             ]);
             setTransactions(transRes.data || []);
             setAllCategories(catRes.data || { income: [], expense: [] });
@@ -66,68 +94,51 @@ const StatsPage = () => {
 
     const getPeriodDateRange = useCallback(() => {
         const now = new Date();
-        let startDate = new Date();
-        let endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+        let startDate = new Date(now);
+        let endDate = new Date(now);
 
-        switch (filterPeriod) {
-            case 'week':
-                startDate.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1)); // Текущая неделя, Пн
-                // endDate остается концом текущего дня
-                break;
-            case 'month':
-                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                // endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-                break;
-            case 'year':
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(23, 59, 59, 999);
+
+        if (filterPeriod === 'custom') {
+            if (customStartDate) {
+                startDate = new Date(customStartDate);
+                startDate.setHours(0, 0, 0, 0);
+            } else {
                 startDate = new Date(now.getFullYear(), 0, 1);
-                // endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
-                break;
-            case 'custom':
-                if (customStartDate && customEndDate) {
-                    startDate = new Date(customStartDate);
-                    startDate.setHours(0,0,0,0);
-                    endDate = new Date(customEndDate);
-                    endDate.setHours(23,59,59,999);
-                    if (startDate > endDate) { // Если начальная дата больше конечной, меняем их местами
-                        [startDate, endDate] = [endDate, startDate];
-                    }
-                } else {
-                    // По умолчанию для "custom" без дат - текущий месяц
-                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-                }
-                break;
-            default:
-                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-        }
-        startDate.setHours(0,0,0,0);
-        if (filterPeriod !== 'custom' || !(customStartDate && customEndDate)) { // Для быстрых фильтров endDate - это текущий день
-            endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-            if (filterPeriod === 'month') { // Для месяца endDate - это конец текущего дня в этом месяце
-                const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-                if (now < lastDayOfMonth) { // Если текущий день не последний в месяце
-                    // endDate уже установлен на текущий день
-                } else { // Если текущий день - последний в месяце или позже (не должно быть), то берем конец месяца
-                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-                }
             }
-            if (filterPeriod === 'year') { // Для года endDate - это конец текущего дня в этом году
-                const lastDayOfYear = new Date(now.getFullYear(), 11, 31);
-                if (now < lastDayOfYear) {
-                    // endDate уже установлен на текущий день
-                } else {
-                    endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
-                }
+            if (customEndDate) {
+                endDate = new Date(customEndDate);
+                endDate.setHours(23, 59, 59, 999);
+            }
+            if (startDate > endDate && customStartDate && customEndDate) {
+                [startDate, endDate] = [endDate, startDate];
+            }
+        } else {
+            switch (filterPeriod) {
+                case 'week':
+                    const dayOfWeek = now.getDay();
+                    const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+                    startDate = new Date(now.getFullYear(), now.getMonth(), diff); // Use current year and month
+                    startDate.setHours(0, 0, 0, 0);
+                    break;
+                case 'month':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    break;
+                case 'year':
+                    startDate = new Date(now.getFullYear(), 0, 1);
+                    break;
+                default:
+                    break;
             }
         }
         return { startDate, endDate };
     }, [filterPeriod, customStartDate, customEndDate]);
 
-
     const filteredTransactions = useMemo(() => {
         if (!transactions.length) return [];
         const { startDate, endDate } = getPeriodDateRange();
+        if (!startDate || !endDate) return [];
 
         return transactions.filter(t => {
             const transactionDate = new Date(t.date);
@@ -145,10 +156,15 @@ const StatsPage = () => {
         const expenseByCategoryMap = new Map();
         const incomeByDayMap = new Map();
         const expenseByDayMap = new Map();
-        const { startDate, endDate } = getPeriodDateRange(); // Для корректного диапазона дней BarChart
+        const { startDate, endDate } = getPeriodDateRange();
 
         filteredTransactions.forEach(t => {
-            const categoryName = allCategories[t.type]?.find(c => c.id === t.categoryId)?.name || 'Без категории';
+            const categoryList = t.type === 'income' ? allCategories.income : allCategories.expense;
+            const category = categoryList?.find(c => c.id === t.categoryId);
+
+            const categoryName = category?.name || 'Без категории';
+            const categoryColorHEX = category?.color || defaultCategoryColorHEX; // HEX цвет
+
             const dateKey = new Date(t.date).toLocaleDateString('ru-RU', { day:'2-digit', month:'short' });
 
             if (t.type === 'income') {
@@ -156,22 +172,31 @@ const StatsPage = () => {
                 incomeByDayMap.set(dateKey, (incomeByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
             } else {
                 totalExpense += parseFloat(t.amount);
-                expenseByCategoryMap.set(categoryName, (expenseByCategoryMap.get(categoryName) || 0) + parseFloat(t.amount));
+                const currentCategoryData = expenseByCategoryMap.get(categoryName);
+                expenseByCategoryMap.set(categoryName, {
+                    value: (currentCategoryData?.value || 0) + parseFloat(t.amount),
+                    color: categoryColorHEX, // Сохраняем HEX цвет
+                });
                 expenseByDayMap.set(dateKey, (expenseByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
             }
         });
 
         const expenseByCategory = Array.from(expenseByCategoryMap)
-            .map(([name, value]) => ({ name, value }))
+            .map(([name, data]) => ({ name, value: data.value, color: data.color }))
             .sort((a, b) => b.value - a.value);
 
         const dayKeysInRange = [];
-        let currentDate = new Date(startDate);
-        while(currentDate <= endDate) {
-            dayKeysInRange.push(currentDate.toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }));
-            currentDate.setDate(currentDate.getDate() + 1);
+        if (startDate && endDate && startDate <= endDate) {
+            let currentDateIter = new Date(startDate);
+            currentDateIter.setHours(0,0,0,0);
+            let endOfDayOfEndDate = new Date(endDate);
+            endOfDayOfEndDate.setHours(23,59,59,999); // Ensure we iterate up to the end of the endDate
+
+            while(currentDateIter <= endOfDayOfEndDate) {
+                dayKeysInRange.push(currentDateIter.toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }));
+                currentDateIter.setDate(currentDateIter.getDate() + 1);
+            }
         }
-        // Убираем дубликаты, если период очень короткий и один день встречается несколько раз (не должно быть при правильном startDate/endDate)
         const uniqueDayKeys = [...new Set(dayKeysInRange)];
 
         const incomeExpenseByDay = uniqueDayKeys.map(dayKey => ({
@@ -189,6 +214,7 @@ const StatsPage = () => {
         };
     }, [filteredTransactions, allCategories, getPeriodDateRange]);
 
+    // ... остальной JSX без изменений (isLoading, error, period selection, summary cards, charts/empty states)
     if (isLoading) {
         return <div className="flex justify-center items-center h-64"><p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка статистики...</p></div>;
     }
@@ -216,7 +242,7 @@ const StatsPage = () => {
                             key={period}
                             onClick={() => { setFilterPeriod(period); setCustomStartDate(''); setCustomEndDate(''); }}
                             className={`px-4 py-2 text-sm font-medium rounded-md transition-colors
-                ${filterPeriod === period && !customStartDate && !customEndDate
+                                ${filterPeriod === period && !customStartDate && !customEndDate
                                 ? 'bg-primary dark:bg-primary-dark text-white'
                                 : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600'
                             }`}
@@ -229,21 +255,26 @@ const StatsPage = () => {
                     <div>
                         <label htmlFor="customStartDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Начало периода</label>
                         <input type="date" id="customStartDate" value={customStartDate}
-                               onChange={e => { setCustomStartDate(e.target.value); if (e.target.value && customEndDate) setFilterPeriod('custom'); else if (e.target.value && !customEndDate) setFilterPeriod('custom_partial'); }}
+                               onChange={e => { setCustomStartDate(e.target.value); setFilterPeriod('custom');}}
                                className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
                         />
                     </div>
                     <div>
                         <label htmlFor="customEndDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Конец периода</label>
                         <input type="date" id="customEndDate" value={customEndDate}
-                               onChange={e => { setCustomEndDate(e.target.value); if (customStartDate && e.target.value) setFilterPeriod('custom'); else if (!customStartDate && e.target.value) setFilterPeriod('custom_partial'); }}
+                               onChange={e => { setCustomEndDate(e.target.value); setFilterPeriod('custom');}}
                                className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
                                min={customStartDate || undefined}
                         />
                     </div>
                 </div>
-                {(filterPeriod === 'custom' || filterPeriod === 'custom_partial') && (!customStartDate || !customEndDate) && (
-                    <p className="text-xs text-warning dark:text-warning-dark mt-2">Выберите обе даты для точного пользовательского периода или одну для периода до/от нее.</p>
+                {(filterPeriod === 'custom' && (!customStartDate || !customEndDate)) && (
+                    <p className="text-xs text-warning dark:text-warning-dark mt-2">
+                        {(!customStartDate && !customEndDate) ? "Для пользовательского периода выберите даты. Иначе используется период по умолчанию (с начала года до сегодня)." :
+                            !customEndDate ? "Выберите конечную дату. Период будет до текущего дня." :
+                                !customStartDate ? "Выберите начальную дату. Период будет с начала текущего года." : ""
+                        }
+                    </p>
                 )}
             </section>
 
@@ -277,34 +308,34 @@ const StatsPage = () => {
                             <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Структура расходов</h3>
                             <ResponsiveContainer width="100%" height={300}>
                                 <PieChart>
-                                    <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#8884d8" dataKey="value" nameKey="name">
-                                        {statsData.expenseByCategory.map((_entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
+                                    <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name">
+                                        {statsData.expenseByCategory.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.color || defaultCategoryColorHEX} />
                                         ))}
                                     </Pie>
                                     <Tooltip content={<CustomTooltipContent />} />
-                                    <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
+                                    <Legend content={<renderCustomPieLegend />} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                    ) : <div className="lg:col-span-1 p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted">Нет данных по расходам за период.</div>}
+                    ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center"><DefaultCategoryIcon className="h-10 w-10 mb-2"/>Нет данных по расходам за период.</div>}
 
                     {statsData.incomeExpenseByDay.length > 0 ? (
                         <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
                             <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Динамика по дням</h3>
                             <ResponsiveContainer width="100%" height={300}>
-                                <BarChart data={statsData.incomeExpenseByDay} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}> {/* Уменьшил отступы */}
+                                <BarChart data={statsData.incomeExpenseByDay} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
                                     <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
                                     <YAxis tickFormatter={(value) => `${value / 1000}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
                                     <Tooltip content={<CustomTooltipContent />} />
                                     <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
-                                    <Bar dataKey="income" fill={PIE_CHART_COLORS[1]} name="Доходы" radius={[4, 4, 0, 0]} barSize={15} />
-                                    <Bar dataKey="expense" fill={PIE_CHART_COLORS[3]} name="Расходы" radius={[4, 4, 0, 0]} barSize={15} />
+                                    <Bar dataKey="income" fill="#22c55e" name="Доходы" radius={[4, 4, 0, 0]} barSize={15} /> {/* green-500 */}
+                                    <Bar dataKey="expense" fill="#ef4444" name="Расходы" radius={[4, 4, 0, 0]} barSize={15} /> {/* red-500 */}
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
-                    ) : <div className="lg:col-span-1 p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted">Нет данных по дням за период.</div>}
+                    ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center"><CalendarDaysIcon className="h-10 w-10 mb-2"/>Нет данных по дням за период.</div>}
                 </section>
             )}
         </div>

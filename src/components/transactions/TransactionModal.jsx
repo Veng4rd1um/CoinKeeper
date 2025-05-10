@@ -1,12 +1,15 @@
 // src/components/transactions/TransactionModal.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-import Button from '../ui/Button.jsx'; // Убедитесь, что здесь .jsx если это React компонент
-import Input from '../ui/Input.jsx';   // Убедитесь, что здесь .jsx
+import Button from '../ui/Button.jsx';
+import Input from '../ui/Input.jsx';
 import { fetchCategories, addCategory as apiAddCategory } from '../../api/index.js';
 import {
-    XMarkIcon, CurrencyDollarIcon, TagIcon, CalendarDaysIcon,
-    ChatBubbleLeftEllipsisIcon, TrashIcon, PlusIcon
+    XMarkIcon, CurrencyDollarIcon, CalendarDaysIcon,
+    TrashIcon, PlusIcon
 } from '@heroicons/react/24/outline';
+// InputColor не нужен здесь, если быстрое добавление не предполагает выбора цвета
+
+const defaultNewCategoryColorHEX = '#64748b'; // Цвет по умолчанию в HEX для быстро добавленной категории (slate-500)
 
 const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDelete }) => {
     const [type, setType] = useState('expense');
@@ -25,19 +28,19 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
     const loadCategories = useCallback(async () => {
         setIsLoadingCategories(true);
         try {
-            const response = await fetchCategories();
+            const response = await fetchCategories(); // API должен возвращать HEX цвет
             setAllCategories(response.data || { income: [], expense: [] });
-            setErrors(prev => ({ ...prev, categories: null })); // Сброс ошибки категорий
+            setErrors(prev => ({ ...prev, categories: null }));
         } catch (error) {
             console.error("Failed to fetch categories:", error);
             setErrors(prev => ({ ...prev, categories: "Не удалось загрузить категории." }));
         }
         setIsLoadingCategories(false);
-    }, []); // useCallback
+    }, []);
 
     useEffect(() => {
         if (isOpen) {
-            loadCategories(); // Загружаем категории при каждом открытии
+            loadCategories();
             if (isEditing && transactionToEdit) {
                 setType(transactionToEdit.type || 'expense');
                 setAmount(transactionToEdit.amount?.toString() || '');
@@ -46,7 +49,6 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                 setComment(transactionToEdit.comment || '');
                 setErrors({});
             } else {
-                // Сброс формы для новой транзакции
                 setType('expense');
                 setAmount('');
                 setCategoryIdState('');
@@ -54,12 +56,13 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                 setComment('');
                 setErrors({});
             }
-            setShowNewCategoryInput(false); // Всегда скрывать поле новой категории при открытии
+            setShowNewCategoryInput(false);
             setNewCategoryName('');
         }
     }, [isOpen, transactionToEdit, isEditing, loadCategories]);
 
     const availableCategories = allCategories[type] || [];
+    const selectedCategoryFull = availableCategories.find(cat => cat.id === categoryId);
 
     const validateForm = () => {
         const newErrors = {};
@@ -71,10 +74,6 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
         }
         if (!date) {
             newErrors.date = 'Выберите дату.';
-        } else {
-            // Проверка, что дата не в будущем (опционально)
-            // const today = new Date(); today.setHours(23,59,59,999);
-            // if (new Date(date) > today) newErrors.date = 'Дата не может быть в будущем.';
         }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -84,24 +83,28 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
         e.preventDefault();
         if (validateForm()) {
             const transactionData = {
-                ...(isEditing && { id: transactionToEdit.id }), // id только для редактирования
+                ...(isEditing && { id: transactionToEdit.id }),
                 type,
                 amount: parseFloat(amount),
                 categoryId: categoryId,
-                date: new Date(date).toISOString(), // Сохраняем в ISO UTC
+                date: new Date(date).toISOString(),
                 comment,
             };
             onSubmit(transactionData);
         }
     };
 
-    const handleAddNewCategoryLocal = async () => { // Переименовано, чтобы не конфликтовать с apiAddCategory
+    const handleAddNewCategoryLocal = async () => {
         if (!newCategoryName.trim()) {
             setErrors(prev => ({ ...prev, newCategory: "Название категории не может быть пустым." }));
             return;
         }
         try {
-            const response = await apiAddCategory({ type, name: newCategoryName.trim() });
+            const response = await apiAddCategory({
+                type,
+                name: newCategoryName.trim(),
+                color: defaultNewCategoryColorHEX // Отправляем HEX цвет по умолчанию
+            });
             const newCat = response.data;
             setAllCategories(prev => ({
                 ...prev,
@@ -148,7 +151,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                                 type="button"
                                 onClick={() => { setType('expense'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
                                 className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-l-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
-                  ${type === 'expense'
+                                  ${type === 'expense'
                                     ? 'bg-error dark:bg-error-dark text-white focus:ring-error/70 dark:focus:ring-error-dark/70'
                                     : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
                                 }`}
@@ -157,7 +160,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                                 type="button"
                                 onClick={() => { setType('income'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
                                 className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
-                  ${type === 'income'
+                                  ${type === 'income'
                                     ? 'bg-success dark:bg-success-dark text-white focus:ring-success/70 dark:focus:ring-success-dark/70'
                                     : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
                                 }`}
@@ -168,7 +171,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                     <Input
                         id="amount" label="Сумма" type="number" placeholder="0.00" value={amount}
                         onChange={(e) => setAmount(e.target.value)} error={errors.amount}
-                        icon={<CurrencyDollarIcon />} // className иконки управляется в Input.jsx
+                        icon={<CurrencyDollarIcon />}
                         inputClassName="text-lg" inputMode="decimal" step="0.01"
                     />
 
@@ -179,19 +182,27 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
 
                         {!showNewCategoryInput ? (
                             <div className="flex items-center space-x-2">
-                                <select
-                                    id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
-                                    className={`block w-full p-2.5 text-sm rounded-lg border ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
-                                    disabled={isLoadingCategories || (!isLoadingCategories && availableCategories.length === 0 && !errors.categories)}
-                                >
-                                    <option value="">
-                                        {isLoadingCategories ? 'Загрузка...' :
-                                            errors.categories ? 'Ошибка загрузки категорий' :
-                                                availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода':'расхода'}`
-                                                    : 'Выберите категорию'}
-                                    </option>
-                                    {availableCategories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
-                                </select>
+                                <div className="relative flex-grow">
+                                    {selectedCategoryFull?.color && (
+                                        <span
+                                            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border border-black/20 dark:border-white/20"
+                                            style={{ backgroundColor: selectedCategoryFull.color }}
+                                        ></span>
+                                    )}
+                                    <select
+                                        id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
+                                        className={`block w-full p-2.5 text-sm rounded-lg border ${selectedCategoryFull?.color ? 'pl-8' : ''} ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
+                                        disabled={isLoadingCategories || (!isLoadingCategories && availableCategories.length === 0 && !errors.categories)}
+                                    >
+                                        <option value="">
+                                            {isLoadingCategories ? 'Загрузка...' :
+                                                errors.categories ? 'Ошибка загрузки категорий' :
+                                                    availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода':'расхода'}`
+                                                        : 'Выберите категорию'}
+                                        </option>
+                                        {availableCategories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
+                                    </select>
+                                </div>
                                 <Button type="button" onClick={() => setShowNewCategoryInput(true)} variant="secondary" className="p-2.5 flex-shrink-0" title="Добавить новую категорию">
                                     <PlusIcon className="h-5 w-5"/>
                                 </Button>
@@ -199,7 +210,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                         ) : (
                             <div className="p-3 border border-slate-300 dark:border-slate-600 rounded-md space-y-3">
                                 <Input
-                                    id="newCategoryName" label="Название новой категории" type="text" placeholder="Например, 'Кофе'"
+                                    id="newCategoryName" label="Название новой категории" type="text" placeholder="Например, 'Такси'"
                                     value={newCategoryName} onChange={(e) => setNewCategoryName(e.target.value)}
                                     error={errors.newCategory} wrapperClassName="mb-2"
                                 />
@@ -207,6 +218,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                                     <Button type="button" variant="success" onClick={handleAddNewCategoryLocal} className="text-sm py-1.5 px-3">Сохранить</Button>
                                     <Button type="button" variant="secondary" onClick={() => {setShowNewCategoryInput(false); setNewCategoryName(''); setErrors(prev => ({...prev, newCategory: null}))}} className="text-sm py-1.5 px-3">Отмена</Button>
                                 </div>
+                                <p className="text-xs text-text-muted dark:text-text-dark_muted">Цвет для этой категории (будет по умолчанию) можно будет изменить позже на странице "Управление категориями".</p>
                             </div>
                         )}
                         {errors.category && !showNewCategoryInput && <p className="mt-1 text-xs text-error dark:text-error-dark">{errors.category}</p>}

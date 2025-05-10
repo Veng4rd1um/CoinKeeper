@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/10/2025 04:54:00
+# Generated on 05/11/2025 03:03:28
 # Source: C:\Users\Алихан\Documents\CoinKeeper
 
 
@@ -10,14 +10,14 @@
 // .eslintrc.cjs
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true, node: true }, // Добавили 'node: true' для глобальных переменных Node.js
+  env: { browser: true, es2020: true, node: true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:react/jsx-runtime', // Если используете новый JSX-трансформ
+    'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'server'], // Игнорируем папку server для правил браузера
+  ignorePatterns: ['dist', '.eslintrc.cjs'], // Убрал 'server' отсюда
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
@@ -26,32 +26,43 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'react/prop-types': 'off', // Отключаем проверку prop-types, если не используете
-    'no-unused-vars': ['warn', { // Настроим no-unused-vars
+    'react/prop-types': 'off',
+    'no-unused-vars': ['warn', {
       'vars': 'all',
       'args': 'after-used',
       'ignoreRestSiblings': false,
-      'varsIgnorePattern': '^_', // Игнорировать переменные, начинающиеся с _
-      'argsIgnorePattern': '^_',  // Игнорировать аргументы, начинающиеся с _
+      'varsIgnorePattern': '^_',
+      'argsIgnorePattern': '^_',
     }],
   },
-  overrides: [ // Конфигурация для серверных файлов
+  overrides: [
     {
-      files: ['server/**/*.js'],
-      env: { node: true, es2020: true }, // Только Node.js окружение
-      parserOptions: { sourceType: 'commonjs' }, // Указываем, что это CommonJS
+      files: ['server/**/*.cjs'], // Указываем .cjs для серверных файлов
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'commonjs' },
       rules: {
         // Здесь можно добавить специфичные правила для Node.js или отключить браузерные
-        'no-undef': 'off', // Отключаем no-undef для require, module, __dirname, process
+        // no-undef для require, module, __dirname, process уже должен обрабатываться env: { node: true }
+        // Если все еще есть проблемы, можно явно добавить:
+        // 'no-undef': 'off',
       }
     },
-    { // Конфигурация для конфигурационных файлов в корне
-      files: ['*.config.js', '*.cjs'],
+    {
+      files: ['*.config.js', '*.cjs'], // Для vite.config.js, postcss.config.js, tailwind.config.js, eslintrc.cjs
       env: { node: true, es2020: true },
-      parserOptions: { sourceType: 'commonjs' }, // или 'module' в зависимости от файла
-      rules: {
-        'no-undef': 'off',
-      }
+      // sourceType для .config.js (ESM) и .cjs (CommonJS) будет разный.
+      // ESLint должен сам определить по расширению или настройкам package.json
+      // Для явности можно разделить:
+    },
+    {
+      files: ['*.config.js'], // vite.config.js, tailwind.config.js, postcss.config.js (если они ESM)
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'module' },
+    },
+    {
+      files: ['*.cjs'], // eslintrc.cjs, серверные .cjs
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'commonjs' },
     }
   ]
 };
@@ -72,9 +83,9 @@ powershell.exe -ExecutionPolicy Bypass -File "%~dp0CollectCode.ps1"
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/free-icon-coin-4153647.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>CoinKepper</title>
   </head>
   <body>
     <div id="root"></div>
@@ -262,16 +273,12 @@ export default defineConfig({
 # FILE: src\App.jsx
 ###############################################################################
 
-// src/App.jsx
 import React from 'react';
-// import { BrowserRouter } from 'react-router-dom'; // Убрали, т.к. перенесли в main.jsx
 import AppRouter from './routes/AppRouter.jsx';
 
 function App() {
     return (
-        // <BrowserRouter> // Убрали, т.к. перенесли в main.jsx
         <AppRouter />
-        // </BrowserRouter>
     );
 }
 
@@ -299,7 +306,7 @@ export default App;
 .sidebar-link-active {
   @apply bg-primary text-white font-semibold;
 }
-.dark .sidebar-link-active { /* Для темной темы, если основной primary отличается */
+.dark .sidebar-link-active {
   @apply bg-primary-dark text-white;
 }
 
@@ -335,15 +342,100 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 {
   "income": [
-    { "id": "cat_inc_1", "name": "Зарплата" },
-    { "id": "cat_inc_2", "name": "Фриланс" },
-    { "id": "cat_inc_3", "name": "Подарки" }
+    { "id": "cat_inc_1", "name": "Зарплата", "icon": "BriefcaseIcon", "color": "bg-green-500" },
+    { "id": "cat_inc_2", "name": "Фриланс", "icon": "ComputerDesktopIcon", "color": "bg-blue-500" },
+    { "id": "cat_inc_3", "name": "Подарки", "icon": "GiftIcon", "color": "bg-yellow-500" }
   ],
   "expense": [
-    { "id": "cat_exp_1", "name": "Продукты" },
-    { "id": "cat_exp_2", "name": "Транспорт" },
-    { "id": "cat_exp_3", "name": "Развлечения" },
-    { "id": "cat_exp_4", "name": "Коммунальные услуги" }
+    { "id": "cat_exp_1", "name": "Продукты", "icon": "ShoppingCartIcon", "color": "bg-orange-500" },
+    { "id": "cat_exp_2", "name": "Транспорт", "icon": "TruckIcon", "color": "bg-sky-500" },
+    { "id": "cat_exp_3", "name": "Развлечения", "icon": "FilmIcon", "color": "bg-purple-500" },
+    { "id": "cat_exp_4", "name": "Коммунальные услуги", "icon": "BuildingOfficeIcon", "color": "bg-red-500" }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_7c8dc353-1978-4f2c-ada5-8e9a8ebe1d6d.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_fcda5d",
+      "name": "онай"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_8ebb62",
+      "name": "Такси"
+    },
+    {
+      "id": "cat_exp_e3a111",
+      "name": "Кофе"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_b75a901d-022c-42ab-8524-5fe400886068.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_f3cfc2",
+      "name": "зп"
+    },
+    {
+      "id": "cat_inc_fd403a",
+      "name": "фыфы"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_a534e4",
+      "name": "крфе"
+    },
+    {
+      "id": "cat_exp_73fbde",
+      "name": "awdawd"
+    },
+    {
+      "id": "cat_exp_915ee1",
+      "name": "уаыуа"
+    },
+    {
+      "id": "cat_exp_faf24c",
+      "name": "фцвцфвф"
+    },
+    {
+      "id": "cat_exp_fd3417",
+      "name": "фцвфцв"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_cf55b2ed-65d6-49bf-8c81-7e6172b57401.json
+###############################################################################
+
+{
+  "income": [],
+  "expense": []
+}
+
+###############################################################################
+# FILE: server\data\categories_fdbc9681-3fd1-4c67-86cb-e205953497b4.json
+###############################################################################
+
+{
+  "income": [],
+  "expense": [
+    {
+      "id": "cat_exp_bb9b29",
+      "name": "Такси"
+    }
   ]
 }
 
@@ -371,10 +463,114 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ]
 
 ###############################################################################
-# FILE: server\data\users.json
+# FILE: server\data\transactions_7c8dc353-1978-4f2c-ada5-8e9a8ebe1d6d.json
+###############################################################################
+
+[
+  {
+    "id": "txn_b6907e49",
+    "type": "income",
+    "amount": 1000,
+    "categoryId": "cat_inc_fcda5d",
+    "date": "2025-05-12T00:00:00.000Z",
+    "comment": "Мтеро "
+  },
+  {
+    "id": "txn_faf88dba",
+    "type": "expense",
+    "amount": 60,
+    "categoryId": "cat_exp_8ebb62",
+    "date": "2025-05-13T00:00:00.000Z",
+    "comment": "Делюкс"
+  },
+  {
+    "id": "txn_aa2c429b",
+    "type": "expense",
+    "amount": 100,
+    "categoryId": "cat_exp_e3a111",
+    "date": "2025-05-12T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_b75a901d-022c-42ab-8524-5fe400886068.json
+###############################################################################
+
+[
+  {
+    "id": "txn_cfb0af7b",
+    "type": "income",
+    "amount": 2000,
+    "categoryId": "cat_inc_f3cfc2",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_7823d86d",
+    "type": "expense",
+    "amount": 2200,
+    "categoryId": "cat_exp_915ee1",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_3d831d16",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_faf24c",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_cf55b2ed-65d6-49bf-8c81-7e6172b57401.json
 ###############################################################################
 
 []
+
+###############################################################################
+# FILE: server\data\transactions_fdbc9681-3fd1-4c67-86cb-e205953497b4.json
+###############################################################################
+
+[
+  {
+    "id": "txn_c64cfd3e",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_bb9b29",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\users.json
+###############################################################################
+
+[
+  {
+    "id": "cf55b2ed-65d6-49bf-8c81-7e6172b57401",
+    "email": "test@email.com",
+    "password": "$2a$12$Rk5j5J963jLke4GkXf74keWbsgT/S4t6EUgYAj.nIIm4hE/Jts9A."
+  },
+  {
+    "id": "b75a901d-022c-42ab-8524-5fe400886068",
+    "email": "test1@email.com",
+    "password": "$2a$12$V3aJyvs3mlq.fk5N9QYVGufpej.pLNtlHQ8Zg0ujD9d/HuaOdZwrW"
+  },
+  {
+    "id": "7c8dc353-1978-4f2c-ada5-8e9a8ebe1d6d",
+    "email": "test3@email.com",
+    "password": "$2a$12$AzDgkI6WXYdBgyOi08rgz.IA7.EdQrIu/T805A6WxJfJjl.yhCvoS"
+  },
+  {
+    "id": "fdbc9681-3fd1-4c67-86cb-e205953497b4",
+    "email": "Alikhan@email.com",
+    "password": "$2a$12$TTTpk8knVNmhAGVGooqesecd9Yo0HRotd5Wam7mKBvljpYG8dRk1W"
+  }
+]
 
 ###############################################################################
 # FILE: src\api\index.js
@@ -548,11 +744,14 @@ import {
     fetchTransactions,
     addTransaction as apiAddTransaction,
     updateTransaction as apiUpdateTransaction,
-    deleteTransaction as apiDeleteTransaction
+    deleteTransaction as apiDeleteTransaction,
+    fetchCategories // Необходимо для получения цветов категорий
 } from '../api/index.js';
 import {
-    PlusCircleIcon, ArrowUpCircleIcon, ArrowDownCircleIcon, CurrencyDollarIcon, TagIcon, PencilSquareIcon, ExclamationTriangleIcon
+    PlusCircleIcon, CurrencyDollarIcon, PencilSquareIcon, ExclamationTriangleIcon, TagIcon as DefaultCategoryIcon
 } from '@heroicons/react/24/outline';
+
+const defaultCategoryColorForDisplay = "bg-slate-400 dark:bg-slate-600"; // Для "Без категории" или если цвет не найден
 
 const formatCurrency = (amount, currency = 'RUB') => {
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 2 }).format(amount);
@@ -564,33 +763,59 @@ const formatDateForDisplay = (isoDateString) => {
 };
 
 const DashboardPage = () => {
-    const [currentBalance, setCurrentBalance] = useState(0); // Переименовано, чтобы избежать конфликтов
+    const [currentBalance, setCurrentBalance] = useState(0);
     const [transactions, setTransactions] = useState([]);
+    // allCategoriesData будет содержать { income: [], expense: [] } с полной информацией о категориях, включая цвет
+    const [allCategoriesData, setAllCategoriesData] = useState({ income: [], expense: [] });
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [transactionToEdit, setTransactionToEdit] = useState(null);
 
-    const loadTransactions = useCallback(async () => {
+    // Загрузка и транзакций, и категорий для обогащения данных
+    const loadInitialData = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetchTransactions();
-            setTransactions(response.data || []);
+            const [transactionsRes, categoriesRes] = await Promise.all([
+                fetchTransactions(), // Предполагаем, что это возвращает транзакции ТЕКУЩЕГО пользователя
+                fetchCategories()    // Это возвращает категории ТЕКУЩЕГО пользователя с их цветами
+            ]);
+
+            const fetchedCategories = categoriesRes.data || { income: [], expense: [] };
+            setAllCategoriesData(fetchedCategories); // Сохраняем данные категорий
+
+            // Создаем карту для быстрого доступа к деталям категории по ID
+            const categoryMap = {};
+            fetchedCategories.income.forEach(cat => categoryMap[cat.id] = cat);
+            fetchedCategories.expense.forEach(cat => categoryMap[cat.id] = cat);
+
+            // Обогащаем транзакции данными о категориях (имя и цвет)
+            const enrichedTransactions = (transactionsRes.data || []).map(t => {
+                const category = categoryMap[t.categoryId];
+                return {
+                    ...t,
+                    categoryName: category?.name || 'Без категории',
+                    categoryColor: category?.color || defaultCategoryColorForDisplay
+                };
+            });
+            setTransactions(enrichedTransactions);
+
         } catch (err) {
-            console.error("Failed to fetch transactions:", err);
-            setError(err.response?.data?.message || "Не удалось загрузить транзакции. Попробуйте обновить страницу.");
+            console.error("Failed to load initial data:", err);
+            setError(err.response?.data?.message || "Не удалось загрузить данные. Попробуйте обновить страницу.");
         }
         setIsLoading(false);
-    }, []); // useCallback для стабильности функции
+    }, []);
 
     useEffect(() => {
-        loadTransactions();
-    }, [loadTransactions]);
+        loadInitialData();
+    }, [loadInitialData]);
+
 
     useEffect(() => {
         const newBalance = transactions.reduce((acc, t) => {
-            const amount = parseFloat(t.amount); // Убедимся, что работаем с числами
+            const amount = parseFloat(t.amount);
             return t.type === 'income' ? acc + amount : acc - amount;
         }, 0);
         setCurrentBalance(newBalance);
@@ -602,7 +827,8 @@ const DashboardPage = () => {
     };
 
     const openEditModal = (transaction) => {
-        setTransactionToEdit(transaction);
+        // Передаем "сырую" транзакцию, т.к. модальное окно само загрузит актуальные категории
+        setTransactionToEdit(transactions.find(t => t.id === transaction.id));
         setIsModalOpen(true);
     };
 
@@ -618,23 +844,24 @@ const DashboardPage = () => {
             } else {
                 await apiAddTransaction(transactionData);
             }
-            loadTransactions(); // Перезагружаем транзакции после успешного сохранения
+            loadInitialData(); // Перезагружаем все данные для обновления списка
             closeModal();
         } catch (err) {
             console.error("Failed to save transaction:", err);
             alert(`Ошибка сохранения транзакции: ${err.response?.data?.message || err.message}`);
-            // Можно отобразить ошибку в модальном окне или на странице
         }
     };
 
     const handleDeleteTransaction = async (transactionId) => {
-        try {
-            await apiDeleteTransaction(transactionId);
-            loadTransactions(); // Перезагружаем транзакции
-            closeModal(); // Закрываем модальное, если оно было открыто для этой транзакции
-        } catch (err) {
-            console.error("Failed to delete transaction:", err);
-            alert(`Ошибка удаления транзакции: ${err.response?.data?.message || err.message}`);
+        if (window.confirm("Вы уверены, что хотите удалить эту транзакцию?")) {
+            try {
+                await apiDeleteTransaction(transactionId);
+                loadInitialData(); // Перезагружаем все данные
+                closeModal(); // Закрываем модальное, если оно было открыто для этой транзакции
+            } catch (err) {
+                console.error("Failed to delete transaction:", err);
+                alert(`Ошибка удаления транзакции: ${err.response?.data?.message || err.message}`);
+            }
         }
     };
 
@@ -642,15 +869,17 @@ const DashboardPage = () => {
         const isIncome = transaction.type === 'income';
         const amountColor = isIncome ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark';
         const sign = isIncome ? '+' : '-';
-        const IconType = isIncome ? ArrowUpCircleIcon : ArrowDownCircleIcon;
+
+        // categoryColor уже должен быть в объекте transaction после обогащения
+        const categoryColor = transaction.categoryColor || defaultCategoryColorForDisplay;
 
         return (
             <li className="bg-surface dark:bg-surface-dark p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-150 ease-in-out group">
                 <div className="flex items-start justify-between">
                     <div className="flex items-center space-x-3">
-                        <IconType className={`h-8 w-8 ${isIncome ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'} flex-shrink-0 mt-1`} />
+                        <span className={`w-3 h-3 rounded-full ${categoryColor} flex-shrink-0 mt-1 border border-black/10 dark:border-white/10`}></span>
                         <div>
-                            <p className="text-sm font-medium text-text dark:text-text-dark">{transaction.categoryName || 'Без категории'}</p>
+                            <p className="text-sm font-medium text-text dark:text-text-dark">{transaction.categoryName}</p>
                             <p className="text-xs text-text-muted dark:text-text-dark_muted truncate max-w-[150px] sm:max-w-xs md:max-w-sm" title={transaction.comment}>
                                 {transaction.comment || 'Без описания'}
                             </p>
@@ -677,8 +906,7 @@ const DashboardPage = () => {
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка транзакций...</p>
-                {/* Добавить спиннер (например, SVG) */}
+                <p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка данных...</p>
             </div>
         );
     }
@@ -724,7 +952,7 @@ const DashboardPage = () => {
             <section>
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-text dark:text-text-dark">Недавние операции</h2>
-                    {transactions.length > 10 && ( // Показываем "Посмотреть все", если больше 10
+                    {transactions.length > 10 && (
                         <a href="#" className="text-sm text-primary dark:text-primary-dark hover:underline" onClick={(e) => {e.preventDefault(); alert("Функционал 'Посмотреть все' пока не реализован.")}}>Посмотреть все</a>
                     )}
                 </div>
@@ -736,7 +964,7 @@ const DashboardPage = () => {
                     </ul>
                 ) : (
                     <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow">
-                        <TagIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                        <DefaultCategoryIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
                         <h3 className="text-lg font-medium text-text dark:text-text-dark">Транзакций пока нет</h3>
                         <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1 mb-4">
                             Начните отслеживать свои финансы, добавив первую операцию.
@@ -751,9 +979,9 @@ const DashboardPage = () => {
             <TransactionModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
-                onSubmit={handleFormSubmit} // Теперь эта функция определена и передается
+                onSubmit={handleFormSubmit}
                 transactionToEdit={transactionToEdit}
-                onDelete={handleDeleteTransaction} // И эта тоже
+                onDelete={handleDeleteTransaction}
             />
         </div>
     );
@@ -769,23 +997,43 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Button from '../components/ui/Button.jsx';
 import Input from '../components/ui/Input.jsx';
 import { fetchCategories, addCategory, updateCategory, deleteCategoryAPI } from '../api/index.js';
-import { PlusCircleIcon, TrashIcon, PencilIcon, XMarkIcon, CheckIcon, ExclamationTriangleIcon, TagIcon } from '@heroicons/react/24/outline';
+import {
+    PlusCircleIcon, TrashIcon, PencilIcon, XMarkIcon, CheckIcon,
+    ExclamationTriangleIcon, TagIcon as DefaultCategoryIcon // Используется если список категорий пуст
+} from '@heroicons/react/24/outline';
+
+// Определяем доступные цвета для категорий (Tailwind CSS классы фона)
+const availableColors = [
+    'bg-slate-500', 'bg-gray-500',
+    'bg-red-500', 'bg-orange-500', 'bg-amber-500', 'bg-yellow-500',
+    'bg-lime-500', 'bg-green-500', 'bg-emerald-500', 'bg-teal-500',
+    'bg-cyan-500', 'bg-sky-500', 'bg-blue-500', 'bg-indigo-500',
+    'bg-violet-500', 'bg-purple-500', 'bg-fuchsia-500', 'bg-pink-500', 'bg-rose-500'
+];
+const defaultColor = 'bg-slate-500'; // Цвет по умолчанию
 
 const SettingsPage = () => {
     const [categories, setCategories] = useState({ income: [], expense: [] });
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
     const [newCategoryName, setNewCategoryName] = useState('');
     const [newCategoryType, setNewCategoryType] = useState('expense');
-    const [editingCategory, setEditingCategory] = useState(null); // {type, id, name}
+    const [newCategoryColor, setNewCategoryColor] = useState(defaultColor);
+    const [showColorPickerForNew, setShowColorPickerForNew] = useState(false);
+
+    const [editingCategory, setEditingCategory] = useState(null); // {type, id, name, color}
     const [editName, setEditName] = useState('');
-    const [formError, setFormError] = useState(''); // Для ошибок формы добавления
+    const [editColor, setEditColor] = useState(defaultColor);
+    const [showColorPickerForEdit, setShowColorPickerForEdit] = useState(false);
+
+    const [formError, setFormError] = useState('');
 
     const loadCategories = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetchCategories();
+            const response = await fetchCategories(); // API должен возвращать категории с полем color
             setCategories(response.data || { income: [], expense: [] });
         } catch (err) {
             setError(err.response?.data?.message || "Не удалось загрузить категории.");
@@ -806,23 +1054,36 @@ const SettingsPage = () => {
             return;
         }
         try {
-            await addCategory({ type: newCategoryType, name: newCategoryName.trim() });
-            setNewCategoryName(''); // Очищаем поле после добавления
-            loadCategories(); // Перезагружаем категории
-        } catch (err) {
+            // API addCategory теперь должен принимать name, type, color
+            await addCategory({
+                type: newCategoryType,
+                name: newCategoryName.trim(),
+                color: newCategoryColor
+            });
+            setNewCategoryName('');
+            setNewCategoryColor(defaultColor);
+            setNewCategoryType('expense');
+            setShowColorPickerForNew(false);
+            loadCategories();
+        } catch (err)
+        {
             setFormError(err.response?.data?.message || `Ошибка добавления категории.`);
             console.error("Failed to add category:", err);
         }
     };
 
     const handleStartEdit = (type, category) => {
-        setEditingCategory({ type, id: category.id, name: category.name });
+        setEditingCategory({ type, id: category.id, name: category.name, color: category.color });
         setEditName(category.name);
+        setEditColor(category.color || defaultColor);
+        setShowColorPickerForEdit(false);
     };
 
     const handleCancelEdit = () => {
         setEditingCategory(null);
         setEditName('');
+        setEditColor(defaultColor);
+        setShowColorPickerForEdit(false);
     };
 
     const handleSaveEdit = async () => {
@@ -831,8 +1092,12 @@ const SettingsPage = () => {
             return;
         }
         try {
-            await updateCategory(editingCategory.type, editingCategory.id, { name: editName.trim() });
-            loadCategories(); // Перезагружаем категории
+            // API updateCategory теперь должен принимать name, color
+            await updateCategory(editingCategory.type, editingCategory.id, {
+                name: editName.trim(),
+                color: editColor
+            });
+            loadCategories();
             handleCancelEdit();
         } catch (err) {
             alert(`Ошибка обновления категории: ${err.response?.data?.message || err.message}`);
@@ -841,15 +1106,39 @@ const SettingsPage = () => {
     };
 
     const handleDeleteCategory = async (type, id) => {
-        if (window.confirm("Вы уверены, что хотите удалить эту категорию? Это действие необратимо. Связанные транзакции могут потерять свою категорию.")) {
+        if (window.confirm("Вы уверены, что хотите удалить эту категорию? Связанные транзакции могут потерять свою категорию.")) {
             try {
                 await deleteCategoryAPI(type, id);
-                loadCategories(); // Перезагружаем категории
+                loadCategories();
             } catch (err) {
                 alert(`Ошибка удаления категории: ${err.response?.data?.message || err.message}`);
                 console.error("Failed to delete category:", err);
             }
         }
+    };
+
+    const ColorPickerDropdown = ({ selectedColor, onSelectColor, isVisible, toggleVisibility }) => {
+        if (!isVisible) return null;
+
+        return (
+            <div className="absolute z-10 mt-1 p-2 bg-surface dark:bg-surface-dark rounded-md shadow-lg border border-slate-300 dark:border-slate-600 max-w-xs w-max">
+                <div className="grid grid-cols-5 sm:grid-cols-7 gap-1.5">
+                    {availableColors.map((color, index) => (
+                        <button
+                            type="button"
+                            key={`color-palette-${index}`}
+                            title={color.replace('bg-', '').replace('-500', '')}
+                            className={`w-6 h-6 rounded-full ${color} border-2 transition-all
+                                ${selectedColor === color ? 'ring-2 ring-offset-1 dark:ring-offset-surface-dark ring-primary dark:ring-primary-dark border-transparent scale-110' : 'border-white/50 dark:border-black/50 hover:opacity-80'}`}
+                            onClick={() => {
+                                onSelectColor(color);
+                                toggleVisibility(false);
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
+        );
     };
 
     const CategoryList = ({ title, type, list }) => (
@@ -858,31 +1147,51 @@ const SettingsPage = () => {
             {list && list.length > 0 ? (
                 <ul className="space-y-2">
                     {list.map((cat) => (
-                        <li key={cat.id} className="flex items-center justify-between p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group">
+                        <li key={cat.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group">
                             {editingCategory && editingCategory.id === cat.id ? (
-                                <>
+                                <div className="flex-grow space-y-3 w-full">
                                     <Input
                                         type="text"
                                         value={editName}
                                         onChange={(e) => setEditName(e.target.value)}
-                                        className="py-1 px-2 text-sm mr-2 flex-grow h-9" // Уменьшили высоту
+                                        className="py-1 px-2 text-sm h-9 w-full"
                                         wrapperClassName="mb-0 flex-grow"
                                     />
-                                    <div className="flex-shrink-0 space-x-1.5">
-                                        <button onClick={handleSaveEdit} className="p-1.5 text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300" title="Сохранить"><CheckIcon className="h-5 w-5"/></button>
-                                        <button onClick={handleCancelEdit} className="p-1.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200" title="Отмена"><XMarkIcon className="h-5 w-5"/></button>
+                                    <div className="relative">
+                                        <label className="block text-xs font-medium text-text-muted dark:text-text-dark_muted mb-1">Цвет</label>
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowColorPickerForEdit(prev => !prev)}
+                                            className={`w-full h-9 rounded-md border border-slate-300 dark:border-slate-600 flex items-center px-2 ${editColor} transition-colors`}
+                                        >
+                                            <span className={`inline-block w-5 h-5 rounded-sm ${editColor} border border-black/20 dark:border-white/20 mr-2`}></span>
+                                            <span className="text-sm text-white mix-blend-difference">Выбрать цвет</span>
+                                        </button>
+                                        <ColorPickerDropdown
+                                            selectedColor={editColor}
+                                            onSelectColor={setEditColor}
+                                            isVisible={showColorPickerForEdit}
+                                            toggleVisibility={setShowColorPickerForEdit}
+                                        />
                                     </div>
-                                </>
+                                    <div className="flex justify-end space-x-1.5 pt-2">
+                                        <Button onClick={handleSaveEdit} variant="success" className="py-1.5 px-3 text-sm" leftIcon={<CheckIcon className="h-4 w-4"/>}>Сохранить</Button>
+                                        <Button onClick={handleCancelEdit} variant="secondary" className="py-1.5 px-3 text-sm" leftIcon={<XMarkIcon className="h-4 w-4"/>}>Отмена</Button>
+                                    </div>
+                                </div>
                             ) : (
                                 <>
-                                    <span className="text-text dark:text-text-dark">{cat.name}</span>
-                                    <div className="space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button onClick={() => handleStartEdit(type, cat)} className="p-1.5 text-primary dark:text-primary-dark hover:opacity-75" title="Редактировать">
+                                    <div className="flex items-center flex-grow mb-2 sm:mb-0">
+                                        <span className={`w-4 h-4 rounded-full ${cat.color || defaultColor} mr-3 flex-shrink-0 border border-black/10 dark:border-white/10`}></span>
+                                        <span className="text-text dark:text-text-dark break-all">{cat.name}</span>
+                                    </div>
+                                    <div className="flex-shrink-0 space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity self-center sm:self-auto">
+                                        <Button onClick={() => handleStartEdit(type, cat)} variant="secondary" size="icon" title="Редактировать" className="p-1.5 text-primary dark:text-primary-dark hover:opacity-75">
                                             <PencilIcon className="h-4 w-4"/>
-                                        </button>
-                                        <button onClick={() => handleDeleteCategory(type, cat.id)} className="p-1.5 text-error dark:text-error-dark hover:opacity-75" title="Удалить">
+                                        </Button>
+                                        <Button onClick={() => handleDeleteCategory(type, cat.id)} variant="secondary" size="icon" title="Удалить" className="p-1.5 text-error dark:text-error-dark hover:opacity-75">
                                             <TrashIcon className="h-4 w-4"/>
-                                        </button>
+                                        </Button>
                                     </div>
                                 </>
                             )}
@@ -914,16 +1223,16 @@ const SettingsPage = () => {
             <form onSubmit={handleAddCategory} className="mb-8 p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold mb-4 text-text dark:text-text-dark">Добавить новую категорию</h2>
                 {formError && <p className="text-sm text-error dark:text-error-dark mb-3">{formError}</p>}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
                     <Input
                         id="newCategoryName"
                         label="Название категории"
                         value={newCategoryName}
                         onChange={(e) => setNewCategoryName(e.target.value)}
                         placeholder="Например, 'Кофе'"
-                        wrapperClassName="mb-0 md:col-span-1" // Адаптивность
+                        wrapperClassName="mb-0"
                     />
-                    <div className="md:col-span-1">
+                    <div>
                         <label htmlFor="newCategoryType" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Тип</label>
                         <select
                             id="newCategoryType"
@@ -935,10 +1244,27 @@ const SettingsPage = () => {
                             <option value="income">Доход</option>
                         </select>
                     </div>
-                    <Button type="submit" className="w-full md:w-auto md:col-span-1" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
-                        Добавить
-                    </Button>
+                    <div className="md:col-span-2 relative">
+                        <label className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Цвет</label>
+                        <button
+                            type="button"
+                            onClick={() => setShowColorPickerForNew(prev => !prev)}
+                            className={`w-full h-10 rounded-md border border-slate-300 dark:border-slate-600 flex items-center px-3 ${newCategoryColor} transition-colors`}
+                        >
+                            <span className={`inline-block w-5 h-5 rounded-sm ${newCategoryColor} border border-black/20 dark:border-white/20 mr-2`}></span>
+                            <span className="text-sm text-white mix-blend-difference">Выбрать цвет</span>
+                        </button>
+                        <ColorPickerDropdown
+                            selectedColor={newCategoryColor}
+                            onSelectColor={setNewCategoryColor}
+                            isVisible={showColorPickerForNew}
+                            toggleVisibility={setShowColorPickerForNew}
+                        />
+                    </div>
                 </div>
+                <Button type="submit" className="w-full md:w-auto mt-6" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
+                    Добавить категорию
+                </Button>
             </form>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -947,7 +1273,7 @@ const SettingsPage = () => {
             </div>
             {categories.income.length === 0 && categories.expense.length === 0 && !isLoading && (
                 <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md col-span-full">
-                    <TagIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                    <DefaultCategoryIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
                     <h3 className="text-lg font-medium text-text dark:text-text-dark">Категорий пока нет</h3>
                     <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
                         Добавьте свою первую категорию, чтобы начать классифицировать транзакции.
@@ -971,34 +1297,73 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid
 } from 'recharts';
 import { fetchTransactions, fetchCategories } from '../api/index.js';
-import { ExclamationTriangleIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon, CalendarDaysIcon, TagIcon as DefaultCategoryIcon } from '@heroicons/react/24/outline';
 
-const PIE_CHART_COLORS = ['#037DD6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#10b981', '#ec4899', '#6366f1', '#d946ef', '#06b6d4'];
+const defaultCategoryStatsColor = 'bg-slate-500'; // Tailwind класс для категорий без цвета или "Без категории"
 
 const formatCurrency = (amount, currency = 'RUB') => {
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 0, maximumFractionDigits:0 }).format(amount);
 };
 
+// Конвертер Tailwind bg-color в HEX (упрощенный)
+const tailwindToHex = (tailwindColor) => {
+    // Этот маппинг должен соответствовать вашим availableColors и tailwind.config.js
+    // Для простоты здесь только несколько примеров, расширьте по необходимости
+    const map = {
+        'bg-slate-500': '#64748b', 'bg-gray-500': '#6b7280',
+        'bg-red-500': '#ef4444', 'bg-orange-500': '#f97316', 'bg-amber-500': '#f59e0b',
+        'bg-yellow-500': '#eab308', 'bg-lime-500': '#84cc16', 'bg-green-500': '#22c55e',
+        'bg-emerald-500': '#10b981', 'bg-teal-500': '#14b8a6', 'bg-cyan-500': '#06b6d4',
+        'bg-sky-500': '#0ea5e9', 'bg-blue-500': '#3b82f6', 'bg-indigo-500': '#6366f1',
+        'bg-violet-500': '#8b5cf6', 'bg-purple-500': '#a855f7', 'bg-fuchsia-500': '#d946ef',
+        'bg-pink-500': '#ec4899', 'bg-rose-500': '#f43f5e',
+    };
+    return map[tailwindColor] || '#CCCCCC'; // Fallback HEX
+};
+
+
 const CustomTooltipContent = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
-        const data = payload[0].payload;
+        const data = payload[0].payload; // Это { name, value, color (Tailwind) }
         const value = payload[0].value;
         const name = payload[0].name;
 
         return (
             <div className="bg-surface dark:bg-surface-dark/90 backdrop-blur-sm p-3 rounded-md shadow-lg border border-slate-200 dark:border-slate-600">
                 {label && <p className="text-sm font-semibold text-text dark:text-text-dark mb-1">{label}</p>}
-                <p className="text-sm text-text dark:text-text-dark">
-                    {data?.name || name}: <span className="font-semibold">{formatCurrency(data?.value || value)}</span>
-                </p>
-                {data?.percent && (
-                    <p className="text-xs text-text-muted dark:text-text-dark_muted">({(data.percent * 100).toFixed(1)}%)</p>
+                <div className="flex items-center">
+                    {data.color && <span className={`w-3 h-3 rounded-sm mr-2 ${data.color}`}></span>}
+                    <p className="text-sm text-text dark:text-text-dark">
+                        {data?.name || name}: <span className="font-semibold">{formatCurrency(data?.value || value)}</span>
+                    </p>
+                </div>
+                {data?.percent && ( // Отображаем процент, если он есть (добавляется в Pie компонентом)
+                    <p className="text-xs text-text-muted dark:text-text-dark_muted">({(payload[0].percent * 100).toFixed(1)}%)</p>
                 )}
             </div>
         );
     }
     return null;
 };
+
+const renderCustomPieLegend = (props) => {
+    const { payload } = props; // payload из Recharts Legend
+    return (
+        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs mt-3">
+            {payload.map((entry, index) => {
+                // entry.payload - это оригинальный элемент данных, переданный в Pie ({ name, value, color })
+                const categoryTailwindColor = entry.payload?.color || defaultCategoryStatsColor;
+                return (
+                    <li key={`item-${index}`} className="flex items-center">
+                        <span className={`w-3 h-3 rounded-sm mr-1.5 ${categoryTailwindColor}`}></span>
+                        <span className="text-text-muted dark:text-text-dark_muted">{entry.value}</span> {/* entry.value это имя категории (nameKey) */}
+                    </li>
+                );
+            })}
+        </ul>
+    );
+};
+
 
 const StatsPage = () => {
     const [transactions, setTransactions] = useState([]);
@@ -1015,7 +1380,7 @@ const StatsPage = () => {
         try {
             const [transRes, catRes] = await Promise.all([
                 fetchTransactions(),
-                fetchCategories()
+                fetchCategories() // API должен возвращать категории с color
             ]);
             setTransactions(transRes.data || []);
             setAllCategories(catRes.data || { income: [], expense: [] });
@@ -1032,59 +1397,48 @@ const StatsPage = () => {
 
     const getPeriodDateRange = useCallback(() => {
         const now = new Date();
-        let startDate = new Date();
-        let endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+        let startDate = new Date(now);
+        let endDate = new Date(now);
 
-        switch (filterPeriod) {
-            case 'week':
-                startDate.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1)); // Текущая неделя, Пн
-                // endDate остается концом текущего дня
-                break;
-            case 'month':
-                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                // endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-                break;
-            case 'year':
-                startDate = new Date(now.getFullYear(), 0, 1);
-                // endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
-                break;
-            case 'custom':
-                if (customStartDate && customEndDate) {
-                    startDate = new Date(customStartDate);
-                    startDate.setHours(0,0,0,0);
-                    endDate = new Date(customEndDate);
-                    endDate.setHours(23,59,59,999);
-                    if (startDate > endDate) { // Если начальная дата больше конечной, меняем их местами
-                        [startDate, endDate] = [endDate, startDate];
-                    }
-                } else {
-                    // По умолчанию для "custom" без дат - текущий месяц
-                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-                }
-                break;
-            default:
-                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-        }
-        startDate.setHours(0,0,0,0);
-        if (filterPeriod !== 'custom' || !(customStartDate && customEndDate)) { // Для быстрых фильтров endDate - это текущий день
-            endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-            if (filterPeriod === 'month') { // Для месяца endDate - это конец текущего дня в этом месяце
-                const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-                if (now < lastDayOfMonth) { // Если текущий день не последний в месяце
-                    // endDate уже установлен на текущий день
-                } else { // Если текущий день - последний в месяце или позже (не должно быть), то берем конец месяца
-                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
-                }
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(23, 59, 59, 999); // Конец текущего дня по умолчанию
+
+        if (filterPeriod === 'custom') {
+            if (customStartDate) {
+                startDate = new Date(customStartDate);
+                startDate.setHours(0, 0, 0, 0);
+            } else {
+                // Если начало не указано для custom, можно взять начало текущего года или месяца
+                startDate = new Date(now.getFullYear(), 0, 1); // Начало года
             }
-            if (filterPeriod === 'year') { // Для года endDate - это конец текущего дня в этом году
-                const lastDayOfYear = new Date(now.getFullYear(), 11, 31);
-                if (now < lastDayOfYear) {
-                    // endDate уже установлен на текущий день
-                } else {
-                    endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
-                }
+            if (customEndDate) {
+                endDate = new Date(customEndDate);
+                endDate.setHours(23, 59, 59, 999);
+            }
+            // Если endDate не указан для custom, он остается концом текущего дня (уже установлено)
+
+            if (startDate > endDate && customStartDate && customEndDate) { // Только если обе даты введены и старт > конца
+                [startDate, endDate] = [endDate, startDate];
+            }
+        } else { // 'week', 'month', 'year'
+            switch (filterPeriod) {
+                case 'week':
+                    const dayOfWeek = now.getDay();
+                    const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // пн текущей недели
+                    startDate = new Date(now.setDate(diff));
+                    startDate.setHours(0, 0, 0, 0);
+                    // endDate остается концом текущего дня
+                    break;
+                case 'month':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    // endDate остается концом текущего дня
+                    break;
+                case 'year':
+                    startDate = new Date(now.getFullYear(), 0, 1);
+                    // endDate остается концом текущего дня
+                    break;
+                default: // Should not happen
+                    break;
             }
         }
         return { startDate, endDate };
@@ -1094,6 +1448,7 @@ const StatsPage = () => {
     const filteredTransactions = useMemo(() => {
         if (!transactions.length) return [];
         const { startDate, endDate } = getPeriodDateRange();
+        if (!startDate || !endDate) return [];
 
         return transactions.filter(t => {
             const transactionDate = new Date(t.date);
@@ -1111,10 +1466,15 @@ const StatsPage = () => {
         const expenseByCategoryMap = new Map();
         const incomeByDayMap = new Map();
         const expenseByDayMap = new Map();
-        const { startDate, endDate } = getPeriodDateRange(); // Для корректного диапазона дней BarChart
+        const { startDate, endDate } = getPeriodDateRange();
 
         filteredTransactions.forEach(t => {
-            const categoryName = allCategories[t.type]?.find(c => c.id === t.categoryId)?.name || 'Без категории';
+            const categoryList = t.type === 'income' ? allCategories.income : allCategories.expense;
+            const category = categoryList?.find(c => c.id === t.categoryId);
+
+            const categoryName = category?.name || 'Без категории';
+            const categoryColor = category?.color || defaultCategoryStatsColor;
+
             const dateKey = new Date(t.date).toLocaleDateString('ru-RU', { day:'2-digit', month:'short' });
 
             if (t.type === 'income') {
@@ -1122,22 +1482,31 @@ const StatsPage = () => {
                 incomeByDayMap.set(dateKey, (incomeByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
             } else {
                 totalExpense += parseFloat(t.amount);
-                expenseByCategoryMap.set(categoryName, (expenseByCategoryMap.get(categoryName) || 0) + parseFloat(t.amount));
+                const currentCategoryData = expenseByCategoryMap.get(categoryName);
+                expenseByCategoryMap.set(categoryName, {
+                    value: (currentCategoryData?.value || 0) + parseFloat(t.amount),
+                    color: categoryColor,
+                });
                 expenseByDayMap.set(dateKey, (expenseByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
             }
         });
 
         const expenseByCategory = Array.from(expenseByCategoryMap)
-            .map(([name, value]) => ({ name, value }))
+            .map(([name, data]) => ({ name, value: data.value, color: data.color }))
             .sort((a, b) => b.value - a.value);
 
         const dayKeysInRange = [];
-        let currentDate = new Date(startDate);
-        while(currentDate <= endDate) {
-            dayKeysInRange.push(currentDate.toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }));
-            currentDate.setDate(currentDate.getDate() + 1);
+        if (startDate && endDate && startDate <= endDate) {
+            let currentDateIter = new Date(startDate);
+            currentDateIter.setHours(0,0,0,0); // Нормализация для итерации по дням
+            let endOfDayOfEndDate = new Date(endDate);
+            endOfDayOfEndDate.setHours(0,0,0,0);
+
+            while(currentDateIter <= endOfDayOfEndDate) {
+                dayKeysInRange.push(currentDateIter.toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }));
+                currentDateIter.setDate(currentDateIter.getDate() + 1);
+            }
         }
-        // Убираем дубликаты, если период очень короткий и один день встречается несколько раз (не должно быть при правильном startDate/endDate)
         const uniqueDayKeys = [...new Set(dayKeysInRange)];
 
         const incomeExpenseByDay = uniqueDayKeys.map(dayKey => ({
@@ -1182,7 +1551,7 @@ const StatsPage = () => {
                             key={period}
                             onClick={() => { setFilterPeriod(period); setCustomStartDate(''); setCustomEndDate(''); }}
                             className={`px-4 py-2 text-sm font-medium rounded-md transition-colors
-                ${filterPeriod === period && !customStartDate && !customEndDate
+                                ${filterPeriod === period && !customStartDate && !customEndDate
                                 ? 'bg-primary dark:bg-primary-dark text-white'
                                 : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600'
                             }`}
@@ -1195,21 +1564,26 @@ const StatsPage = () => {
                     <div>
                         <label htmlFor="customStartDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Начало периода</label>
                         <input type="date" id="customStartDate" value={customStartDate}
-                               onChange={e => { setCustomStartDate(e.target.value); if (e.target.value && customEndDate) setFilterPeriod('custom'); else if (e.target.value && !customEndDate) setFilterPeriod('custom_partial'); }}
+                               onChange={e => { setCustomStartDate(e.target.value); setFilterPeriod('custom');}}
                                className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
                         />
                     </div>
                     <div>
                         <label htmlFor="customEndDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Конец периода</label>
                         <input type="date" id="customEndDate" value={customEndDate}
-                               onChange={e => { setCustomEndDate(e.target.value); if (customStartDate && e.target.value) setFilterPeriod('custom'); else if (!customStartDate && e.target.value) setFilterPeriod('custom_partial'); }}
+                               onChange={e => { setCustomEndDate(e.target.value); setFilterPeriod('custom');}}
                                className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
                                min={customStartDate || undefined}
                         />
                     </div>
                 </div>
-                {(filterPeriod === 'custom' || filterPeriod === 'custom_partial') && (!customStartDate || !customEndDate) && (
-                    <p className="text-xs text-warning dark:text-warning-dark mt-2">Выберите обе даты для точного пользовательского периода или одну для периода до/от нее.</p>
+                {(filterPeriod === 'custom' && (!customStartDate || !customEndDate)) && (
+                    <p className="text-xs text-warning dark:text-warning-dark mt-2">
+                        {(!customStartDate && !customEndDate) ? "Для пользовательского периода выберите даты. Иначе используется период по умолчанию." :
+                            !customEndDate ? "Выберите конечную дату. Период будет до текущего дня." :
+                                !customStartDate ? "Выберите начальную дату. Период будет с начала года." : ""
+                        }
+                    </p>
                 )}
             </section>
 
@@ -1243,34 +1617,34 @@ const StatsPage = () => {
                             <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Структура расходов</h3>
                             <ResponsiveContainer width="100%" height={300}>
                                 <PieChart>
-                                    <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#8884d8" dataKey="value" nameKey="name">
-                                        {statsData.expenseByCategory.map((_entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
+                                    <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name">
+                                        {statsData.expenseByCategory.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={tailwindToHex(entry.color || defaultCategoryStatsColor)} />
                                         ))}
                                     </Pie>
                                     <Tooltip content={<CustomTooltipContent />} />
-                                    <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
+                                    <Legend content={<renderCustomPieLegend />} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
-                    ) : <div className="lg:col-span-1 p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted">Нет данных по расходам за период.</div>}
+                    ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center"><DefaultCategoryIcon className="h-10 w-10 mb-2"/>Нет данных по расходам за период.</div>}
 
                     {statsData.incomeExpenseByDay.length > 0 ? (
                         <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
                             <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Динамика по дням</h3>
                             <ResponsiveContainer width="100%" height={300}>
-                                <BarChart data={statsData.incomeExpenseByDay} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}> {/* Уменьшил отступы */}
+                                <BarChart data={statsData.incomeExpenseByDay} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
                                     <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
                                     <YAxis tickFormatter={(value) => `${value / 1000}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
                                     <Tooltip content={<CustomTooltipContent />} />
                                     <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
-                                    <Bar dataKey="income" fill={PIE_CHART_COLORS[1]} name="Доходы" radius={[4, 4, 0, 0]} barSize={15} />
-                                    <Bar dataKey="expense" fill={PIE_CHART_COLORS[3]} name="Расходы" radius={[4, 4, 0, 0]} barSize={15} />
+                                    <Bar dataKey="income" fill={tailwindToHex('bg-green-500')} name="Доходы" radius={[4, 4, 0, 0]} barSize={15} />
+                                    <Bar dataKey="expense" fill={tailwindToHex('bg-red-500')} name="Расходы" radius={[4, 4, 0, 0]} barSize={15} />
                                 </BarChart>
                             </ResponsiveContainer>
                         </div>
-                    ) : <div className="lg:col-span-1 p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted">Нет данных по дням за период.</div>}
+                    ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center"><CalendarDaysIcon className="h-10 w-10 mb-2"/>Нет данных по дням за период.</div>}
                 </section>
             )}
         </div>
@@ -1510,13 +1884,15 @@ export default Sidebar;
 
 // src/components/transactions/TransactionModal.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-import Button from '../ui/Button.jsx'; // Убедитесь, что здесь .jsx если это React компонент
-import Input from '../ui/Input.jsx';   // Убедитесь, что здесь .jsx
+import Button from '../ui/Button.jsx';
+import Input from '../ui/Input.jsx';
 import { fetchCategories, addCategory as apiAddCategory } from '../../api/index.js';
 import {
-    XMarkIcon, CurrencyDollarIcon, TagIcon, CalendarDaysIcon,
-    ChatBubbleLeftEllipsisIcon, TrashIcon, PlusIcon
+    XMarkIcon, CurrencyDollarIcon, CalendarDaysIcon,
+    TrashIcon, PlusIcon
 } from '@heroicons/react/24/outline';
+
+const defaultNewCategoryColor = 'bg-slate-500'; // Цвет по умолчанию для быстро добавленной категории
 
 const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDelete }) => {
     const [type, setType] = useState('expense');
@@ -1535,19 +1911,19 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
     const loadCategories = useCallback(async () => {
         setIsLoadingCategories(true);
         try {
-            const response = await fetchCategories();
+            const response = await fetchCategories(); // API теперь должен возвращать `color` для категорий
             setAllCategories(response.data || { income: [], expense: [] });
-            setErrors(prev => ({ ...prev, categories: null })); // Сброс ошибки категорий
+            setErrors(prev => ({ ...prev, categories: null }));
         } catch (error) {
             console.error("Failed to fetch categories:", error);
             setErrors(prev => ({ ...prev, categories: "Не удалось загрузить категории." }));
         }
         setIsLoadingCategories(false);
-    }, []); // useCallback
+    }, []);
 
     useEffect(() => {
         if (isOpen) {
-            loadCategories(); // Загружаем категории при каждом открытии
+            loadCategories();
             if (isEditing && transactionToEdit) {
                 setType(transactionToEdit.type || 'expense');
                 setAmount(transactionToEdit.amount?.toString() || '');
@@ -1556,7 +1932,6 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                 setComment(transactionToEdit.comment || '');
                 setErrors({});
             } else {
-                // Сброс формы для новой транзакции
                 setType('expense');
                 setAmount('');
                 setCategoryIdState('');
@@ -1564,12 +1939,13 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                 setComment('');
                 setErrors({});
             }
-            setShowNewCategoryInput(false); // Всегда скрывать поле новой категории при открытии
+            setShowNewCategoryInput(false);
             setNewCategoryName('');
         }
     }, [isOpen, transactionToEdit, isEditing, loadCategories]);
 
     const availableCategories = allCategories[type] || [];
+    const selectedCategoryFull = availableCategories.find(cat => cat.id === categoryId);
 
     const validateForm = () => {
         const newErrors = {};
@@ -1581,10 +1957,6 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
         }
         if (!date) {
             newErrors.date = 'Выберите дату.';
-        } else {
-            // Проверка, что дата не в будущем (опционально)
-            // const today = new Date(); today.setHours(23,59,59,999);
-            // if (new Date(date) > today) newErrors.date = 'Дата не может быть в будущем.';
         }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -1594,24 +1966,29 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
         e.preventDefault();
         if (validateForm()) {
             const transactionData = {
-                ...(isEditing && { id: transactionToEdit.id }), // id только для редактирования
+                ...(isEditing && { id: transactionToEdit.id }),
                 type,
                 amount: parseFloat(amount),
                 categoryId: categoryId,
-                date: new Date(date).toISOString(), // Сохраняем в ISO UTC
+                date: new Date(date).toISOString(),
                 comment,
             };
             onSubmit(transactionData);
         }
     };
 
-    const handleAddNewCategoryLocal = async () => { // Переименовано, чтобы не конфликтовать с apiAddCategory
+    const handleAddNewCategoryLocal = async () => {
         if (!newCategoryName.trim()) {
             setErrors(prev => ({ ...prev, newCategory: "Название категории не может быть пустым." }));
             return;
         }
         try {
-            const response = await apiAddCategory({ type, name: newCategoryName.trim() });
+            // API addCategory теперь должен принимать name, type, color
+            const response = await apiAddCategory({
+                type,
+                name: newCategoryName.trim(),
+                color: defaultNewCategoryColor
+            });
             const newCat = response.data;
             setAllCategories(prev => ({
                 ...prev,
@@ -1658,7 +2035,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                                 type="button"
                                 onClick={() => { setType('expense'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
                                 className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-l-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
-                  ${type === 'expense'
+                                  ${type === 'expense'
                                     ? 'bg-error dark:bg-error-dark text-white focus:ring-error/70 dark:focus:ring-error-dark/70'
                                     : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
                                 }`}
@@ -1667,7 +2044,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                                 type="button"
                                 onClick={() => { setType('income'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
                                 className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
-                  ${type === 'income'
+                                  ${type === 'income'
                                     ? 'bg-success dark:bg-success-dark text-white focus:ring-success/70 dark:focus:ring-success-dark/70'
                                     : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
                                 }`}
@@ -1678,7 +2055,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                     <Input
                         id="amount" label="Сумма" type="number" placeholder="0.00" value={amount}
                         onChange={(e) => setAmount(e.target.value)} error={errors.amount}
-                        icon={<CurrencyDollarIcon />} // className иконки управляется в Input.jsx
+                        icon={<CurrencyDollarIcon />}
                         inputClassName="text-lg" inputMode="decimal" step="0.01"
                     />
 
@@ -1689,19 +2066,24 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
 
                         {!showNewCategoryInput ? (
                             <div className="flex items-center space-x-2">
-                                <select
-                                    id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
-                                    className={`block w-full p-2.5 text-sm rounded-lg border ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
-                                    disabled={isLoadingCategories || (!isLoadingCategories && availableCategories.length === 0 && !errors.categories)}
-                                >
-                                    <option value="">
-                                        {isLoadingCategories ? 'Загрузка...' :
-                                            errors.categories ? 'Ошибка загрузки категорий' :
-                                                availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода':'расхода'}`
-                                                    : 'Выберите категорию'}
-                                    </option>
-                                    {availableCategories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
-                                </select>
+                                <div className="relative flex-grow">
+                                    {selectedCategoryFull?.color && (
+                                        <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${selectedCategoryFull.color} border border-black/20 dark:border-white/20`}></span>
+                                    )}
+                                    <select
+                                        id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
+                                        className={`block w-full p-2.5 text-sm rounded-lg border ${selectedCategoryFull?.color ? 'pl-8' : ''} ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
+                                        disabled={isLoadingCategories || (!isLoadingCategories && availableCategories.length === 0 && !errors.categories)}
+                                    >
+                                        <option value="">
+                                            {isLoadingCategories ? 'Загрузка...' :
+                                                errors.categories ? 'Ошибка загрузки категорий' :
+                                                    availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода':'расхода'}`
+                                                        : 'Выберите категорию'}
+                                        </option>
+                                        {availableCategories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
+                                    </select>
+                                </div>
                                 <Button type="button" onClick={() => setShowNewCategoryInput(true)} variant="secondary" className="p-2.5 flex-shrink-0" title="Добавить новую категорию">
                                     <PlusIcon className="h-5 w-5"/>
                                 </Button>
@@ -1709,7 +2091,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                         ) : (
                             <div className="p-3 border border-slate-300 dark:border-slate-600 rounded-md space-y-3">
                                 <Input
-                                    id="newCategoryName" label="Название новой категории" type="text" placeholder="Например, 'Кофе'"
+                                    id="newCategoryName" label="Название новой категории" type="text" placeholder="Например, 'Такси'"
                                     value={newCategoryName} onChange={(e) => setNewCategoryName(e.target.value)}
                                     error={errors.newCategory} wrapperClassName="mb-2"
                                 />
@@ -1717,6 +2099,7 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                                     <Button type="button" variant="success" onClick={handleAddNewCategoryLocal} className="text-sm py-1.5 px-3">Сохранить</Button>
                                     <Button type="button" variant="secondary" onClick={() => {setShowNewCategoryInput(false); setNewCategoryName(''); setErrors(prev => ({...prev, newCategory: null}))}} className="text-sm py-1.5 px-3">Отмена</Button>
                                 </div>
+                                <p className="text-xs text-text-muted dark:text-text-dark_muted">Цвет для этой категории можно будет настроить позже на странице "Управление категориями".</p>
                             </div>
                         )}
                         {errors.category && !showNewCategoryInput && <p className="mt-1 text-xs text-error dark:text-error-dark">{errors.category}</p>}
@@ -2096,7 +2479,7 @@ export default RegisterPage;
 
 ###############################################################################
 # SUMMARY
-# Total files: 28
-# Total size: 99.19 KB
-# Processing time: 0.13 seconds
+# Total files: 36
+# Total size: 111.83 KB
+# Processing time: 0.16 seconds
 ###############################################################################
