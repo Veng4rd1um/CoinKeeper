@@ -1,0 +1,13 @@
+{
+  "income": [
+    { "id": "cat_inc_1", "name": "Зарплата" },
+    { "id": "cat_inc_2", "name": "Фриланс" },
+    { "id": "cat_inc_3", "name": "Подарки" }
+  ],
+  "expense": [
+    { "id": "cat_exp_1", "name": "Продукты" },
+    { "id": "cat_exp_2", "name": "Транспорт" },
+    { "id": "cat_exp_3", "name": "Развлечения" },
+    { "id": "cat_exp_4", "name": "Коммунальные услуги" }
+  ]
+}

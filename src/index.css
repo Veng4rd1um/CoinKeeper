@@ -1,0 +1,25 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-text antialiased;
+    font-family: theme('fontFamily.sans');
+  }
+  .dark body {
+    @apply bg-background-dark text-text-dark;
+  }
+}
+
+.sidebar-link-active {
+  @apply bg-primary text-white font-semibold;
+}
+.dark .sidebar-link-active { /* Для темной темы, если основной primary отличается */
+  @apply bg-primary-dark text-white;
+}
+
+.sidebar-link-active svg {
+  @apply text-white;
+}

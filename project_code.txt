@@ -1,0 +1,2102 @@
+﻿# PROJECT CODE COMPILATION
+# Generated on 05/10/2025 04:54:00
+# Source: C:\Users\Алихан\Documents\CoinKeeper
+
+
+###############################################################################
+# FILE: eslint.config.js
+###############################################################################
+
+// .eslintrc.cjs
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true, node: true }, // Добавили 'node: true' для глобальных переменных Node.js
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime', // Если используете новый JSX-трансформ
+    'plugin:react-hooks/recommended',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'server'], // Игнорируем папку server для правил браузера
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  settings: { react: { version: '18.2' } },
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    'react/prop-types': 'off', // Отключаем проверку prop-types, если не используете
+    'no-unused-vars': ['warn', { // Настроим no-unused-vars
+      'vars': 'all',
+      'args': 'after-used',
+      'ignoreRestSiblings': false,
+      'varsIgnorePattern': '^_', // Игнорировать переменные, начинающиеся с _
+      'argsIgnorePattern': '^_',  // Игнорировать аргументы, начинающиеся с _
+    }],
+  },
+  overrides: [ // Конфигурация для серверных файлов
+    {
+      files: ['server/**/*.js'],
+      env: { node: true, es2020: true }, // Только Node.js окружение
+      parserOptions: { sourceType: 'commonjs' }, // Указываем, что это CommonJS
+      rules: {
+        // Здесь можно добавить специфичные правила для Node.js или отключить браузерные
+        'no-undef': 'off', // Отключаем no-undef для require, module, __dirname, process
+      }
+    },
+    { // Конфигурация для конфигурационных файлов в корне
+      files: ['*.config.js', '*.cjs'],
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'commonjs' }, // или 'module' в зависимости от файла
+      rules: {
+        'no-undef': 'off',
+      }
+    }
+  ]
+};
+
+###############################################################################
+# FILE: get_project_code.bat
+###############################################################################
+
+@echo off
+echo Running code collection script...
+powershell.exe -ExecutionPolicy Bypass -File "%~dp0CollectCode.ps1"
+
+###############################################################################
+# FILE: index.html
+###############################################################################
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+###############################################################################
+# FILE: package.json
+###############################################################################
+
+{
+  "name": "coin-keeper",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "server": "node server/server.cjs",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.3",
+    "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "recharts": "^2.12.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.0"
+  }
+}
+
+
+###############################################################################
+# FILE: postcss.config.js
+###############################################################################
+
+// postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+
+###############################################################################
+# FILE: README.md
+###############################################################################
+
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+###############################################################################
+# FILE: tailwind.config.js
+###############################################################################
+
+// tailwind.config.js
+import formsPlugin from '@tailwindcss/forms';
+import defaultTheme from 'tailwindcss/defaultTheme'; // Для fontFamily
+import colors from 'tailwindcss/colors'; // Для цветов
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx}",
+  ],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        background: {
+          DEFAULT: colors.slate[100],
+          dark: '#1A1B2F',
+        },
+        surface: {
+          DEFAULT: colors.white,
+          dark: colors.slate[800],
+        },
+        primary: {
+          DEFAULT: '#037DD6',
+          hover: '#006BC7',
+          dark: '#2F72FA',
+          dark_hover: '#508BFF',
+        },
+        secondary: {
+          DEFAULT: colors.slate[600],
+          dark: colors.slate[400],
+        },
+        accent: {
+          DEFAULT: colors.amber[500],
+          dark: colors.amber[400],
+        },
+        text: {
+          DEFAULT: colors.slate[800],
+          dark: colors.slate[200],
+          muted: colors.slate[500],
+          dark_muted: colors.slate[400],
+        },
+        success: {
+          DEFAULT: colors.green[600],
+          dark: colors.green[500],
+        },
+        error: {
+          DEFAULT: colors.red[600],
+          dark: colors.red[500],
+        },
+        warning: {
+          DEFAULT: colors.amber[500],
+          dark: colors.amber[400],
+        },
+        // Сохраненные для совместимости с формами логина/регистрации, если не успели их полностью переделать
+        authFormBg: `rgba(30, 41, 59, 0.85)`,
+        authInputBg: colors.slate[700],
+        authInputBorder: colors.slate[600],
+        authPlaceholder: colors.slate[400],
+      },
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+      keyframes: {
+        'modal-scale-in': {
+          '0%': { opacity: '0', transform: 'scale(0.90) translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'scale(1) translateY(0px)' },
+        }
+      },
+      animation: {
+        'modal-scale-in': 'modal-scale-in 0.3s ease-out forwards',
+      }
+    },
+  },
+  plugins: [
+    formsPlugin,
+  ],
+};
+
+###############################################################################
+# FILE: vite.config.js
+###############################################################################
+
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+});
+
+###############################################################################
+# FILE: src\App.jsx
+###############################################################################
+
+// src/App.jsx
+import React from 'react';
+// import { BrowserRouter } from 'react-router-dom'; // Убрали, т.к. перенесли в main.jsx
+import AppRouter from './routes/AppRouter.jsx';
+
+function App() {
+    return (
+        // <BrowserRouter> // Убрали, т.к. перенесли в main.jsx
+        <AppRouter />
+        // </BrowserRouter>
+    );
+}
+
+export default App;
+
+###############################################################################
+# FILE: src\index.css
+###############################################################################
+
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-text antialiased;
+    font-family: theme('fontFamily.sans');
+  }
+  .dark body {
+    @apply bg-background-dark text-text-dark;
+  }
+}
+
+.sidebar-link-active {
+  @apply bg-primary text-white font-semibold;
+}
+.dark .sidebar-link-active { /* Для темной темы, если основной primary отличается */
+  @apply bg-primary-dark text-white;
+}
+
+.sidebar-link-active svg {
+  @apply text-white;
+}
+
+###############################################################################
+# FILE: src\main.jsx
+###############################################################################
+
+// src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { BrowserRouter } from 'react-router-dom'; // BrowserRouter здесь, если App его не содержит
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <BrowserRouter> {/* Обертка BrowserRouter здесь, чтобы AuthContext имел доступ к navigate */}
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </BrowserRouter>
+    </React.StrictMode>,
+);
+
+###############################################################################
+# FILE: server\data\categories.json
+###############################################################################
+
+{
+  "income": [
+    { "id": "cat_inc_1", "name": "Зарплата" },
+    { "id": "cat_inc_2", "name": "Фриланс" },
+    { "id": "cat_inc_3", "name": "Подарки" }
+  ],
+  "expense": [
+    { "id": "cat_exp_1", "name": "Продукты" },
+    { "id": "cat_exp_2", "name": "Транспорт" },
+    { "id": "cat_exp_3", "name": "Развлечения" },
+    { "id": "cat_exp_4", "name": "Коммунальные услуги" }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\transactions.json
+###############################################################################
+
+[
+  {
+    "id": "t_1",
+    "type": "income",
+    "amount": 50000,
+    "categoryId": "cat_inc_1",
+    "date": "2024-05-20T00:00:00.000Z",
+    "comment": "Аванс за май"
+  },
+  {
+    "id": "t_2",
+    "type": "expense",
+    "amount": 3250.50,
+    "categoryId": "cat_exp_1",
+    "date": "2024-05-21T00:00:00.000Z",
+    "comment": "Супермаркет МегаМарт"
+  }
+]
+
+###############################################################################
+# FILE: server\data\users.json
+###############################################################################
+
+[]
+
+###############################################################################
+# FILE: src\api\index.js
+###############################################################################
+
+// src/api/index.js
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:3001/api';
+
+const apiClient = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+// Transactions API
+export const fetchTransactions = () => apiClient.get('/transactions');
+export const addTransaction = (transactionData) => apiClient.post('/transactions', transactionData);
+export const updateTransaction = (id, transactionData) => apiClient.put(`/transactions/${id}`, transactionData);
+export const deleteTransaction = (id) => apiClient.delete(`/transactions/${id}`);
+
+// Categories API
+export const fetchCategories = () => apiClient.get('/categories');
+export const addCategory = (categoryData) => apiClient.post('/categories', categoryData);
+export const updateCategory = (type, id, categoryData) => apiClient.put(`/categories/${type}/${id}`, categoryData);
+export const deleteCategoryAPI = (type, id) => apiClient.delete(`/categories/${type}/${id}`);
+
+export default apiClient; // Экспортируем сам инстанс axios для прямых вызовов, если нужно
+
+###############################################################################
+# FILE: src\context\AuthContext.jsx
+###############################################################################
+
+// src/context/AuthContext.jsx
+import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
+import apiClient from '../api/index.js'; // ИСПРАВЛЕННЫЙ ПУТЬ
+import { useNavigate, useLocation } from 'react-router-dom';
+
+const AuthContext = createContext(null);
+
+export const AuthProvider = ({ children }) => {
+    const [token, setToken] = useState(localStorage.getItem('authToken'));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+    const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const setAuthData = useCallback((newToken, userData) => {
+        localStorage.setItem('authToken', newToken);
+        localStorage.setItem('authUser', JSON.stringify(userData));
+        setToken(newToken);
+        setUser(userData);
+        if (apiClient.defaults.headers) { // Проверка на существование headers
+            apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        } else {
+            apiClient.defaults.headers = { common: { 'Authorization': `Bearer ${newToken}` } };
+        }
+    }, []);
+
+    const logout = useCallback(() => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('authUser');
+        setToken(null);
+        setUser(null);
+        if (apiClient.defaults.headers?.common) { // Проверка перед удалением
+            delete apiClient.defaults.headers.common['Authorization'];
+        }
+        navigate('/login', { replace: true });
+    }, [navigate]);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('authToken');
+        const storedUser = JSON.parse(localStorage.getItem('authUser'));
+
+        if (storedToken && storedUser) {
+            if (apiClient.defaults.headers) {
+                apiClient.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+            } else {
+                apiClient.defaults.headers = { common: { 'Authorization': `Bearer ${storedToken}` } };
+            }
+
+            // Используем fetchTransactions для проверки токена, т.к. он экспортируется из api/index.js
+            import('../api/index.js').then(apiModule => { // Динамический импорт, если есть проблемы с цикличностью
+                apiModule.fetchTransactions()
+                    .then(() => {
+                        setToken(storedToken);
+                        setUser(storedUser);
+                    })
+                    .catch((error) => {
+                        console.warn("Token validation failed (AuthContext):", error.response?.data?.message || error.message);
+                        logout();
+                    })
+                    .finally(() => {
+                        setIsLoadingAuth(false);
+                    });
+            }).catch(err => {
+                console.error("Failed to dynamically import api/index.js in AuthContext", err);
+                setIsLoadingAuth(false); // Все равно завершаем загрузку
+            });
+        } else {
+            setIsLoadingAuth(false);
+        }
+    }, [logout]); // logout теперь в зависимостях
+
+    const login = async (email, password) => {
+        try {
+            const response = await apiClient.post('/auth/login', { email, password });
+            const { token: newToken, userId, email: userEmail } = response.data;
+            setAuthData(newToken, { id: userId, email: userEmail });
+            const from = location.state?.from?.pathname || "/dashboard";
+            navigate(from, { replace: true });
+            return { success: true };
+        } catch (error) {
+            console.error("Login failed:", error.response?.data?.message || error.message);
+            return { success: false, message: error.response?.data?.message || "Ошибка входа. Проверьте данные." };
+        }
+    };
+
+    const register = async (email, password) => {
+        try {
+            const response = await apiClient.post('/auth/register', { email, password });
+            return { success: true, message: response.data.message };
+        } catch (error) {
+            console.error("Registration failed:", error.response?.data?.message || error.message);
+            return { success: false, message: error.response?.data?.message || "Ошибка регистрации. Попробуйте другой email." };
+        }
+    };
+
+    const value = {
+        token,
+        user,
+        isAuthenticated: !!token,
+        isLoadingAuth,
+        login,
+        register,
+        logout,
+        // setAuthData // не нужно экспортировать наружу, если используется только внутри
+    };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {!isLoadingAuth && children} {/* Рендерим детей только после завершения проверки авторизации */}
+            {isLoadingAuth && ( /* Показываем глобальный лоадер, если нужно */
+                <div className="fixed inset-0 flex justify-center items-center bg-background-dark z-[9999]">
+                    <p className="text-xl text-text-dark">Загрузка...</p>
+                </div>
+            )}
+        </AuthContext.Provider>
+    );
+};
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
+
+###############################################################################
+# FILE: src\pages\DashboardPage.jsx
+###############################################################################
+
+// src/pages/DashboardPage.jsx
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../components/ui/Button.jsx';
+import TransactionModal from '../components/transactions/TransactionModal.jsx';
+import {
+    fetchTransactions,
+    addTransaction as apiAddTransaction,
+    updateTransaction as apiUpdateTransaction,
+    deleteTransaction as apiDeleteTransaction
+} from '../api/index.js';
+import {
+    PlusCircleIcon, ArrowUpCircleIcon, ArrowDownCircleIcon, CurrencyDollarIcon, TagIcon, PencilSquareIcon, ExclamationTriangleIcon
+} from '@heroicons/react/24/outline';
+
+const formatCurrency = (amount, currency = 'RUB') => {
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 2 }).format(amount);
+};
+const formatDateForDisplay = (isoDateString) => {
+    if (!isoDateString) return 'N/A';
+    const date = new Date(isoDateString);
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+const DashboardPage = () => {
+    const [currentBalance, setCurrentBalance] = useState(0); // Переименовано, чтобы избежать конфликтов
+    const [transactions, setTransactions] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [transactionToEdit, setTransactionToEdit] = useState(null);
+
+    const loadTransactions = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetchTransactions();
+            setTransactions(response.data || []);
+        } catch (err) {
+            console.error("Failed to fetch transactions:", err);
+            setError(err.response?.data?.message || "Не удалось загрузить транзакции. Попробуйте обновить страницу.");
+        }
+        setIsLoading(false);
+    }, []); // useCallback для стабильности функции
+
+    useEffect(() => {
+        loadTransactions();
+    }, [loadTransactions]);
+
+    useEffect(() => {
+        const newBalance = transactions.reduce((acc, t) => {
+            const amount = parseFloat(t.amount); // Убедимся, что работаем с числами
+            return t.type === 'income' ? acc + amount : acc - amount;
+        }, 0);
+        setCurrentBalance(newBalance);
+    }, [transactions]);
+
+    const openAddModal = () => {
+        setTransactionToEdit(null);
+        setIsModalOpen(true);
+    };
+
+    const openEditModal = (transaction) => {
+        setTransactionToEdit(transaction);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setTransactionToEdit(null);
+    };
+
+    const handleFormSubmit = async (transactionData) => {
+        try {
+            if (transactionToEdit) {
+                await apiUpdateTransaction(transactionToEdit.id, transactionData);
+            } else {
+                await apiAddTransaction(transactionData);
+            }
+            loadTransactions(); // Перезагружаем транзакции после успешного сохранения
+            closeModal();
+        } catch (err) {
+            console.error("Failed to save transaction:", err);
+            alert(`Ошибка сохранения транзакции: ${err.response?.data?.message || err.message}`);
+            // Можно отобразить ошибку в модальном окне или на странице
+        }
+    };
+
+    const handleDeleteTransaction = async (transactionId) => {
+        try {
+            await apiDeleteTransaction(transactionId);
+            loadTransactions(); // Перезагружаем транзакции
+            closeModal(); // Закрываем модальное, если оно было открыто для этой транзакции
+        } catch (err) {
+            console.error("Failed to delete transaction:", err);
+            alert(`Ошибка удаления транзакции: ${err.response?.data?.message || err.message}`);
+        }
+    };
+
+    const TransactionItem = ({ transaction, onEdit }) => {
+        const isIncome = transaction.type === 'income';
+        const amountColor = isIncome ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark';
+        const sign = isIncome ? '+' : '-';
+        const IconType = isIncome ? ArrowUpCircleIcon : ArrowDownCircleIcon;
+
+        return (
+            <li className="bg-surface dark:bg-surface-dark p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-150 ease-in-out group">
+                <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-3">
+                        <IconType className={`h-8 w-8 ${isIncome ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'} flex-shrink-0 mt-1`} />
+                        <div>
+                            <p className="text-sm font-medium text-text dark:text-text-dark">{transaction.categoryName || 'Без категории'}</p>
+                            <p className="text-xs text-text-muted dark:text-text-dark_muted truncate max-w-[150px] sm:max-w-xs md:max-w-sm" title={transaction.comment}>
+                                {transaction.comment || 'Без описания'}
+                            </p>
+                            <p className="text-xs text-text-muted dark:text-text-dark_muted mt-0.5">{formatDateForDisplay(transaction.date)}</p>
+                        </div>
+                    </div>
+                    <div className="text-right flex flex-col items-end">
+                        <p className={`text-md font-semibold ${amountColor} whitespace-nowrap`}>
+                            {sign} {formatCurrency(parseFloat(transaction.amount), 'RUB').replace('₽', '').trim()} <span className="text-xs">₽</span>
+                        </p>
+                        <button
+                            onClick={() => onEdit(transaction)}
+                            className="mt-1 text-xs text-text-muted dark:text-text-dark_muted hover:text-primary dark:hover:text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
+                            title="Редактировать транзакцию"
+                        >
+                            <PencilSquareIcon className="h-4 w-4 inline mr-1"/> Редактировать
+                        </button>
+                    </div>
+                </div>
+            </li>
+        );
+    };
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка транзакций...</p>
+                {/* Добавить спиннер (например, SVG) */}
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
+                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+                <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
+                    Пожалуйста, проверьте ваше интернет-соединение или работу сервера.
+                </p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-6 md:space-y-8">
+            <section className="bg-gradient-to-br from-primary dark:from-primary-dark via-primary/80 dark:via-primary-dark/80 to-primary/70 dark:to-primary-dark/70 text-white p-6 rounded-xl shadow-lg">
+                <div className="flex justify-between items-center mb-1">
+                    <h2 className="text-lg font-medium text-amber-100 dark:text-amber-200">Текущий баланс</h2>
+                    <CurrencyDollarIcon className="h-8 w-8 text-amber-200 dark:text-amber-300 opacity-70"/>
+                </div>
+                <p className="text-5xl font-bold tracking-tight">
+                    {formatCurrency(currentBalance)}
+                </p>
+                <p className="text-sm text-amber-100 dark:text-amber-200 mt-1 opacity-90">
+                    Доступно для использования
+                </p>
+            </section>
+
+            <section>
+                <Button
+                    onClick={openAddModal}
+                    variant="primary"
+                    className="w-full md:w-auto py-3 text-base"
+                    leftIcon={<PlusCircleIcon className="h-5 w-5"/>}
+                >
+                    Добавить транзакцию
+                </Button>
+            </section>
+
+            <section>
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold text-text dark:text-text-dark">Недавние операции</h2>
+                    {transactions.length > 10 && ( // Показываем "Посмотреть все", если больше 10
+                        <a href="#" className="text-sm text-primary dark:text-primary-dark hover:underline" onClick={(e) => {e.preventDefault(); alert("Функционал 'Посмотреть все' пока не реализован.")}}>Посмотреть все</a>
+                    )}
+                </div>
+                {transactions.length > 0 ? (
+                    <ul className="space-y-3">
+                        {transactions.slice(0, 10).map((transaction) => ( // Показываем последние 10
+                            <TransactionItem key={transaction.id} transaction={transaction} onEdit={openEditModal} />
+                        ))}
+                    </ul>
+                ) : (
+                    <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow">
+                        <TagIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                        <h3 className="text-lg font-medium text-text dark:text-text-dark">Транзакций пока нет</h3>
+                        <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1 mb-4">
+                            Начните отслеживать свои финансы, добавив первую операцию.
+                        </p>
+                        <Button onClick={openAddModal} variant="secondary" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
+                            Добавить первую транзакцию
+                        </Button>
+                    </div>
+                )}
+            </section>
+
+            <TransactionModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onSubmit={handleFormSubmit} // Теперь эта функция определена и передается
+                transactionToEdit={transactionToEdit}
+                onDelete={handleDeleteTransaction} // И эта тоже
+            />
+        </div>
+    );
+};
+export default DashboardPage;
+
+###############################################################################
+# FILE: src\pages\SettingsPage.jsx
+###############################################################################
+
+// src/pages/SettingsPage.jsx
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../components/ui/Button.jsx';
+import Input from '../components/ui/Input.jsx';
+import { fetchCategories, addCategory, updateCategory, deleteCategoryAPI } from '../api/index.js';
+import { PlusCircleIcon, TrashIcon, PencilIcon, XMarkIcon, CheckIcon, ExclamationTriangleIcon, TagIcon } from '@heroicons/react/24/outline';
+
+const SettingsPage = () => {
+    const [categories, setCategories] = useState({ income: [], expense: [] });
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [newCategoryName, setNewCategoryName] = useState('');
+    const [newCategoryType, setNewCategoryType] = useState('expense');
+    const [editingCategory, setEditingCategory] = useState(null); // {type, id, name}
+    const [editName, setEditName] = useState('');
+    const [formError, setFormError] = useState(''); // Для ошибок формы добавления
+
+    const loadCategories = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetchCategories();
+            setCategories(response.data || { income: [], expense: [] });
+        } catch (err) {
+            setError(err.response?.data?.message || "Не удалось загрузить категории.");
+            console.error("Failed to load categories:", err);
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadCategories();
+    }, [loadCategories]);
+
+    const handleAddCategory = async (e) => {
+        e.preventDefault();
+        setFormError('');
+        if (!newCategoryName.trim()) {
+            setFormError("Название категории не может быть пустым.");
+            return;
+        }
+        try {
+            await addCategory({ type: newCategoryType, name: newCategoryName.trim() });
+            setNewCategoryName(''); // Очищаем поле после добавления
+            loadCategories(); // Перезагружаем категории
+        } catch (err) {
+            setFormError(err.response?.data?.message || `Ошибка добавления категории.`);
+            console.error("Failed to add category:", err);
+        }
+    };
+
+    const handleStartEdit = (type, category) => {
+        setEditingCategory({ type, id: category.id, name: category.name });
+        setEditName(category.name);
+    };
+
+    const handleCancelEdit = () => {
+        setEditingCategory(null);
+        setEditName('');
+    };
+
+    const handleSaveEdit = async () => {
+        if (!editingCategory || !editName.trim()) {
+            alert("Название категории не может быть пустым.");
+            return;
+        }
+        try {
+            await updateCategory(editingCategory.type, editingCategory.id, { name: editName.trim() });
+            loadCategories(); // Перезагружаем категории
+            handleCancelEdit();
+        } catch (err) {
+            alert(`Ошибка обновления категории: ${err.response?.data?.message || err.message}`);
+            console.error("Failed to update category:", err);
+        }
+    };
+
+    const handleDeleteCategory = async (type, id) => {
+        if (window.confirm("Вы уверены, что хотите удалить эту категорию? Это действие необратимо. Связанные транзакции могут потерять свою категорию.")) {
+            try {
+                await deleteCategoryAPI(type, id);
+                loadCategories(); // Перезагружаем категории
+            } catch (err) {
+                alert(`Ошибка удаления категории: ${err.response?.data?.message || err.message}`);
+                console.error("Failed to delete category:", err);
+            }
+        }
+    };
+
+    const CategoryList = ({ title, type, list }) => (
+        <div className="mb-6 p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark">{title}</h3>
+            {list && list.length > 0 ? (
+                <ul className="space-y-2">
+                    {list.map((cat) => (
+                        <li key={cat.id} className="flex items-center justify-between p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group">
+                            {editingCategory && editingCategory.id === cat.id ? (
+                                <>
+                                    <Input
+                                        type="text"
+                                        value={editName}
+                                        onChange={(e) => setEditName(e.target.value)}
+                                        className="py-1 px-2 text-sm mr-2 flex-grow h-9" // Уменьшили высоту
+                                        wrapperClassName="mb-0 flex-grow"
+                                    />
+                                    <div className="flex-shrink-0 space-x-1.5">
+                                        <button onClick={handleSaveEdit} className="p-1.5 text-green-500 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300" title="Сохранить"><CheckIcon className="h-5 w-5"/></button>
+                                        <button onClick={handleCancelEdit} className="p-1.5 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200" title="Отмена"><XMarkIcon className="h-5 w-5"/></button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <span className="text-text dark:text-text-dark">{cat.name}</span>
+                                    <div className="space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <button onClick={() => handleStartEdit(type, cat)} className="p-1.5 text-primary dark:text-primary-dark hover:opacity-75" title="Редактировать">
+                                            <PencilIcon className="h-4 w-4"/>
+                                        </button>
+                                        <button onClick={() => handleDeleteCategory(type, cat.id)} className="p-1.5 text-error dark:text-error-dark hover:opacity-75" title="Удалить">
+                                            <TrashIcon className="h-4 w-4"/>
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="text-sm text-text-muted dark:text-text-dark_muted">Категорий этого типа пока нет.</p>
+            )}
+        </div>
+    );
+
+    if (isLoading) {
+        return <div className="flex justify-center items-center h-64"><p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка категорий...</p></div>;
+    }
+    if (error) {
+        return (
+            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
+                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-6 md:space-y-8">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">Управление категориями</h1>
+
+            <form onSubmit={handleAddCategory} className="mb-8 p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold mb-4 text-text dark:text-text-dark">Добавить новую категорию</h2>
+                {formError && <p className="text-sm text-error dark:text-error-dark mb-3">{formError}</p>}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                    <Input
+                        id="newCategoryName"
+                        label="Название категории"
+                        value={newCategoryName}
+                        onChange={(e) => setNewCategoryName(e.target.value)}
+                        placeholder="Например, 'Кофе'"
+                        wrapperClassName="mb-0 md:col-span-1" // Адаптивность
+                    />
+                    <div className="md:col-span-1">
+                        <label htmlFor="newCategoryType" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Тип</label>
+                        <select
+                            id="newCategoryType"
+                            value={newCategoryType}
+                            onChange={(e) => setNewCategoryType(e.target.value)}
+                            className="block w-full p-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark bg-surface dark:bg-surface-dark text-text dark:text-text-dark"
+                        >
+                            <option value="expense">Расход</option>
+                            <option value="income">Доход</option>
+                        </select>
+                    </div>
+                    <Button type="submit" className="w-full md:w-auto md:col-span-1" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
+                        Добавить
+                    </Button>
+                </div>
+            </form>
+
+            <div className="grid md:grid-cols-2 gap-6">
+                <CategoryList title="Категории доходов" type="income" list={categories.income} />
+                <CategoryList title="Категории расходов" type="expense" list={categories.expense} />
+            </div>
+            {categories.income.length === 0 && categories.expense.length === 0 && !isLoading && (
+                <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md col-span-full">
+                    <TagIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                    <h3 className="text-lg font-medium text-text dark:text-text-dark">Категорий пока нет</h3>
+                    <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
+                        Добавьте свою первую категорию, чтобы начать классифицировать транзакции.
+                    </p>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default SettingsPage;
+
+###############################################################################
+# FILE: src\pages\StatsPage.jsx
+###############################################################################
+
+// src/pages/StatsPage.jsx
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import {
+    PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid
+} from 'recharts';
+import { fetchTransactions, fetchCategories } from '../api/index.js';
+import { ExclamationTriangleIcon, CalendarDaysIcon } from '@heroicons/react/24/outline';
+
+const PIE_CHART_COLORS = ['#037DD6', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#10b981', '#ec4899', '#6366f1', '#d946ef', '#06b6d4'];
+
+const formatCurrency = (amount, currency = 'RUB') => {
+    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 0, maximumFractionDigits:0 }).format(amount);
+};
+
+const CustomTooltipContent = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        const data = payload[0].payload;
+        const value = payload[0].value;
+        const name = payload[0].name;
+
+        return (
+            <div className="bg-surface dark:bg-surface-dark/90 backdrop-blur-sm p-3 rounded-md shadow-lg border border-slate-200 dark:border-slate-600">
+                {label && <p className="text-sm font-semibold text-text dark:text-text-dark mb-1">{label}</p>}
+                <p className="text-sm text-text dark:text-text-dark">
+                    {data?.name || name}: <span className="font-semibold">{formatCurrency(data?.value || value)}</span>
+                </p>
+                {data?.percent && (
+                    <p className="text-xs text-text-muted dark:text-text-dark_muted">({(data.percent * 100).toFixed(1)}%)</p>
+                )}
+            </div>
+        );
+    }
+    return null;
+};
+
+const StatsPage = () => {
+    const [transactions, setTransactions] = useState([]);
+    const [allCategories, setAllCategories] = useState({ income: [], expense: [] });
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [filterPeriod, setFilterPeriod] = useState('month');
+    const [customStartDate, setCustomStartDate] = useState('');
+    const [customEndDate, setCustomEndDate] = useState('');
+
+    const loadData = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const [transRes, catRes] = await Promise.all([
+                fetchTransactions(),
+                fetchCategories()
+            ]);
+            setTransactions(transRes.data || []);
+            setAllCategories(catRes.data || { income: [], expense: [] });
+        } catch (err) {
+            console.error("Failed to load data for stats:", err);
+            setError(err.response?.data?.message || "Не удалось загрузить данные для статистики.");
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
+
+    const getPeriodDateRange = useCallback(() => {
+        const now = new Date();
+        let startDate = new Date();
+        let endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+
+        switch (filterPeriod) {
+            case 'week':
+                startDate.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1)); // Текущая неделя, Пн
+                // endDate остается концом текущего дня
+                break;
+            case 'month':
+                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                // endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+                break;
+            case 'year':
+                startDate = new Date(now.getFullYear(), 0, 1);
+                // endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
+                break;
+            case 'custom':
+                if (customStartDate && customEndDate) {
+                    startDate = new Date(customStartDate);
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(customEndDate);
+                    endDate.setHours(23,59,59,999);
+                    if (startDate > endDate) { // Если начальная дата больше конечной, меняем их местами
+                        [startDate, endDate] = [endDate, startDate];
+                    }
+                } else {
+                    // По умолчанию для "custom" без дат - текущий месяц
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+                }
+                break;
+            default:
+                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+        }
+        startDate.setHours(0,0,0,0);
+        if (filterPeriod !== 'custom' || !(customStartDate && customEndDate)) { // Для быстрых фильтров endDate - это текущий день
+            endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+            if (filterPeriod === 'month') { // Для месяца endDate - это конец текущего дня в этом месяце
+                const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                if (now < lastDayOfMonth) { // Если текущий день не последний в месяце
+                    // endDate уже установлен на текущий день
+                } else { // Если текущий день - последний в месяце или позже (не должно быть), то берем конец месяца
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+                }
+            }
+            if (filterPeriod === 'year') { // Для года endDate - это конец текущего дня в этом году
+                const lastDayOfYear = new Date(now.getFullYear(), 11, 31);
+                if (now < lastDayOfYear) {
+                    // endDate уже установлен на текущий день
+                } else {
+                    endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
+                }
+            }
+        }
+        return { startDate, endDate };
+    }, [filterPeriod, customStartDate, customEndDate]);
+
+
+    const filteredTransactions = useMemo(() => {
+        if (!transactions.length) return [];
+        const { startDate, endDate } = getPeriodDateRange();
+
+        return transactions.filter(t => {
+            const transactionDate = new Date(t.date);
+            return transactionDate >= startDate && transactionDate <= endDate;
+        });
+    }, [transactions, getPeriodDateRange]);
+
+    const statsData = useMemo(() => {
+        if (!filteredTransactions.length) {
+            return { totalIncome: 0, totalExpense: 0, netResult: 0, expenseByCategory: [], incomeExpenseByDay: [] };
+        }
+
+        let totalIncome = 0;
+        let totalExpense = 0;
+        const expenseByCategoryMap = new Map();
+        const incomeByDayMap = new Map();
+        const expenseByDayMap = new Map();
+        const { startDate, endDate } = getPeriodDateRange(); // Для корректного диапазона дней BarChart
+
+        filteredTransactions.forEach(t => {
+            const categoryName = allCategories[t.type]?.find(c => c.id === t.categoryId)?.name || 'Без категории';
+            const dateKey = new Date(t.date).toLocaleDateString('ru-RU', { day:'2-digit', month:'short' });
+
+            if (t.type === 'income') {
+                totalIncome += parseFloat(t.amount);
+                incomeByDayMap.set(dateKey, (incomeByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
+            } else {
+                totalExpense += parseFloat(t.amount);
+                expenseByCategoryMap.set(categoryName, (expenseByCategoryMap.get(categoryName) || 0) + parseFloat(t.amount));
+                expenseByDayMap.set(dateKey, (expenseByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
+            }
+        });
+
+        const expenseByCategory = Array.from(expenseByCategoryMap)
+            .map(([name, value]) => ({ name, value }))
+            .sort((a, b) => b.value - a.value);
+
+        const dayKeysInRange = [];
+        let currentDate = new Date(startDate);
+        while(currentDate <= endDate) {
+            dayKeysInRange.push(currentDate.toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }));
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        // Убираем дубликаты, если период очень короткий и один день встречается несколько раз (не должно быть при правильном startDate/endDate)
+        const uniqueDayKeys = [...new Set(dayKeysInRange)];
+
+        const incomeExpenseByDay = uniqueDayKeys.map(dayKey => ({
+            name: dayKey,
+            income: incomeByDayMap.get(dayKey) || 0,
+            expense: expenseByDayMap.get(dayKey) || 0,
+        }));
+
+        return {
+            totalIncome,
+            totalExpense,
+            netResult: totalIncome - totalExpense,
+            expenseByCategory,
+            incomeExpenseByDay
+        };
+    }, [filteredTransactions, allCategories, getPeriodDateRange]);
+
+    if (isLoading) {
+        return <div className="flex justify-center items-center h-64"><p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка статистики...</p></div>;
+    }
+
+    if (error) {
+        return (
+            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
+                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+            </div>
+        );
+    }
+
+    const noDataForPeriod = filteredTransactions.length === 0;
+
+    return (
+        <div className="space-y-6 md:space-y-8">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">Финансовый анализ</h1>
+
+            <section className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                <h2 className="text-lg font-medium mb-3 text-text dark:text-text-dark">Выберите период</h2>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {['week', 'month', 'year'].map(period => (
+                        <button
+                            key={period}
+                            onClick={() => { setFilterPeriod(period); setCustomStartDate(''); setCustomEndDate(''); }}
+                            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors
+                ${filterPeriod === period && !customStartDate && !customEndDate
+                                ? 'bg-primary dark:bg-primary-dark text-white'
+                                : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600'
+                            }`}
+                        >
+                            {period === 'week' ? 'Эта неделя' : period === 'month' ? 'Этот месяц' : 'Этот год'}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                    <div>
+                        <label htmlFor="customStartDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Начало периода</label>
+                        <input type="date" id="customStartDate" value={customStartDate}
+                               onChange={e => { setCustomStartDate(e.target.value); if (e.target.value && customEndDate) setFilterPeriod('custom'); else if (e.target.value && !customEndDate) setFilterPeriod('custom_partial'); }}
+                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="customEndDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Конец периода</label>
+                        <input type="date" id="customEndDate" value={customEndDate}
+                               onChange={e => { setCustomEndDate(e.target.value); if (customStartDate && e.target.value) setFilterPeriod('custom'); else if (!customStartDate && e.target.value) setFilterPeriod('custom_partial'); }}
+                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
+                               min={customStartDate || undefined}
+                        />
+                    </div>
+                </div>
+                {(filterPeriod === 'custom' || filterPeriod === 'custom_partial') && (!customStartDate || !customEndDate) && (
+                    <p className="text-xs text-warning dark:text-warning-dark mt-2">Выберите обе даты для точного пользовательского периода или одну для периода до/от нее.</p>
+                )}
+            </section>
+
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                    <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Общий доход</h3>
+                    <p className="text-3xl font-semibold text-success dark:text-success-dark mt-1">{formatCurrency(statsData.totalIncome)}</p>
+                </div>
+                <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                    <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Общий расход</h3>
+                    <p className="text-3xl font-semibold text-error dark:text-error-dark mt-1">{formatCurrency(statsData.totalExpense)}</p>
+                </div>
+                <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                    <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Чистый результат</h3>
+                    <p className={`text-3xl font-semibold mt-1 ${statsData.netResult >= 0 ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'}`}>
+                        {formatCurrency(statsData.netResult)}
+                    </p>
+                </div>
+            </section>
+
+            {noDataForPeriod && !isLoading ? (
+                <div className="p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center">
+                    <CalendarDaysIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                    <p className="text-lg font-medium text-text dark:text-text-dark">Нет данных для отображения</p>
+                    <p className="text-sm text-text-muted dark:text-text-dark_muted">Попробуйте выбрать другой период или добавить транзакции.</p>
+                </div>
+            ) : (
+                <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {statsData.expenseByCategory.length > 0 ? (
+                        <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Структура расходов</h3>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <PieChart>
+                                    <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} fill="#8884d8" dataKey="value" nameKey="name">
+                                        {statsData.expenseByCategory.map((_entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip content={<CustomTooltipContent />} />
+                                    <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
+                    ) : <div className="lg:col-span-1 p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted">Нет данных по расходам за период.</div>}
+
+                    {statsData.incomeExpenseByDay.length > 0 ? (
+                        <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Динамика по дням</h3>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={statsData.incomeExpenseByDay} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}> {/* Уменьшил отступы */}
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
+                                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                    <YAxis tickFormatter={(value) => `${value / 1000}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                    <Tooltip content={<CustomTooltipContent />} />
+                                    <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
+                                    <Bar dataKey="income" fill={PIE_CHART_COLORS[1]} name="Доходы" radius={[4, 4, 0, 0]} barSize={15} />
+                                    <Bar dataKey="expense" fill={PIE_CHART_COLORS[3]} name="Расходы" radius={[4, 4, 0, 0]} barSize={15} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                    ) : <div className="lg:col-span-1 p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted">Нет данных по дням за период.</div>}
+                </section>
+            )}
+        </div>
+    );
+};
+
+export default StatsPage;
+
+###############################################################################
+# FILE: src\routes\AppRouter.jsx
+###############################################################################
+
+// src/routes/AppRouter.jsx
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from '../pages/Auth/LoginPage.jsx';
+import RegisterPage from '../pages/Auth/RegisterPage.jsx';
+import DashboardPage from '../pages/DashboardPage.jsx';
+import StatsPage from '../pages/StatsPage.jsx';
+import SettingsPage from '../pages/SettingsPage.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+
+const AppRouter = () => {
+    const { isAuthenticated, isLoadingAuth } = useAuth();
+
+    if (isLoadingAuth && !localStorage.getItem('authToken')) { // Показываем лоадер только при первой загрузке, если нет токена
+        return (
+            <div className="flex justify-center items-center h-screen bg-background-dark">
+                <p className="text-xl text-text-dark">Загрузка приложения...</p>
+            </div>
+        );
+    }
+    // Если isLoadingAuth все еще true, но токен есть, ProtectedRoute сам покажет лоадер авторизации
+
+    return (
+        <Routes>
+            <Route
+                path="/login"
+                element={!isAuthenticated ? <LoginPage /> : <Navigate to="/dashboard" replace />}
+            />
+            <Route
+                path="/register"
+                element={!isAuthenticated ? <RegisterPage /> : <Navigate to="/dashboard" replace />}
+            />
+
+            {/* Защищенные маршруты */}
+            <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} /> {/* Главная по умолчанию */}
+                <Route path="dashboard" element={<DashboardPage />} />
+                <Route path="stats" element={<StatsPage />} />
+                <Route path="settings" element={<SettingsPage />} />
+            </Route>
+
+            {/* Если пользователь авторизован и вводит несуществующий путь, редирект на дашборд.
+           Если не авторизован - на логин. */}
+            <Route
+                path="*"
+                element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />}
+            />
+        </Routes>
+    );
+};
+
+export default AppRouter;
+
+###############################################################################
+# FILE: src\routes\ProtectedRoute.jsx
+###############################################################################
+
+// src/routes/ProtectedRoute.jsx
+import React from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
+import AppLayout from '../components/layout/AppLayout.jsx';
+
+const ProtectedRoute = () => {
+    const { isAuthenticated, isLoadingAuth } = useAuth();
+    const location = useLocation();
+
+    if (isLoadingAuth) {
+        return (
+            <div className="flex justify-center items-center h-screen bg-background-dark">
+                <p className="text-xl text-text-dark">Проверка авторизации...</p>
+                {/* Здесь можно добавить красивый спиннер/лоадер */}
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) {
+        // Передаем текущий путь для редиректа обратно после логина
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    return (
+        <AppLayout>
+            <Outlet /> {/* Outlet рендерит дочерние маршруты, определенные в AppRouter */}
+        </AppLayout>
+    );
+};
+
+export default ProtectedRoute;
+
+###############################################################################
+# FILE: src\components\layout\AppLayout.jsx
+###############################################################################
+
+// src/components/layout/AppLayout.jsx
+import React from 'react';
+import Sidebar from './Sidebar.jsx';
+
+const AppLayout = ({ children }) => { // Принимает children
+    return (
+        <div className="flex h-screen bg-background dark:bg-background-dark text-text dark:text-text-dark">
+            <Sidebar />
+            <div className="flex-1 flex flex-col ml-64 overflow-x-hidden"> {/* ml-64 to offset fixed sidebar, overflow-x-hidden */}
+                <main className="flex-1 p-4 sm:p-6 overflow-y-auto"> {/* Добавлены sm:p-6 для больших экранов */}
+                    {children} {/* Отображаем то, что передано как children (это будет <Outlet /> из ProtectedRoute) */}
+                </main>
+            </div>
+        </div>
+    );
+};
+
+export default AppLayout;
+
+###############################################################################
+# FILE: src\components\layout\Sidebar.jsx
+###############################################################################
+
+// src/components/layout/Sidebar.jsx
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import {
+    ChartBarIcon,
+    Cog6ToothIcon,
+    HomeIcon,
+    CurrencyDollarIcon, // Лого
+    ArrowLeftOnRectangleIcon, // Выход
+    MoonIcon, SunIcon // Тема
+} from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext.jsx';
+
+const navigationLinks = [
+    { name: 'Дашборд', href: '/dashboard', icon: HomeIcon },
+    { name: 'Статистика', href: '/stats', icon: ChartBarIcon },
+    { name: 'Категории', href: '/settings', icon: Cog6ToothIcon }, // Изменил на "Категории" для ясности
+];
+
+const Sidebar = () => {
+    const { user, logout } = useAuth();
+    const [darkMode, setDarkMode] = useState(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme) return theme === 'dark';
+        // Если нет сохраненной темы, используем системные предпочтения
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [darkMode]);
+
+    const toggleDarkMode = () => setDarkMode(!darkMode);
+
+    return (
+        <div className="w-64 bg-surface dark:bg-surface-dark text-text dark:text-text-dark_muted flex flex-col fixed h-full shadow-lg border-r border-slate-200 dark:border-slate-700">
+            {/* Logo */}
+            <div className="h-20 flex items-center justify-center px-4 border-b border-slate-200 dark:border-slate-700">
+                <CurrencyDollarIcon className="h-8 w-8 text-primary dark:text-primary-dark mr-2" />
+                <span className="text-2xl font-semibold text-text dark:text-text-dark">CoinKeeper</span>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
+                {navigationLinks.map((item) => (
+                    <NavLink
+                        key={item.name}
+                        to={item.href}
+                        className={({ isActive }) =>
+                            `group flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors
+                         ${isActive
+                                ? 'sidebar-link-active' // Стили из index.css
+                                : 'text-text-muted dark:text-text-dark_muted hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-text dark:hover:text-text-dark'
+                            }`
+                        }
+                    >
+                        <item.icon className="mr-3 h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                        {item.name}
+                    </NavLink>
+                ))}
+            </nav>
+
+            {/* Theme Toggle and User Info */}
+            <div className="px-3 py-3 border-t border-slate-200 dark:border-slate-700 space-y-3">
+                <button
+                    onClick={toggleDarkMode}
+                    className="w-full flex items-center justify-start px-3 py-2 text-sm font-medium rounded-md text-text-muted dark:text-text-dark_muted hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-text dark:hover:text-text-dark transition-colors"
+                    title={darkMode ? 'Переключить на светлую тему' : 'Переключить на темную тему'}
+                >
+                    {darkMode ? <SunIcon className="h-5 w-5 mr-3"/> : <MoonIcon className="h-5 w-5 mr-3"/>}
+                    <span>{darkMode ? 'Светлая тема' : 'Темная тема'}</span>
+                </button>
+
+                {user && (
+                    <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
+                        <p className="text-xs text-text-muted dark:text-slate-500 px-3 mb-1">Вошли как:</p>
+                        <div className="px-3 mb-2">
+                            <p className="text-sm font-medium text-text dark:text-text-dark truncate" title={user.email}>
+                                {user.email}
+                            </p>
+                        </div>
+                        <button
+                            onClick={logout}
+                            className="w-full flex items-center justify-start px-3 py-2.5 text-sm font-medium rounded-md text-text-muted dark:text-text-dark_muted bg-slate-100 dark:bg-slate-700 hover:bg-red-100 dark:hover:bg-error/30 hover:text-error dark:hover:text-error-dark transition-colors"
+                        >
+                            <ArrowLeftOnRectangleIcon className="mr-3 h-5 w-5" />
+                            Выйти
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default Sidebar;
+
+###############################################################################
+# FILE: src\components\transactions\TransactionModal.jsx
+###############################################################################
+
+// src/components/transactions/TransactionModal.jsx
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../ui/Button.jsx'; // Убедитесь, что здесь .jsx если это React компонент
+import Input from '../ui/Input.jsx';   // Убедитесь, что здесь .jsx
+import { fetchCategories, addCategory as apiAddCategory } from '../../api/index.js';
+import {
+    XMarkIcon, CurrencyDollarIcon, TagIcon, CalendarDaysIcon,
+    ChatBubbleLeftEllipsisIcon, TrashIcon, PlusIcon
+} from '@heroicons/react/24/outline';
+
+const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDelete }) => {
+    const [type, setType] = useState('expense');
+    const [amount, setAmount] = useState('');
+    const [categoryId, setCategoryIdState] = useState('');
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [comment, setComment] = useState('');
+    const [errors, setErrors] = useState({});
+    const [allCategories, setAllCategories] = useState({ income: [], expense: [] });
+    const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+    const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+    const [newCategoryName, setNewCategoryName] = useState('');
+
+    const isEditing = !!transactionToEdit;
+
+    const loadCategories = useCallback(async () => {
+        setIsLoadingCategories(true);
+        try {
+            const response = await fetchCategories();
+            setAllCategories(response.data || { income: [], expense: [] });
+            setErrors(prev => ({ ...prev, categories: null })); // Сброс ошибки категорий
+        } catch (error) {
+            console.error("Failed to fetch categories:", error);
+            setErrors(prev => ({ ...prev, categories: "Не удалось загрузить категории." }));
+        }
+        setIsLoadingCategories(false);
+    }, []); // useCallback
+
+    useEffect(() => {
+        if (isOpen) {
+            loadCategories(); // Загружаем категории при каждом открытии
+            if (isEditing && transactionToEdit) {
+                setType(transactionToEdit.type || 'expense');
+                setAmount(transactionToEdit.amount?.toString() || '');
+                setCategoryIdState(transactionToEdit.categoryId || '');
+                setDate(transactionToEdit.date ? new Date(transactionToEdit.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]);
+                setComment(transactionToEdit.comment || '');
+                setErrors({});
+            } else {
+                // Сброс формы для новой транзакции
+                setType('expense');
+                setAmount('');
+                setCategoryIdState('');
+                setDate(new Date().toISOString().split('T')[0]);
+                setComment('');
+                setErrors({});
+            }
+            setShowNewCategoryInput(false); // Всегда скрывать поле новой категории при открытии
+            setNewCategoryName('');
+        }
+    }, [isOpen, transactionToEdit, isEditing, loadCategories]);
+
+    const availableCategories = allCategories[type] || [];
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+            newErrors.amount = 'Введите корректную сумму (больше 0).';
+        }
+        if (!categoryId) {
+            newErrors.category = 'Выберите категорию.';
+        }
+        if (!date) {
+            newErrors.date = 'Выберите дату.';
+        } else {
+            // Проверка, что дата не в будущем (опционально)
+            // const today = new Date(); today.setHours(23,59,59,999);
+            // if (new Date(date) > today) newErrors.date = 'Дата не может быть в будущем.';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            const transactionData = {
+                ...(isEditing && { id: transactionToEdit.id }), // id только для редактирования
+                type,
+                amount: parseFloat(amount),
+                categoryId: categoryId,
+                date: new Date(date).toISOString(), // Сохраняем в ISO UTC
+                comment,
+            };
+            onSubmit(transactionData);
+        }
+    };
+
+    const handleAddNewCategoryLocal = async () => { // Переименовано, чтобы не конфликтовать с apiAddCategory
+        if (!newCategoryName.trim()) {
+            setErrors(prev => ({ ...prev, newCategory: "Название категории не может быть пустым." }));
+            return;
+        }
+        try {
+            const response = await apiAddCategory({ type, name: newCategoryName.trim() });
+            const newCat = response.data;
+            setAllCategories(prev => ({
+                ...prev,
+                [type]: [...(prev[type] || []), newCat]
+            }));
+            setCategoryIdState(newCat.id);
+            setNewCategoryName('');
+            setShowNewCategoryInput(false);
+            setErrors(prev => ({ ...prev, newCategory: null }));
+        } catch (error) {
+            console.error("Failed to add category:", error);
+            setErrors(prev => ({ ...prev, newCategory: error.response?.data?.message || "Ошибка добавления категории." }));
+        }
+    };
+
+    const handleDeleteLocal = () => {
+        if (isEditing && onDelete) {
+            if (window.confirm('Вы уверены, что хотите удалить эту транзакцию?')) {
+                onDelete(transactionToEdit.id);
+            }
+        }
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
+            <div className="fixed inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+            <div className="relative bg-surface dark:bg-surface-dark p-6 md:p-8 rounded-lg shadow-xl w-full max-w-lg m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-semibold text-text dark:text-text-dark">
+                        {isEditing ? 'Редактировать транзакцию' : 'Новая транзакция'}
+                    </h2>
+                    <button onClick={onClose} className="text-text-muted dark:text-text-dark_muted hover:text-text dark:hover:text-text-dark transition-colors" aria-label="Закрыть">
+                        <XMarkIcon className="h-7 w-7" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Тип транзакции</label>
+                        <div className="flex rounded-md shadow-sm">
+                            <button
+                                type="button"
+                                onClick={() => { setType('expense'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
+                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-l-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
+                  ${type === 'expense'
+                                    ? 'bg-error dark:bg-error-dark text-white focus:ring-error/70 dark:focus:ring-error-dark/70'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
+                                }`}
+                            >Расход</button>
+                            <button
+                                type="button"
+                                onClick={() => { setType('income'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
+                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
+                  ${type === 'income'
+                                    ? 'bg-success dark:bg-success-dark text-white focus:ring-success/70 dark:focus:ring-success-dark/70'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
+                                }`}
+                            >Доход</button>
+                        </div>
+                    </div>
+
+                    <Input
+                        id="amount" label="Сумма" type="number" placeholder="0.00" value={amount}
+                        onChange={(e) => setAmount(e.target.value)} error={errors.amount}
+                        icon={<CurrencyDollarIcon />} // className иконки управляется в Input.jsx
+                        inputClassName="text-lg" inputMode="decimal" step="0.01"
+                    />
+
+                    <div>
+                        <label htmlFor="category" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Категория</label>
+                        {isLoadingCategories && <p className="text-sm text-text-muted dark:text-text-dark_muted">Загрузка категорий...</p>}
+                        {errors.categories && !isLoadingCategories && <p className="text-xs text-error dark:text-error-dark mb-2">{errors.categories}</p>}
+
+                        {!showNewCategoryInput ? (
+                            <div className="flex items-center space-x-2">
+                                <select
+                                    id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
+                                    className={`block w-full p-2.5 text-sm rounded-lg border ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
+                                    disabled={isLoadingCategories || (!isLoadingCategories && availableCategories.length === 0 && !errors.categories)}
+                                >
+                                    <option value="">
+                                        {isLoadingCategories ? 'Загрузка...' :
+                                            errors.categories ? 'Ошибка загрузки категорий' :
+                                                availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода':'расхода'}`
+                                                    : 'Выберите категорию'}
+                                    </option>
+                                    {availableCategories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
+                                </select>
+                                <Button type="button" onClick={() => setShowNewCategoryInput(true)} variant="secondary" className="p-2.5 flex-shrink-0" title="Добавить новую категорию">
+                                    <PlusIcon className="h-5 w-5"/>
+                                </Button>
+                            </div>
+                        ) : (
+                            <div className="p-3 border border-slate-300 dark:border-slate-600 rounded-md space-y-3">
+                                <Input
+                                    id="newCategoryName" label="Название новой категории" type="text" placeholder="Например, 'Кофе'"
+                                    value={newCategoryName} onChange={(e) => setNewCategoryName(e.target.value)}
+                                    error={errors.newCategory} wrapperClassName="mb-2"
+                                />
+                                <div className="flex space-x-2">
+                                    <Button type="button" variant="success" onClick={handleAddNewCategoryLocal} className="text-sm py-1.5 px-3">Сохранить</Button>
+                                    <Button type="button" variant="secondary" onClick={() => {setShowNewCategoryInput(false); setNewCategoryName(''); setErrors(prev => ({...prev, newCategory: null}))}} className="text-sm py-1.5 px-3">Отмена</Button>
+                                </div>
+                            </div>
+                        )}
+                        {errors.category && !showNewCategoryInput && <p className="mt-1 text-xs text-error dark:text-error-dark">{errors.category}</p>}
+                    </div>
+
+                    <Input
+                        id="date" label="Дата" type="date" value={date}
+                        onChange={(e) => setDate(e.target.value)} error={errors.date}
+                        icon={<CalendarDaysIcon />}
+                    />
+
+                    <div>
+                        <label htmlFor="comment" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Комментарий (необязательно)</label>
+                        <textarea id="comment" rows="3" placeholder="Детали транзакции..." value={comment}
+                                  onChange={(e) => setComment(e.target.value)}
+                                  className="block w-full p-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted"
+                        ></textarea>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center pt-3 gap-3">
+                        {isEditing && onDelete && (
+                            <Button type="button" variant="danger" onClick={handleDeleteLocal} className="w-full sm:w-auto sm:mr-auto" leftIcon={<TrashIcon className="h-5 w-5"/>}>
+                                Удалить
+                            </Button>
+                        )}
+                        <div className={`flex flex-1 space-x-3 ${!isEditing ? 'sm:justify-end' : ''}`}>
+                            <Button type="button" variant="secondary" onClick={onClose} className="flex-1 sm:flex-initial">Отмена</Button>
+                            <Button type="submit" variant="primary" className="flex-1 sm:flex-initial">
+                                {isEditing ? 'Сохранить изменения' : 'Добавить транзакцию'}
+                            </Button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default TransactionModal;
+
+###############################################################################
+# FILE: src\components\ui\Button.jsx
+###############################################################################
+
+// src/components/ui/Button.jsx
+import React from 'react';
+
+const Button = ({
+                    children,
+                    variant = 'primary',
+                    fullWidth = false,
+                    className = '',
+                    leftIcon, // Новый проп для иконки слева
+                    rightIcon, // Новый проп для иконки справа
+                    disabled, // Стандартный HTML атрибут
+                    ...props
+                }) => {
+    const baseStyle = "inline-flex items-center justify-center py-2.5 px-5 text-sm font-medium rounded-lg focus:outline-none focus:ring-4 transition-all duration-150 ease-in-out disabled:opacity-60 disabled:cursor-not-allowed";
+    const widthStyle = fullWidth ? "w-full" : "";
+
+    let variantStyle = '';
+    switch (variant) {
+        case 'secondary':
+            variantStyle = "text-text bg-surface dark:text-text-dark dark:bg-surface-dark border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-slate-300 dark:focus:ring-slate-500";
+            break;
+        case 'danger':
+            variantStyle = "text-white bg-error dark:bg-error-dark hover:bg-red-700 dark:hover:bg-red-600 focus:ring-red-300 dark:focus:ring-red-900";
+            break;
+        case 'success': // Добавим вариант success
+            variantStyle = "text-white bg-success dark:bg-success-dark hover:bg-green-700 dark:hover:bg-green-600 focus:ring-green-300 dark:focus:ring-green-800";
+            break;
+        case 'primary':
+        default:
+            variantStyle = "text-white bg-primary dark:bg-primary-dark hover:bg-primary-hover dark:hover:bg-primary-dark_hover focus:ring-primary/50 dark:focus:ring-primary-dark/50";
+            break;
+    }
+
+    return (
+        <button
+            className={`${baseStyle} ${variantStyle} ${widthStyle} ${className}`}
+            disabled={disabled}
+            {...props}
+        >
+            {leftIcon && <span className="mr-2">{leftIcon}</span>}
+            {children}
+            {rightIcon && <span className="ml-2">{rightIcon}</span>}
+        </button>
+    );
+};
+
+export default Button;
+
+###############################################################################
+# FILE: src\components\ui\Input.jsx
+###############################################################################
+
+// src/components/ui/Input.jsx
+import React from 'react';
+
+const Input = ({
+                   label,
+                   id,
+                   icon,
+                   error,
+                   className = '', // Для <input> элемента
+                   wrapperClassName = '', // Для div-обертки
+                   inputClassName = '', // Дополнительные классы для <input>, если className уже используется
+                   themeVariant = 'default', // 'default' или 'auth'
+                   ...props
+               }) => {
+    const baseInputStyle = "block w-full p-2.5 text-sm rounded-lg border";
+
+    let currentInputStyle = `${baseInputStyle} `;
+
+    if (themeVariant === 'auth') {
+        // Стили для полей на формах авторизации
+        currentInputStyle += "bg-authInputBg border-authInputBorder placeholder-authPlaceholder text-slate-200 focus:ring-primary-dark focus:border-primary-dark";
+    } else {
+        // Стили для обычной темы
+        currentInputStyle += "bg-surface border-slate-300 text-text placeholder-slate-400 focus:ring-primary focus:border-primary dark:bg-surface-dark dark:border-slate-600 dark:text-text-dark dark:placeholder-slate-500 dark:focus:ring-primary-dark dark:focus:border-primary-dark";
+    }
+
+    const iconPadding = icon ? "pl-10" : "";
+    const errorRingStyle = 'focus:ring-error dark:focus:ring-error-dark focus:border-error dark:focus:border-error-dark';
+    const defaultRingStyle = themeVariant === 'auth'
+        ? 'focus:ring-primary-dark focus:border-primary-dark'
+        : 'focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark';
+
+    const errorBorderStyle = error ? 'border-error dark:border-error-dark' : (themeVariant === 'auth' ? 'border-authInputBorder' : 'border-slate-300 dark:border-slate-600');
+
+    const ringStyle = error ? errorRingStyle : defaultRingStyle;
+
+
+    return (
+        <div className={`mb-4 ${wrapperClassName}`}>
+            {label && <label htmlFor={id} className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">{label}</label>}
+            <div className="relative">
+                {icon && (
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        {React.cloneElement(icon, { className: `${icon.props.className || ''} h-5 w-5 text-text-muted dark:text-text-dark_muted` })}
+                    </div>
+                )}
+                <input
+                    id={id}
+                    className={`${currentInputStyle} ${iconPadding} ${errorBorderStyle} ${ringStyle} ${inputClassName} ${className}`}
+                    {...props}
+                />
+            </div>
+            {error && <p className="mt-1 text-xs text-error dark:text-error-dark">{error}</p>}
+        </div>
+    );
+};
+
+export default Input;
+
+###############################################################################
+# FILE: src\pages\Auth\LoginPage.jsx
+###############################################################################
+
+// src/pages/Auth/LoginPage.jsx
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Button from '../../components/ui/Button.jsx';
+import Input from '../../components/ui/Input.jsx';
+import { EnvelopeIcon, LockClosedIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext.jsx';
+
+const LoginPage = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({}); // Для ошибок полей
+    const [formError, setFormError] = useState(''); // Для общих ошибок формы от сервера
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { login } = useAuth();
+
+    const validateFields = () => {
+        const newErrors = {};
+        if (!email) newErrors.email = "Email обязателен";
+        else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Некорректный email";
+        if (!password) newErrors.password = "Пароль обязателен";
+        setFieldErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormError('');
+        if (validateFields()) {
+            setIsLoading(true);
+            const result = await login(email, password); // login уже делает navigate
+            setIsLoading(false);
+            if (!result.success) {
+                setFormError(result.message || "Ошибка входа. Пожалуйста, проверьте ваши данные.");
+            }
+            // navigate (если логин успешен) происходит внутри AuthContext.login
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-background-dark p-4">
+            <div className="bg-authFormBg backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md">
+                <div className="flex flex-col items-center mb-8">
+                    <CurrencyDollarIcon className="h-16 w-16 text-primary-dark mb-3" />
+                    <h1 className="text-3xl font-bold text-white">CoinKeeper</h1>
+                    <p className="text-text-dark_muted">Войдите, чтобы управлять финансами</p>
+                </div>
+
+                {formError && (
+                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 rounded-md text-sm text-center">
+                        {formError}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                    <Input
+                        id="email" type="email" label="Email" placeholder="your@email.com"
+                        value={email} onChange={(e) => setEmail(e.target.value)}
+                        error={fieldErrors.email} icon={<EnvelopeIcon />}
+                        themeVariant="auth" // Используем специальную тему для инпутов авторизации
+                    />
+                    <Input
+                        id="password" type="password" label="Пароль" placeholder="••••••••"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
+                        error={fieldErrors.password} icon={<LockClosedIcon />}
+                        themeVariant="auth"
+                    />
+                    <Button type="submit" fullWidth className="mt-8 py-3 text-base" disabled={isLoading}>
+                        {isLoading ? 'Вход...' : 'Войти'}
+                    </Button>
+                </form>
+                <p className="text-sm text-center mt-8 text-slate-400">
+                    Нет аккаунта?{' '}
+                    <Link
+                        to="/register"
+                        state={{ from: location.state?.from }} // Передаем from для редиректа после регистрации и логина
+                        className="font-medium text-primary-dark hover:underline"
+                    >
+                        Зарегистрироваться
+                    </Link>
+                </p>
+            </div>
+        </div>
+    );
+};
+export default LoginPage;
+
+###############################################################################
+# FILE: src\pages\Auth\RegisterPage.jsx
+###############################################################################
+
+// src/pages/Auth/RegisterPage.jsx
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Button from '../../components/ui/Button.jsx';
+import Input from '../../components/ui/Input.jsx';
+import { EnvelopeIcon, LockClosedIcon, UserPlusIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext.jsx';
+
+const RegisterPage = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [formError, setFormError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { register } = useAuth();
+
+    const validateFields = () => {
+        const newErrors = {};
+        if (!email) newErrors.email = "Email обязателен";
+        else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Некорректный email";
+
+        if (!password) newErrors.password = "Пароль обязателен";
+        else if (password.length < 6) newErrors.password = "Пароль должен быть не менее 6 символов";
+
+        if (!confirmPassword) newErrors.confirmPassword = "Подтверждение пароля обязательно";
+        else if (password !== confirmPassword) newErrors.confirmPassword = "Пароли не совпадают";
+
+        setFieldErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormError('');
+        setIsSuccess(false);
+        if (validateFields()) {
+            setIsLoading(true);
+            const result = await register(email, password);
+            setIsLoading(false);
+            if (result.success) {
+                setIsSuccess(true);
+                // Не перенаправляем сразу, показываем сообщение об успехе
+            } else {
+                setFormError(result.message || "Ошибка регистрации. Пожалуйста, попробуйте еще раз.");
+            }
+        }
+    };
+
+    if (isSuccess) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-background-dark p-4">
+                <div className="bg-authFormBg backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md text-center">
+                    <UserPlusIcon className="h-16 w-16 text-green-400 mx-auto mb-4" />
+                    <h2 className="text-2xl font-semibold text-green-400 mb-4">Регистрация успешна!</h2>
+                    <p className="text-text-dark_muted mb-6">Теперь вы можете войти, используя указанные данные.</p>
+                    <Button
+                        onClick={() => navigate('/login', { state: { from: location.state?.from } })} // Передаем from
+                        fullWidth
+                        className="py-3 text-base"
+                    >
+                        Перейти ко входу
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-background-dark p-4">
+            <div className="bg-authFormBg backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md">
+                <div className="flex flex-col items-center mb-8">
+                    <CurrencyDollarIcon className="h-16 w-16 text-primary-dark mb-3" />
+                    <h1 className="text-3xl font-bold text-white">CoinKeeper</h1>
+                    <p className="text-text-dark_muted">Создайте аккаунт для начала работы</p>
+                </div>
+
+                {formError && (
+                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 rounded-md text-sm text-center">
+                        {formError}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                    <Input
+                        id="email" type="email" label="Email" placeholder="your@email.com"
+                        value={email} onChange={(e) => setEmail(e.target.value)}
+                        error={fieldErrors.email} icon={<EnvelopeIcon />}
+                        themeVariant="auth"
+                    />
+                    <Input
+                        id="password" type="password" label="Пароль (мин. 6 символов)" placeholder="••••••••"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
+                        error={fieldErrors.password} icon={<LockClosedIcon />}
+                        themeVariant="auth"
+                    />
+                    <Input
+                        id="confirmPassword" type="password" label="Подтвердите пароль" placeholder="••••••••"
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                        error={fieldErrors.confirmPassword} icon={<LockClosedIcon />}
+                        themeVariant="auth"
+                    />
+                    <Button type="submit" fullWidth className="mt-8 py-3 text-base" disabled={isLoading}>
+                        {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
+                    </Button>
+                </form>
+                <p className="text-sm text-center mt-8 text-slate-400">
+                    Уже есть аккаунт?{' '}
+                    <Link
+                        to="/login"
+                        state={{ from: location.state?.from }} // Передаем from
+                        className="font-medium text-primary-dark hover:underline"
+                    >
+                        Войти
+                    </Link>
+                </p>
+            </div>
+        </div>
+    );
+};
+export default RegisterPage;
+
+###############################################################################
+# SUMMARY
+# Total files: 28
+# Total size: 99.19 KB
+# Processing time: 0.13 seconds
+###############################################################################

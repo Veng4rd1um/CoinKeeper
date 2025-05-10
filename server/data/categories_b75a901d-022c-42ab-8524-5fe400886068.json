@@ -1,0 +1,18 @@
+{
+  "income": [
+    {
+      "id": "cat_inc_f3cfc2",
+      "name": "зп"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_a534e4",
+      "name": "крфе"
+    },
+    {
+      "id": "cat_exp_73fbde",
+      "name": "awdawd"
+    }
+  ]
+}
