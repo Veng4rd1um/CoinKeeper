@@ -1,5 +1,5 @@
 ﻿# PROJECT CODE COMPILATION
-# Generated on 05/11/2025 03:03:28
+# Generated on 05/11/2025 22:14:17
 # Source: C:\Users\Алихан\Documents\CoinKeeper
 
 
@@ -121,6 +121,7 @@ powershell.exe -ExecutionPolicy Bypass -File "%~dp0CollectCode.ps1"
     "jsonwebtoken": "^9.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-input-color": "^4.0.1",
     "react-router-dom": "^6.22.3",
     "recharts": "^2.12.5",
     "uuid": "^9.0.1"
@@ -342,15 +343,33 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 {
   "income": [
-    { "id": "cat_inc_1", "name": "Зарплата", "icon": "BriefcaseIcon", "color": "bg-green-500" },
-    { "id": "cat_inc_2", "name": "Фриланс", "icon": "ComputerDesktopIcon", "color": "bg-blue-500" },
-    { "id": "cat_inc_3", "name": "Подарки", "icon": "GiftIcon", "color": "bg-yellow-500" }
+    { "id": "cat_inc_1", "name": "Зарплата", "color": "#22c55e" },
+    { "id": "cat_inc_2", "name": "Фриланс", "color": "#3b82f6" },
+    { "id": "cat_inc_3", "name": "Подарки", "color": "#eab308" }
   ],
   "expense": [
-    { "id": "cat_exp_1", "name": "Продукты", "icon": "ShoppingCartIcon", "color": "bg-orange-500" },
-    { "id": "cat_exp_2", "name": "Транспорт", "icon": "TruckIcon", "color": "bg-sky-500" },
-    { "id": "cat_exp_3", "name": "Развлечения", "icon": "FilmIcon", "color": "bg-purple-500" },
-    { "id": "cat_exp_4", "name": "Коммунальные услуги", "icon": "BuildingOfficeIcon", "color": "bg-red-500" }
+    { "id": "cat_exp_1", "name": "Продукты", "color": "#f97316" },
+    { "id": "cat_exp_2", "name": "Транспорт", "color": "#0ea5e9" },
+    { "id": "cat_exp_3", "name": "Развлечения", "color": "#a855f7" },
+    { "id": "cat_exp_4", "name": "Коммунальные услуги", "color": "#ef4444" }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_101f19eb-9bb8-4a2b-bb87-916ae309062d.json
+###############################################################################
+
+{
+  "income": [],
+  "expense": [
+    {
+      "id": "cat_exp_adf021",
+      "name": "фцвц"
+    },
+    {
+      "id": "cat_exp_546648",
+      "name": "фцвц"
+    }
   ]
 }
 
@@ -361,20 +380,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 {
   "income": [
     {
-      "id": "cat_inc_fcda5d",
-      "name": "онай"
-    }
-  ],
-  "expense": [
-    {
-      "id": "cat_exp_8ebb62",
-      "name": "Такси"
+      "id": "cat_inc_f3d0f1",
+      "name": "чай"
     },
     {
-      "id": "cat_exp_e3a111",
-      "name": "Кофе"
+      "id": "cat_inc_b86d47",
+      "name": "ыуау"
     }
-  ]
+  ],
+  "expense": []
 }
 
 ###############################################################################
@@ -417,6 +431,29 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 }
 
 ###############################################################################
+# FILE: server\data\categories_cbff5c62-37a1-4b73-a5cb-3f7e8ec417d5.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_e512bf",
+      "name": "фцвфцв"
+    },
+    {
+      "id": "cat_inc_27170f",
+      "name": "фвфцв"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_a98efb",
+      "name": "аываы"
+    }
+  ]
+}
+
+###############################################################################
 # FILE: server\data\categories_cf55b2ed-65d6-49bf-8c81-7e6172b57401.json
 ###############################################################################
 
@@ -430,11 +467,20 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ###############################################################################
 
 {
-  "income": [],
+  "income": [
+    {
+      "id": "cat_inc_d41c80",
+      "name": "фцвц"
+    }
+  ],
   "expense": [
     {
       "id": "cat_exp_bb9b29",
       "name": "Такси"
+    },
+    {
+      "id": "cat_exp_2ddc85",
+      "name": "фвфц"
     }
   ]
 }
@@ -459,6 +505,21 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     "categoryId": "cat_exp_1",
     "date": "2024-05-21T00:00:00.000Z",
     "comment": "Супермаркет МегаМарт"
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_101f19eb-9bb8-4a2b-bb87-916ae309062d.json
+###############################################################################
+
+[
+  {
+    "id": "txn_17460362",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_adf021",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
   }
 ]
 
@@ -490,6 +551,30 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     "categoryId": "cat_exp_e3a111",
     "date": "2025-05-12T00:00:00.000Z",
     "comment": ""
+  },
+  {
+    "id": "txn_1f0ad72e",
+    "type": "income",
+    "amount": 1000,
+    "categoryId": "cat_inc_f3d0f1",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_3b05ead6",
+    "type": "expense",
+    "amount": 100,
+    "categoryId": "cat_exp_305d8b",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_1f61ecda",
+    "type": "expense",
+    "amount": 50000,
+    "categoryId": "cat_exp_8ebb62",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
   }
 ]
 
@@ -520,6 +605,29 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     "amount": 1000,
     "categoryId": "cat_exp_faf24c",
     "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_cbff5c62-37a1-4b73-a5cb-3f7e8ec417d5.json
+###############################################################################
+
+[
+  {
+    "id": "txn_4f03d616",
+    "type": "income",
+    "amount": 1203203,
+    "categoryId": "cat_inc_e512bf",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_0f1823b3",
+    "type": "expense",
+    "amount": 565465,
+    "categoryId": "cat_exp_a98efb",
+    "date": "2025-05-11T00:00:00.000Z",
     "comment": ""
   }
 ]
@@ -571,6 +679,78 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     "password": "$2a$12$TTTpk8knVNmhAGVGooqesecd9Yo0HRotd5Wam7mKBvljpYG8dRk1W"
   }
 ]
+
+###############################################################################
+# FILE: server\utils\dataUtils.cjs.js
+###############################################################################
+
+// server/utils/dataUtils.cjs
+const fs = require('fs').promises;
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
+
+const dataDir = path.join(__dirname, '..', 'data'); // Путь к папке data
+
+// Helper to read JSON file
+const readDataFile = async (fileName) => {
+    try {
+        const filePath = path.join(dataDir, fileName);
+        await fs.access(filePath); // Check if file exists
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    } catch (error) {
+        if (error.code === 'ENOENT') { // File not found
+            // For users.json, return empty array. For others, it might indicate an issue or initial state.
+            if (fileName === 'users.json') return [];
+            if (fileName.startsWith('categories_') || fileName.startsWith('transactions_')) {
+                // For categories, return default structure, for transactions empty array
+                return fileName.startsWith('categories_') ? { income: [], expense: [] } : [];
+            }
+        }
+        console.error(`Error reading ${fileName}:`, error);
+        throw new Error(`Could not read data file ${fileName}`);
+    }
+};
+
+// Helper to write JSON file
+const writeDataFile = async (fileName, data) => {
+    try {
+        const filePath = path.join(dataDir, fileName);
+        await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch (error) {
+        console.error(`Error writing ${fileName}:`, error);
+        throw new Error(`Could not write data file ${fileName}`);
+    }
+};
+
+// Ensure data directory exists
+const ensureDataDirExists = async () => {
+    try {
+        await fs.access(dataDir);
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            await fs.mkdir(dataDir, { recursive: true });
+            console.log(`Data directory created: ${dataDir}`);
+        } else {
+            throw error;
+        }
+    }
+};
+
+const defaultCategoryIconName = 'QuestionMarkCircleIcon';
+
+module.exports = {
+    // ...
+    defaultCategoryIconName,
+};
+
+module.exports = {
+    readDataFile,
+    writeDataFile,
+    ensureDataDirExists,
+    uuidv4,
+    dataDir // Export dataDir if needed elsewhere directly, though unlikely
+};
 
 ###############################################################################
 # FILE: src\api\index.js
@@ -737,7 +917,7 @@ export const useAuth = () => {
 ###############################################################################
 
 // src/pages/DashboardPage.jsx
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import Button from '../components/ui/Button.jsx';
 import TransactionModal from '../components/transactions/TransactionModal.jsx';
 import {
@@ -745,64 +925,92 @@ import {
     addTransaction as apiAddTransaction,
     updateTransaction as apiUpdateTransaction,
     deleteTransaction as apiDeleteTransaction,
-    fetchCategories // Необходимо для получения цветов категорий
+    fetchCategories // Убедитесь, что эта функция импортирована
 } from '../api/index.js';
 import {
-    PlusCircleIcon, CurrencyDollarIcon, PencilSquareIcon, ExclamationTriangleIcon, TagIcon as DefaultCategoryIcon
+    PlusCircleIcon, WalletIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon,
+    PencilSquareIcon, ExclamationTriangleIcon, InformationCircleIcon
 } from '@heroicons/react/24/outline';
+import { useAuth } from '../context/AuthContext.jsx';
+import { CategoryIcon, defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx'; // Импортируем для иконок
 
-const defaultCategoryColorForDisplay = "bg-slate-400 dark:bg-slate-600"; // Для "Без категории" или если цвет не найден
+const defaultCategoryColorForDisplay = "bg-slate-400 dark:bg-slate-600"; // Для "Без категории"
 
-const formatCurrency = (amount, currency = 'RUB') => {
-    return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 2 }).format(amount);
+const formatCurrency = (amount, currency = 'RUB', showDecimals = true) => {
+    return new Intl.NumberFormat('ru-RU', {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: showDecimals ? 2 : 0,
+        maximumFractionDigits: showDecimals ? 2 : 0
+    }).format(amount);
 };
 const formatDateForDisplay = (isoDateString) => {
     if (!isoDateString) return 'N/A';
     const date = new Date(isoDateString);
-    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+    return date.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+};
+
+const SummaryCard = ({ title, amount, icon, trend, trendText, colorClass = "text-text dark:text-text-dark" }) => {
+    const IconComponent = icon;
+    return (
+        <div className="bg-surface dark:bg-surface-dark p-5 rounded-xl shadow-lg hover:shadow-primary/20 dark:hover:shadow-primary-dark/20 transition-shadow duration-200 border border-transparent hover:border-primary/30 dark:hover:border-primary-dark/30">
+            <div className="flex justify-between items-start mb-1">
+                <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">{title}</h3>
+                {IconComponent && <IconComponent className={`h-7 w-7 ${colorClass} opacity-70`} />}
+            </div>
+            <p className={`text-3xl font-bold ${colorClass} tracking-tight`}>
+                {formatCurrency(amount, 'RUB', !Number.isInteger(amount))}
+            </p>
+            {trend && trendText && (
+                <p className={`text-xs mt-1.5 flex items-center ${trend === 'up' ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'}`}>
+                    {trend === 'up' ? <ArrowTrendingUpIcon className="h-3.5 w-3.5 mr-1" /> : <ArrowTrendingDownIcon className="h-3.5 w-3.5 mr-1" />}
+                    {trendText}
+                </p>
+            )}
+        </div>
+    );
 };
 
 const DashboardPage = () => {
-    const [currentBalance, setCurrentBalance] = useState(0);
+    const { user } = useAuth();
     const [transactions, setTransactions] = useState([]);
-    // allCategoriesData будет содержать { income: [], expense: [] } с полной информацией о категориях, включая цвет
-    const [allCategoriesData, setAllCategoriesData] = useState({ income: [], expense: [] });
+    // allCategoriesData не используется напрямую для рендера, но нужен для обогащения транзакций
+    // const [allCategoriesData, setAllCategoriesData] = useState({ income: [], expense: [] }); // Можно удалить, если не нужен нигде кроме loadInitialData
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [transactionToEdit, setTransactionToEdit] = useState(null);
 
-    // Загрузка и транзакций, и категорий для обогащения данных
     const loadInitialData = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
             const [transactionsRes, categoriesRes] = await Promise.all([
-                fetchTransactions(), // Предполагаем, что это возвращает транзакции ТЕКУЩЕГО пользователя
-                fetchCategories()    // Это возвращает категории ТЕКУЩЕГО пользователя с их цветами
+                fetchTransactions(),
+                fetchCategories()
             ]);
 
+            const fetchedTransactions = transactionsRes.data || [];
             const fetchedCategories = categoriesRes.data || { income: [], expense: [] };
-            setAllCategoriesData(fetchedCategories); // Сохраняем данные категорий
 
-            // Создаем карту для быстрого доступа к деталям категории по ID
             const categoryMap = {};
-            fetchedCategories.income.forEach(cat => categoryMap[cat.id] = cat);
-            fetchedCategories.expense.forEach(cat => categoryMap[cat.id] = cat);
+            (fetchedCategories.income || []).forEach(cat => categoryMap[cat.id] = cat);
+            (fetchedCategories.expense || []).forEach(cat => categoryMap[cat.id] = cat);
 
-            // Обогащаем транзакции данными о категориях (имя и цвет)
-            const enrichedTransactions = (transactionsRes.data || []).map(t => {
+            const enrichedTransactions = fetchedTransactions.map(t => {
                 const category = categoryMap[t.categoryId];
                 return {
                     ...t,
                     categoryName: category?.name || 'Без категории',
-                    categoryColor: category?.color || defaultCategoryColorForDisplay
+                    categoryColor: category?.color || defaultCategoryColorForDisplay,
+                    categoryIcon: category?.icon || defaultCategoryIconName // Это ключевая строка
                 };
-            });
+            }).sort((a,b) => new Date(b.date) - new Date(a.date));
+
             setTransactions(enrichedTransactions);
 
         } catch (err) {
-            console.error("Failed to load initial data:", err);
+            console.error("Failed to load initial data:", err.response?.data?.message || err.message);
             setError(err.response?.data?.message || "Не удалось загрузить данные. Попробуйте обновить страницу.");
         }
         setIsLoading(false);
@@ -812,14 +1020,27 @@ const DashboardPage = () => {
         loadInitialData();
     }, [loadInitialData]);
 
+    const monthlyStats = useMemo(() => {
+        const now = new Date();
+        const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        const currentMonthTransactions = transactions.filter(t => new Date(t.date) >= currentMonthStart);
 
-    useEffect(() => {
-        const newBalance = transactions.reduce((acc, t) => {
+        let income = 0;
+        let expense = 0;
+        currentMonthTransactions.forEach(t => {
+            if (t.type === 'income') income += parseFloat(t.amount);
+            else expense += parseFloat(t.amount);
+        });
+        return { income, expense };
+    }, [transactions]);
+
+    const currentBalance = useMemo(() => {
+        return transactions.reduce((acc, t) => {
             const amount = parseFloat(t.amount);
             return t.type === 'income' ? acc + amount : acc - amount;
         }, 0);
-        setCurrentBalance(newBalance);
     }, [transactions]);
+
 
     const openAddModal = () => {
         setTransactionToEdit(null);
@@ -827,8 +1048,16 @@ const DashboardPage = () => {
     };
 
     const openEditModal = (transaction) => {
-        // Передаем "сырую" транзакцию, т.к. модальное окно само загрузит актуальные категории
-        setTransactionToEdit(transactions.find(t => t.id === transaction.id));
+        // Передаем "сырую" транзакцию (без categoryName, categoryColor, categoryIcon)
+        // Модальное окно само будет работать с categoryId
+        const rawTransaction = transactions.find(t => t.id === transaction.id);
+        if (rawTransaction) {
+            // Удаляем обогащенные поля, чтобы не было конфликтов
+            const { categoryName, categoryColor, categoryIcon, ...rest } = rawTransaction;
+            setTransactionToEdit(rest);
+        } else {
+            setTransactionToEdit(transaction); // Fallback
+        }
         setIsModalOpen(true);
     };
 
@@ -837,17 +1066,19 @@ const DashboardPage = () => {
         setTransactionToEdit(null);
     };
 
-    const handleFormSubmit = async (transactionData) => {
+    // Этот обработчик передается в TransactionModal
+    const handleModalFormSubmit = async (transactionDataFromModal) => {
         try {
-            if (transactionToEdit) {
-                await apiUpdateTransaction(transactionToEdit.id, transactionData);
-            } else {
-                await apiAddTransaction(transactionData);
+            if (transactionToEdit) { // Редактирование
+                await apiUpdateTransaction(transactionToEdit.id, transactionDataFromModal);
+            } else { // Добавление
+                await apiAddTransaction(transactionDataFromModal);
             }
-            loadInitialData(); // Перезагружаем все данные для обновления списка
+            loadInitialData(); // Перезагружаем все данные для обновления
             closeModal();
         } catch (err) {
-            console.error("Failed to save transaction:", err);
+            console.error("Failed to save transaction from modal:", err);
+            // Можно отобразить ошибку в модальном окне или как alert
             alert(`Ошибка сохранения транзакции: ${err.response?.data?.message || err.message}`);
         }
     };
@@ -856,7 +1087,7 @@ const DashboardPage = () => {
         if (window.confirm("Вы уверены, что хотите удалить эту транзакцию?")) {
             try {
                 await apiDeleteTransaction(transactionId);
-                loadInitialData(); // Перезагружаем все данные
+                loadInitialData();
                 closeModal(); // Закрываем модальное, если оно было открыто для этой транзакции
             } catch (err) {
                 console.error("Failed to delete transaction:", err);
@@ -870,40 +1101,43 @@ const DashboardPage = () => {
         const amountColor = isIncome ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark';
         const sign = isIncome ? '+' : '-';
 
-        // categoryColor уже должен быть в объекте transaction после обогащения
-        const categoryColor = transaction.categoryColor || defaultCategoryColorForDisplay;
+        // Используем данные, обогащенные в loadInitialData
+        const categoryColor = transaction.categoryColor;
+        const categoryIconName = transaction.categoryIcon;
 
         return (
-            <li className="bg-surface dark:bg-surface-dark p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-150 ease-in-out group">
-                <div className="flex items-start justify-between">
-                    <div className="flex items-center space-x-3">
-                        <span className={`w-3 h-3 rounded-full ${categoryColor} flex-shrink-0 mt-1 border border-black/10 dark:border-white/10`}></span>
-                        <div>
-                            <p className="text-sm font-medium text-text dark:text-text-dark">{transaction.categoryName}</p>
-                            <p className="text-xs text-text-muted dark:text-text-dark_muted truncate max-w-[150px] sm:max-w-xs md:max-w-sm" title={transaction.comment}>
+            <li className="bg-surface dark:bg-surface-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-150 ease-in-out group">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3 min-w-0 flex-1">
+                        <div className={`p-1.5 sm:p-2 rounded-full ${categoryColor} flex-shrink-0 shadow-sm`}>
+                            <CategoryIcon iconName={categoryIconName} className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                        </div>
+                        <div className="min-w-0">
+                            <p className="text-sm font-medium text-text dark:text-text-dark truncate" title={transaction.categoryName}>{transaction.categoryName}</p>
+                            <p className="text-xs text-text-muted dark:text-text-dark_muted truncate max-w-[150px] sm:max-w-xs" title={transaction.comment || 'Без описания'}>
                                 {transaction.comment || 'Без описания'}
                             </p>
-                            <p className="text-xs text-text-muted dark:text-text-dark_muted mt-0.5">{formatDateForDisplay(transaction.date)}</p>
                         </div>
                     </div>
-                    <div className="text-right flex flex-col items-end">
-                        <p className={`text-md font-semibold ${amountColor} whitespace-nowrap`}>
-                            {sign} {formatCurrency(parseFloat(transaction.amount), 'RUB').replace('₽', '').trim()} <span className="text-xs">₽</span>
+                    <div className="text-right flex flex-col items-end ml-2 flex-shrink-0">
+                        <p className={`text-sm font-semibold ${amountColor} whitespace-nowrap`}>
+                            {sign} {formatCurrency(parseFloat(transaction.amount), 'RUB', true).replace(/\s?₽/, '')} <span className="text-xs text-text-muted dark:text-text-dark_muted">₽</span>
                         </p>
-                        <button
-                            onClick={() => onEdit(transaction)}
-                            className="mt-1 text-xs text-text-muted dark:text-text-dark_muted hover:text-primary dark:hover:text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
-                            title="Редактировать транзакцию"
-                        >
-                            <PencilSquareIcon className="h-4 w-4 inline mr-1"/> Редактировать
-                        </button>
+                        <p className="text-xs text-text-muted dark:text-text-dark_muted mt-0.5">{formatDateForDisplay(transaction.date)}</p>
                     </div>
+                    <button
+                        onClick={() => onEdit(transaction)}
+                        className="ml-2 text-text-muted dark:text-text-dark_muted hover:text-primary dark:hover:text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100 p-1 rounded-md flex-shrink-0"
+                        title="Редактировать транзакцию"
+                    >
+                        <PencilSquareIcon className="h-4 w-4 sm:h-5 sm:h-5"/>
+                    </button>
                 </div>
             </li>
         );
     };
 
-    if (isLoading) {
+    if (isLoading && transactions.length === 0) {
         return (
             <div className="flex justify-center items-center h-64">
                 <p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка данных...</p>
@@ -922,49 +1156,49 @@ const DashboardPage = () => {
             </div>
         );
     }
+    const userName = user?.email?.split('@')[0] || 'пользователь';
 
     return (
         <div className="space-y-6 md:space-y-8">
-            <section className="bg-gradient-to-br from-primary dark:from-primary-dark via-primary/80 dark:via-primary-dark/80 to-primary/70 dark:to-primary-dark/70 text-white p-6 rounded-xl shadow-lg">
-                <div className="flex justify-between items-center mb-1">
-                    <h2 className="text-lg font-medium text-amber-100 dark:text-amber-200">Текущий баланс</h2>
-                    <CurrencyDollarIcon className="h-8 w-8 text-amber-200 dark:text-amber-300 opacity-70"/>
+            <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">
+                        Добро пожаловать, <span className="capitalize">{userName}</span>!
+                    </h1>
+                    <p className="text-sm text-text-muted dark:text-text-dark_muted">
+                        Обзор ваших финансов.
+                    </p>
                 </div>
-                <p className="text-5xl font-bold tracking-tight">
-                    {formatCurrency(currentBalance)}
-                </p>
-                <p className="text-sm text-amber-100 dark:text-amber-200 mt-1 opacity-90">
-                    Доступно для использования
-                </p>
-            </section>
-
-            <section>
                 <Button
                     onClick={openAddModal}
                     variant="primary"
-                    className="w-full md:w-auto py-3 text-base"
+                    className="w-full sm:w-auto py-2.5 px-5 text-sm"
                     leftIcon={<PlusCircleIcon className="h-5 w-5"/>}
                 >
-                    Добавить транзакцию
+                    Добавить операцию
                 </Button>
+            </header>
+
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <SummaryCard title="Текущий баланс" amount={currentBalance} icon={WalletIcon} colorClass="text-primary dark:text-primary-dark" />
+                <SummaryCard title="Доходы (этот месяц)" amount={monthlyStats.income} icon={ArrowTrendingUpIcon} colorClass="text-success dark:text-success-dark" />
+                <SummaryCard title="Расходы (этот месяц)" amount={monthlyStats.expense} icon={ArrowTrendingDownIcon} colorClass="text-error dark:text-error-dark" />
             </section>
 
             <section>
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-text dark:text-text-dark">Недавние операции</h2>
-                    {transactions.length > 10 && (
-                        <a href="#" className="text-sm text-primary dark:text-primary-dark hover:underline" onClick={(e) => {e.preventDefault(); alert("Функционал 'Посмотреть все' пока не реализован.")}}>Посмотреть все</a>
-                    )}
+                    {/* Можно добавить ссылку на страницу "Все транзакции", если таковая будет */}
                 </div>
                 {transactions.length > 0 ? (
                     <ul className="space-y-3">
-                        {transactions.slice(0, 10).map((transaction) => ( // Показываем последние 10
+                        {transactions.slice(0, 7).map((transaction) => ( // Показываем последние 7 для примера
                             <TransactionItem key={transaction.id} transaction={transaction} onEdit={openEditModal} />
                         ))}
                     </ul>
                 ) : (
                     <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow">
-                        <DefaultCategoryIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                        <InformationCircleIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
                         <h3 className="text-lg font-medium text-text dark:text-text-dark">Транзакций пока нет</h3>
                         <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1 mb-4">
                             Начните отслеживать свои финансы, добавив первую операцию.
@@ -979,7 +1213,7 @@ const DashboardPage = () => {
             <TransactionModal
                 isOpen={isModalOpen}
                 onClose={closeModal}
-                onSubmit={handleFormSubmit}
+                onSubmit={handleModalFormSubmit} // Передаем наш новый обработчик
                 transactionToEdit={transactionToEdit}
                 onDelete={handleDeleteTransaction}
             />
@@ -998,46 +1232,197 @@ import Button from '../components/ui/Button.jsx';
 import Input from '../components/ui/Input.jsx';
 import { fetchCategories, addCategory, updateCategory, deleteCategoryAPI } from '../api/index.js';
 import {
-    PlusCircleIcon, TrashIcon, PencilIcon, XMarkIcon, CheckIcon,
-    ExclamationTriangleIcon, TagIcon as DefaultCategoryIcon // Используется если список категорий пуст
+    XMarkIcon, CheckIcon, ExclamationTriangleIcon, InformationCircleIcon, PencilIcon, TrashIcon // Добавил недостающие иконки для кнопок
 } from '@heroicons/react/24/outline';
+import { CategoryIcon, availableIconsForPicker, defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx';
 
-// Определяем доступные цвета для категорий (Tailwind CSS классы фона)
-const availableColors = [
-    'bg-slate-500', 'bg-gray-500',
-    'bg-red-500', 'bg-orange-500', 'bg-amber-500', 'bg-yellow-500',
-    'bg-lime-500', 'bg-green-500', 'bg-emerald-500', 'bg-teal-500',
-    'bg-cyan-500', 'bg-sky-500', 'bg-blue-500', 'bg-indigo-500',
-    'bg-violet-500', 'bg-purple-500', 'bg-fuchsia-500', 'bg-pink-500', 'bg-rose-500'
+const categoryColorPalette = [
+    'bg-red-400', 'bg-orange-400', 'bg-amber-400', 'bg-yellow-400', 'bg-lime-400', 'bg-green-400',
+    'bg-emerald-400', 'bg-teal-400', 'bg-cyan-400', 'bg-sky-400', 'bg-blue-400', 'bg-indigo-400',
+    'bg-violet-400', 'bg-purple-400', 'bg-fuchsia-400', 'bg-pink-400', 'bg-rose-400', 'bg-slate-400'
 ];
-const defaultColor = 'bg-slate-500'; // Цвет по умолчанию
+const defaultNewCategoryColor = 'bg-sky-400';
+
+const CategoryModal = ({ isOpen, onClose, onSubmit, categoryToEdit, currentCategories }) => {
+    const [name, setName] = useState('');
+    const [type, setType] = useState('expense');
+    const [selectedColor, setSelectedColor] = useState(defaultNewCategoryColor);
+    const [selectedIconName, setSelectedIconName] = useState(defaultCategoryIconName);
+    const [error, setError] = useState('');
+
+    const isEditing = !!categoryToEdit;
+
+    useEffect(() => {
+        if (isOpen) {
+            if (isEditing && categoryToEdit) {
+                setName(categoryToEdit.name);
+                setType(categoryToEdit.originalType || categoryToEdit.type || 'expense'); // Используем originalType если есть
+                setSelectedColor(categoryToEdit.color || defaultNewCategoryColor);
+                setSelectedIconName(categoryToEdit.icon || defaultCategoryIconName);
+            } else {
+                setName('');
+                setType('expense');
+                setSelectedColor(defaultNewCategoryColor);
+                setSelectedIconName(defaultCategoryIconName);
+            }
+            setError('');
+        }
+    }, [isOpen, categoryToEdit, isEditing]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        if (!name.trim()) {
+            setError("Название категории не может быть пустым.");
+            return;
+        }
+
+        // Проверка на дубликат имени для правильного типа
+        // `currentCategories` это { income: [], expense: [] }
+        // `type` это 'income' или 'expense' из модального окна
+        const categoriesOfType = currentCategories[type] || [];
+        const existingCategory = categoriesOfType.find(
+            cat => cat.name.toLowerCase() === name.trim().toLowerCase() &&
+                (!isEditing || cat.id !== categoryToEdit.id)
+        );
+
+        if (existingCategory) {
+            setError(`Категория с именем "${name.trim()}" уже существует для типа "${type === 'income' ? 'Доход' : 'Расход'}".`);
+            return;
+        }
+
+        const categoryData = {
+            name: name.trim(),
+            type: type, // Этот тип (income/expense) будет использован для создания/обновления
+            color: selectedColor,
+            icon: selectedIconName,
+        };
+        // `originalType` нужен, если мы РЕДАКТИРУЕМ категорию и ее тип на бэкенде мог быть другим (хотя наш UI сейчас не позволяет менять тип income/expense)
+        onSubmit(categoryData, isEditing ? categoryToEdit.id : null, isEditing ? categoryToEdit.originalType : type);
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+            <div className="relative bg-[#3A3A3A] p-6 rounded-lg shadow-xl w-full max-w-md m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in text-white border border-gray-700">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-semibold">
+                        {isEditing ? 'Редактировать категорию' : 'Добавить категорию'}
+                    </h2>
+                    <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors" aria-label="Закрыть">
+                        <XMarkIcon className="h-6 w-6" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <Input
+                        id="categoryNameModal" label="Название категории:" type="text" // Уникальный ID для модального инпута
+                        value={name} onChange={(e) => setName(e.target.value)}
+                        className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-amber-500 focus:ring-amber-500"
+                        labelClassName="text-gray-300"
+                        wrapperClassName="mb-0"
+                    />
+                    <div>
+                        <label className="block mb-1.5 text-sm font-medium text-gray-300">Тип категории:</label>
+                        <div className="flex space-x-4">
+                            {[{label: 'Расход', value: 'expense'}, {label: 'Доход', value: 'income'}].map(option => (
+                                <label key={option.value} className="flex items-center space-x-2 cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="categoryTypeModal" // Уникальное имя для группы радиокнопок в модалке
+                                        value={option.value}
+                                        checked={type === option.value}
+                                        onChange={() => setType(option.value)}
+                                        className="form-radio h-4 w-4 text-amber-500 bg-gray-600 border-gray-500 focus:ring-amber-500"
+                                        disabled={isEditing && categoryToEdit?.originalType && categoryToEdit.originalType !== option.value} // Запрещаем менять тип при редактировании, если он был задан
+                                    />
+                                    <span className={`text-sm ${isEditing && categoryToEdit?.originalType && categoryToEdit.originalType !== option.value ? 'text-gray-500' : ''}`}>{option.label}</span>
+                                </label>
+                            ))}
+                        </div>
+                        {isEditing && categoryToEdit?.originalType && <p className="text-xs text-gray-500 mt-1">Тип категории нельзя изменить после создания.</p>}
+                    </div>
+
+                    <div>
+                        <label className="block mb-1.5 text-sm font-medium text-gray-300">Цвет:</label>
+                        <div className="flex flex-wrap gap-2">
+                            {categoryColorPalette.map(color => (
+                                <button
+                                    type="button" key={color}
+                                    onClick={() => setSelectedColor(color)}
+                                    className={`w-7 h-7 rounded-full ${color} border-2 transition-all
+                                        ${selectedColor === color ? 'ring-2 ring-offset-2 ring-offset-gray-700 ring-white scale-110' : 'border-transparent hover:opacity-80'}`}
+                                    aria-label={`Выбрать цвет ${color}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block mb-1.5 text-sm font-medium text-gray-300">Иконка:</label>
+                        <div className="grid grid-cols-6 sm:grid-cols-8 gap-2 p-2 bg-gray-700/50 rounded-md max-h-32 overflow-y-auto">
+                            {availableIconsForPicker.map(iconItem => (
+                                <button
+                                    type="button" key={iconItem.name}
+                                    onClick={() => setSelectedIconName(iconItem.name)}
+                                    className={`p-1.5 rounded-md flex items-center justify-center transition-all
+                                        ${selectedIconName === iconItem.name ? 'bg-amber-500 text-white scale-110' : 'bg-gray-600 hover:bg-gray-500 text-gray-300'}`}
+                                    aria-label={`Выбрать иконку ${iconItem.name.replace('Icon', '')}`}
+                                >
+                                    <iconItem.Component className="w-5 h-5" />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-4 p-3 bg-gray-700/50 rounded-md">
+                        <p className="text-sm font-medium text-gray-300 mb-1">Предпросмотр:</p>
+                        <div className="flex items-center space-x-3">
+                            <div className={`p-2 rounded-full ${selectedColor}`}>
+                                <CategoryIcon iconName={selectedIconName} className="w-5 h-5 text-white" />
+                            </div>
+                            <div>
+                                <p className="font-medium text-white">{name || "Название категории"}</p>
+                                <p className="text-xs text-gray-400">
+                                    {type === 'income' ? "Только доход" : "Только расход"}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {error && <p className="mt-2 text-xs text-red-400 text-center">{error}</p>}
+
+                    <div className="flex justify-end space-x-3 pt-5">
+                        <Button type="button" onClick={onClose} className="bg-gray-600 hover:bg-gray-500 text-gray-200 px-6">Отмена</Button>
+                        <Button type="submit" className="bg-amber-500 hover:bg-amber-600 text-white px-6">Сохранить</Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
 
 const SettingsPage = () => {
     const [categories, setCategories] = useState({ income: [], expense: [] });
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    const [newCategoryName, setNewCategoryName] = useState('');
-    const [newCategoryType, setNewCategoryType] = useState('expense');
-    const [newCategoryColor, setNewCategoryColor] = useState(defaultColor);
-    const [showColorPickerForNew, setShowColorPickerForNew] = useState(false);
-
-    const [editingCategory, setEditingCategory] = useState(null); // {type, id, name, color}
-    const [editName, setEditName] = useState('');
-    const [editColor, setEditColor] = useState(defaultColor);
-    const [showColorPickerForEdit, setShowColorPickerForEdit] = useState(false);
-
-    const [formError, setFormError] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [categoryToEdit, setCategoryToEdit] = useState(null);
 
     const loadCategories = useCallback(async () => {
-        setIsLoading(true);
+        setIsLoading(true); // Устанавливаем isLoading в true перед загрузкой
         setError(null);
         try {
-            const response = await fetchCategories(); // API должен возвращать категории с полем color
-            setCategories(response.data || { income: [], expense: [] });
+            const response = await fetchCategories();
+            const fetched = response.data || { income: [], expense: [] };
+            fetched.income = (fetched.income || []).map(cat => ({ ...cat, originalType: 'income' })).sort((a, b) => a.name.localeCompare(b.name));
+            fetched.expense = (fetched.expense || []).map(cat => ({ ...cat, originalType: 'expense' })).sort((a, b) => a.name.localeCompare(b.name));
+            setCategories(fetched);
         } catch (err) {
             setError(err.response?.data?.message || "Не удалось загрузить категории.");
-            console.error("Failed to load categories:", err);
         }
         setIsLoading(false);
     }, []);
@@ -1046,240 +1431,132 @@ const SettingsPage = () => {
         loadCategories();
     }, [loadCategories]);
 
-    const handleAddCategory = async (e) => {
-        e.preventDefault();
-        setFormError('');
-        if (!newCategoryName.trim()) {
-            setFormError("Название категории не может быть пустым.");
-            return;
-        }
+    const handleOpenModal = (catToEdit = null) => {
+        setCategoryToEdit(catToEdit); // catToEdit уже будет содержать originalType из loadCategories
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setCategoryToEdit(null);
+    };
+
+    const handleFormSubmit = async (categoryData, editingId, originalApiType) => {
+        // categoryData.type - это тип, выбранный в модалке (income/expense)
+        // originalApiType - это тип, по которому нужно обращаться к API при редактировании (если тип нельзя менять)
         try {
-            // API addCategory теперь должен принимать name, type, color
-            await addCategory({
-                type: newCategoryType,
-                name: newCategoryName.trim(),
-                color: newCategoryColor
-            });
-            setNewCategoryName('');
-            setNewCategoryColor(defaultColor);
-            setNewCategoryType('expense');
-            setShowColorPickerForNew(false);
-            loadCategories();
-        } catch (err)
-        {
-            setFormError(err.response?.data?.message || `Ошибка добавления категории.`);
-            console.error("Failed to add category:", err);
-        }
-    };
-
-    const handleStartEdit = (type, category) => {
-        setEditingCategory({ type, id: category.id, name: category.name, color: category.color });
-        setEditName(category.name);
-        setEditColor(category.color || defaultColor);
-        setShowColorPickerForEdit(false);
-    };
-
-    const handleCancelEdit = () => {
-        setEditingCategory(null);
-        setEditName('');
-        setEditColor(defaultColor);
-        setShowColorPickerForEdit(false);
-    };
-
-    const handleSaveEdit = async () => {
-        if (!editingCategory || !editName.trim()) {
-            alert("Название категории не может быть пустым.");
-            return;
-        }
-        try {
-            // API updateCategory теперь должен принимать name, color
-            await updateCategory(editingCategory.type, editingCategory.id, {
-                name: editName.trim(),
-                color: editColor
-            });
-            loadCategories();
-            handleCancelEdit();
+            if (editingId) {
+                // Используем originalApiType для URL, но данные берем из categoryData (включая categoryData.type)
+                // Бэкенд должен сам решить, как обновить, если тип не совпадает (или вернуть ошибку, если смена типа не разрешена)
+                // Наш текущий бэкенд не поддерживает смену типа income/expense, он обновит поля для категории по старому типу.
+                await updateCategory(originalApiType, editingId, categoryData);
+            } else {
+                // При создании используем categoryData.type
+                await addCategory(categoryData);
+            }
+            await loadCategories(); // Повторно загружаем категории, чтобы получить актуальные данные с бэкенда
+            handleCloseModal();
         } catch (err) {
-            alert(`Ошибка обновления категории: ${err.response?.data?.message || err.message}`);
-            console.error("Failed to update category:", err);
-        }
-    };
-
-    const handleDeleteCategory = async (type, id) => {
-        if (window.confirm("Вы уверены, что хотите удалить эту категорию? Связанные транзакции могут потерять свою категорию.")) {
-            try {
-                await deleteCategoryAPI(type, id);
-                loadCategories();
-            } catch (err) {
-                alert(`Ошибка удаления категории: ${err.response?.data?.message || err.message}`);
-                console.error("Failed to delete category:", err);
+            console.error("Failed to save category:", err.response || err);
+            // Эту ошибку лучше отображать в модальном окне
+            if (isModalOpen && categoryToEdit?.id === editingId) { // Если модалка еще открыта для этой категории
+                // Передаем ошибку в модальное окно, если бы у него был проп для этого
+                // CategoryModal.setError(err.response?.data?.message || err.message);
+                alert(`Ошибка сохранения категории: ${err.response?.data?.message || err.message}`); // Пока так
+            } else {
+                alert(`Ошибка сохранения категории: ${err.response?.data?.message || err.message}`);
             }
         }
     };
 
-    const ColorPickerDropdown = ({ selectedColor, onSelectColor, isVisible, toggleVisibility }) => {
-        if (!isVisible) return null;
-
-        return (
-            <div className="absolute z-10 mt-1 p-2 bg-surface dark:bg-surface-dark rounded-md shadow-lg border border-slate-300 dark:border-slate-600 max-w-xs w-max">
-                <div className="grid grid-cols-5 sm:grid-cols-7 gap-1.5">
-                    {availableColors.map((color, index) => (
-                        <button
-                            type="button"
-                            key={`color-palette-${index}`}
-                            title={color.replace('bg-', '').replace('-500', '')}
-                            className={`w-6 h-6 rounded-full ${color} border-2 transition-all
-                                ${selectedColor === color ? 'ring-2 ring-offset-1 dark:ring-offset-surface-dark ring-primary dark:ring-primary-dark border-transparent scale-110' : 'border-white/50 dark:border-black/50 hover:opacity-80'}`}
-                            onClick={() => {
-                                onSelectColor(color);
-                                toggleVisibility(false);
-                            }}
-                        />
-                    ))}
-                </div>
-            </div>
-        );
+    const handleDeleteCategory = async (catToDelete) => {
+        if (window.confirm(`Вы уверены, что хотите удалить категорию "${catToDelete.name}"?`)) {
+            try {
+                // Используем originalType для правильного API эндпоинта
+                await deleteCategoryAPI(catToDelete.originalType, catToDelete.id);
+                await loadCategories();
+            } catch (err) {
+                alert(`Ошибка удаления категории: ${err.response?.data?.message || err.message}`);
+            }
+        }
     };
 
-    const CategoryList = ({ title, type, list }) => (
-        <div className="mb-6 p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark">{title}</h3>
-            {list && list.length > 0 ? (
-                <ul className="space-y-2">
-                    {list.map((cat) => (
-                        <li key={cat.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-2.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group">
-                            {editingCategory && editingCategory.id === cat.id ? (
-                                <div className="flex-grow space-y-3 w-full">
-                                    <Input
-                                        type="text"
-                                        value={editName}
-                                        onChange={(e) => setEditName(e.target.value)}
-                                        className="py-1 px-2 text-sm h-9 w-full"
-                                        wrapperClassName="mb-0 flex-grow"
-                                    />
-                                    <div className="relative">
-                                        <label className="block text-xs font-medium text-text-muted dark:text-text-dark_muted mb-1">Цвет</label>
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowColorPickerForEdit(prev => !prev)}
-                                            className={`w-full h-9 rounded-md border border-slate-300 dark:border-slate-600 flex items-center px-2 ${editColor} transition-colors`}
-                                        >
-                                            <span className={`inline-block w-5 h-5 rounded-sm ${editColor} border border-black/20 dark:border-white/20 mr-2`}></span>
-                                            <span className="text-sm text-white mix-blend-difference">Выбрать цвет</span>
-                                        </button>
-                                        <ColorPickerDropdown
-                                            selectedColor={editColor}
-                                            onSelectColor={setEditColor}
-                                            isVisible={showColorPickerForEdit}
-                                            toggleVisibility={setShowColorPickerForEdit}
-                                        />
-                                    </div>
-                                    <div className="flex justify-end space-x-1.5 pt-2">
-                                        <Button onClick={handleSaveEdit} variant="success" className="py-1.5 px-3 text-sm" leftIcon={<CheckIcon className="h-4 w-4"/>}>Сохранить</Button>
-                                        <Button onClick={handleCancelEdit} variant="secondary" className="py-1.5 px-3 text-sm" leftIcon={<XMarkIcon className="h-4 w-4"/>}>Отмена</Button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <>
-                                    <div className="flex items-center flex-grow mb-2 sm:mb-0">
-                                        <span className={`w-4 h-4 rounded-full ${cat.color || defaultColor} mr-3 flex-shrink-0 border border-black/10 dark:border-white/10`}></span>
-                                        <span className="text-text dark:text-text-dark break-all">{cat.name}</span>
-                                    </div>
-                                    <div className="flex-shrink-0 space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity self-center sm:self-auto">
-                                        <Button onClick={() => handleStartEdit(type, cat)} variant="secondary" size="icon" title="Редактировать" className="p-1.5 text-primary dark:text-primary-dark hover:opacity-75">
-                                            <PencilIcon className="h-4 w-4"/>
-                                        </Button>
-                                        <Button onClick={() => handleDeleteCategory(type, cat.id)} variant="secondary" size="icon" title="Удалить" className="p-1.5 text-error dark:text-error-dark hover:opacity-75">
-                                            <TrashIcon className="h-4 w-4"/>
-                                        </Button>
-                                    </div>
-                                </>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p className="text-sm text-text-muted dark:text-text-dark_muted">Категорий этого типа пока нет.</p>
-            )}
+    const CategoryListItem = ({ category }) => (
+        <div className="flex items-center justify-between p-3 bg-gray-700 rounded-md shadow">
+            <div className="flex items-center space-x-3">
+                <div className={`p-2 rounded-full ${category.color || defaultNewCategoryColor}`}>
+                    <CategoryIcon iconName={category.icon || defaultCategoryIconName} className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                    <p className="font-medium text-white">{category.name}</p>
+                    <p className="text-xs text-gray-400">
+                        {category.originalType === 'income' ? "Только доход" : "Только расход"}
+                    </p>
+                </div>
+            </div>
+            <div className="space-x-2">
+                <Button onClick={() => handleOpenModal(category)} className="bg-gray-600 hover:bg-gray-500 text-xs px-3 py-1">
+                    <PencilIcon className="w-3 h-3 inline mr-1"/> Редактировать
+                </Button>
+                <Button onClick={() => handleDeleteCategory(category)} className="bg-red-700 hover:bg-red-600 text-xs px-3 py-1">
+                    <TrashIcon className="w-3 h-3 inline mr-1"/> Удалить
+                </Button>
+            </div>
         </div>
     );
 
-    if (isLoading) {
-        return <div className="flex justify-center items-center h-64"><p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка категорий...</p></div>;
-    }
-    if (error) {
+    if (isLoading) return <div className="p-6 text-center text-gray-400">Загрузка категорий...</div>;
+    if (error && !categories.income.length && !categories.expense.length) {
         return (
-            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
-                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
-                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+            <div className="p-6 text-center text-red-400 bg-red-900/30 rounded-md">
+                <ExclamationTriangleIcon className="h-8 w-8 mx-auto mb-2"/>
+                {error}
             </div>
         );
     }
 
+    // Объединяем категории income и expense в один массив для отображения
+    const allUserCategories = [
+        ...(categories.income || []),
+        ...(categories.expense || [])
+    ].sort((a,b) => a.name.localeCompare(b.name)); // Сортируем общий список по имени
+
     return (
-        <div className="space-y-6 md:space-y-8">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">Управление категориями</h1>
-
-            <form onSubmit={handleAddCategory} className="mb-8 p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-4 text-text dark:text-text-dark">Добавить новую категорию</h2>
-                {formError && <p className="text-sm text-error dark:text-error-dark mb-3">{formError}</p>}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-                    <Input
-                        id="newCategoryName"
-                        label="Название категории"
-                        value={newCategoryName}
-                        onChange={(e) => setNewCategoryName(e.target.value)}
-                        placeholder="Например, 'Кофе'"
-                        wrapperClassName="mb-0"
-                    />
-                    <div>
-                        <label htmlFor="newCategoryType" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Тип</label>
-                        <select
-                            id="newCategoryType"
-                            value={newCategoryType}
-                            onChange={(e) => setNewCategoryType(e.target.value)}
-                            className="block w-full p-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark bg-surface dark:bg-surface-dark text-text dark:text-text-dark"
-                        >
-                            <option value="expense">Расход</option>
-                            <option value="income">Доход</option>
-                        </select>
-                    </div>
-                    <div className="md:col-span-2 relative">
-                        <label className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Цвет</label>
-                        <button
-                            type="button"
-                            onClick={() => setShowColorPickerForNew(prev => !prev)}
-                            className={`w-full h-10 rounded-md border border-slate-300 dark:border-slate-600 flex items-center px-3 ${newCategoryColor} transition-colors`}
-                        >
-                            <span className={`inline-block w-5 h-5 rounded-sm ${newCategoryColor} border border-black/20 dark:border-white/20 mr-2`}></span>
-                            <span className="text-sm text-white mix-blend-difference">Выбрать цвет</span>
-                        </button>
-                        <ColorPickerDropdown
-                            selectedColor={newCategoryColor}
-                            onSelectColor={setNewCategoryColor}
-                            isVisible={showColorPickerForNew}
-                            toggleVisibility={setShowColorPickerForNew}
-                        />
-                    </div>
+        <div className="p-4 sm:p-6 md:p-8 bg-slate-800 min-h-screen text-gray-200">
+            <div className="max-w-3xl mx-auto">
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-2xl font-semibold">Управление категориями</h1>
+                    <Button onClick={() => handleOpenModal()} className="bg-amber-500 hover:bg-amber-600 text-white">
+                        Добавить категорию
+                    </Button>
                 </div>
-                <Button type="submit" className="w-full md:w-auto mt-6" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
-                    Добавить категорию
-                </Button>
-            </form>
 
-            <div className="grid md:grid-cols-2 gap-6">
-                <CategoryList title="Категории доходов" type="income" list={categories.income} />
-                <CategoryList title="Категории расходов" type="expense" list={categories.expense} />
+                {allUserCategories.length > 0 ? (
+                    <div className="space-y-3">
+                        {allUserCategories.map(cat => (
+                            <CategoryListItem key={cat.id} category={cat} />
+                        ))}
+                    </div>
+                ) : (
+                    !isLoading && (
+                        <div className="text-center py-10 px-6 bg-gray-700 rounded-lg shadow">
+                            <InformationCircleIcon className="h-12 w-12 text-gray-500 mx-auto mb-3" />
+                            <h3 className="text-lg font-medium text-gray-300">Категорий пока нет</h3>
+                            <p className="text-sm text-gray-400 mt-1">
+                                Добавьте свою первую категорию, чтобы начать.
+                            </p>
+                        </div>
+                    )
+                )}
             </div>
-            {categories.income.length === 0 && categories.expense.length === 0 && !isLoading && (
-                <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md col-span-full">
-                    <DefaultCategoryIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
-                    <h3 className="text-lg font-medium text-text dark:text-text-dark">Категорий пока нет</h3>
-                    <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
-                        Добавьте свою первую категорию, чтобы начать классифицировать транзакции.
-                    </p>
-                </div>
-            )}
+
+            <CategoryModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onSubmit={handleFormSubmit}
+                categoryToEdit={categoryToEdit}
+                currentCategories={categories}
+            />
         </div>
     );
 };
@@ -1294,69 +1571,103 @@ export default SettingsPage;
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
     PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
-    BarChart, Bar, XAxis, YAxis, CartesianGrid
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line
 } from 'recharts';
 import { fetchTransactions, fetchCategories } from '../api/index.js';
-import { ExclamationTriangleIcon, CalendarDaysIcon, TagIcon as DefaultCategoryIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon, CalendarDaysIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { CategoryIcon, defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx'; // Импортируем для иконок
 
-const defaultCategoryStatsColor = 'bg-slate-500'; // Tailwind класс для категорий без цвета или "Без категории"
+const defaultCategoryStatsColorHex = '#94a3b8'; // slate-500 hex for charts
 
-const formatCurrency = (amount, currency = 'RUB') => {
+const formatCurrencyForStat = (amount, currency = 'RUB') => {
     return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: currency, minimumFractionDigits: 0, maximumFractionDigits:0 }).format(amount);
 };
 
-// Конвертер Tailwind bg-color в HEX (упрощенный)
 const tailwindToHex = (tailwindColor) => {
-    // Этот маппинг должен соответствовать вашим availableColors и tailwind.config.js
-    // Для простоты здесь только несколько примеров, расширьте по необходимости
+    // Этот маппинг должен быть актуальным. Если цвета изменятся в tailwind.config.js, его нужно обновить.
+    // Или использовать более динамический способ получения HEX, если это возможно.
     const map = {
         'bg-slate-500': '#64748b', 'bg-gray-500': '#6b7280',
-        'bg-red-500': '#ef4444', 'bg-orange-500': '#f97316', 'bg-amber-500': '#f59e0b',
-        'bg-yellow-500': '#eab308', 'bg-lime-500': '#84cc16', 'bg-green-500': '#22c55e',
-        'bg-emerald-500': '#10b981', 'bg-teal-500': '#14b8a6', 'bg-cyan-500': '#06b6d4',
-        'bg-sky-500': '#0ea5e9', 'bg-blue-500': '#3b82f6', 'bg-indigo-500': '#6366f1',
-        'bg-violet-500': '#8b5cf6', 'bg-purple-500': '#a855f7', 'bg-fuchsia-500': '#d946ef',
-        'bg-pink-500': '#ec4899', 'bg-rose-500': '#f43f5e',
+        'bg-red-400': '#f87171', 'bg-red-500': '#ef4444', 'bg-red-600': '#dc2626',
+        'bg-orange-400': '#fb923c', 'bg-orange-500': '#f97316', 'bg-orange-600': '#ea580c',
+        'bg-amber-400': '#fbbf24', 'bg-amber-500': '#f59e0b',
+        'bg-yellow-400': '#facc15', 'bg-yellow-500': '#eab308',
+        'bg-lime-400': '#a3e635', 'bg-lime-500': '#84cc16',
+        'bg-green-400': '#4ade80', 'bg-green-500': '#22c55e', 'bg-green-600': '#16a34a',
+        'bg-emerald-400': '#34d399', 'bg-emerald-500': '#10b981',
+        'bg-teal-400': '#2dd4bf', 'bg-teal-500': '#14b8a6',
+        'bg-cyan-400': '#22d3ee', 'bg-cyan-500': '#06b6d4',
+        'bg-sky-400': '#38bdf8', 'bg-sky-500': '#0ea5e9',
+        'bg-blue-400': '#60a5fa', 'bg-blue-500': '#3b82f6', 'bg-blue-600': '#2563eb',
+        'bg-indigo-400': '#818cf8', 'bg-indigo-500': '#6366f1',
+        'bg-violet-400': '#a78bfa', 'bg-violet-500': '#8b5cf6',
+        'bg-purple-400': '#c084fc', 'bg-purple-500': '#a855f7', 'bg-purple-600': '#9333ea',
+        'bg-fuchsia-400': '#e879f9', 'bg-fuchsia-500': '#d946ef',
+        'bg-pink-400': '#f472b6', 'bg-pink-500': '#ec4899',
+        'bg-rose-400': '#fb7185', 'bg-rose-500': '#f43f5e',
+        'bg-primary': '#037DD6', // Пример, должен соответствовать вашей теме
+        'bg-primary-dark': '#2F72FA'
     };
-    return map[tailwindColor] || '#CCCCCC'; // Fallback HEX
+    return map[tailwindColor] || defaultCategoryStatsColorHex; // Fallback HEX
 };
 
 
-const CustomTooltipContent = ({ active, payload, label }) => {
+const CustomTooltipContent = ({ active, payload, label, type }) => {
     if (active && payload && payload.length) {
-        const data = payload[0].payload; // Это { name, value, color (Tailwind) }
-        const value = payload[0].value;
-        const name = payload[0].name;
-
-        return (
-            <div className="bg-surface dark:bg-surface-dark/90 backdrop-blur-sm p-3 rounded-md shadow-lg border border-slate-200 dark:border-slate-600">
-                {label && <p className="text-sm font-semibold text-text dark:text-text-dark mb-1">{label}</p>}
-                <div className="flex items-center">
-                    {data.color && <span className={`w-3 h-3 rounded-sm mr-2 ${data.color}`}></span>}
-                    <p className="text-sm text-text dark:text-text-dark">
-                        {data?.name || name}: <span className="font-semibold">{formatCurrency(data?.value || value)}</span>
-                    </p>
+        if (type === "pie" && payload[0].payload) {
+            const data = payload[0].payload;
+            return (
+                <div className="bg-surface dark:bg-slate-800/90 backdrop-blur-sm p-2.5 rounded-md shadow-lg border border-slate-300 dark:border-slate-700 text-xs">
+                    <div className="flex items-center">
+                        {data.icon ? ( // Отображаем иконку, если есть
+                            <div className={`p-0.5 mr-1.5 rounded-sm ${data.color || 'bg-slate-400'}`}>
+                                <CategoryIcon iconName={data.icon} className="w-3 h-3 text-white" />
+                            </div>
+                        ) : (
+                            data.color && <span className={`w-2.5 h-2.5 rounded-sm mr-1.5 ${data.color}`}></span>
+                        )}
+                        <p className="text-text dark:text-text-dark">
+                            {data.name}: <span className="font-semibold">{formatCurrencyForStat(data.value)}</span>
+                        </p>
+                    </div>
+                    {payload[0].percent && (
+                        <p className="text-text-muted dark:text-text-dark_muted ml-4">({(payload[0].percent * 100).toFixed(1)}%)</p>
+                    )}
                 </div>
-                {data?.percent && ( // Отображаем процент, если он есть (добавляется в Pie компонентом)
-                    <p className="text-xs text-text-muted dark:text-text-dark_muted">({(payload[0].percent * 100).toFixed(1)}%)</p>
-                )}
-            </div>
-        );
+            );
+        }
+        if ((type === "bar" || type === "line") && label) {
+            return (
+                <div className="bg-surface dark:bg-slate-800/90 backdrop-blur-sm p-2.5 rounded-md shadow-lg border border-slate-300 dark:border-slate-700 text-xs">
+                    <p className="font-semibold text-text dark:text-text-dark mb-1">{label}</p>
+                    {payload.map((item, index) => (
+                        <div key={`tooltip-item-${index}`} className="flex items-center">
+                            <span style={{ backgroundColor: item.color, width: '8px', height: '8px', borderRadius: '2px', marginRight: '6px' }}></span>
+                            <p className="text-text dark:text-text-dark">
+                                {item.name}: <span className="font-semibold">{formatCurrencyForStat(item.value)}</span>
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
     }
     return null;
 };
 
 const renderCustomPieLegend = (props) => {
-    const { payload } = props; // payload из Recharts Legend
+    const { payload } = props;
     return (
-        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs mt-3">
+        <ul className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs mt-4 max-w-md mx-auto">
             {payload.map((entry, index) => {
-                // entry.payload - это оригинальный элемент данных, переданный в Pie ({ name, value, color })
-                const categoryTailwindColor = entry.payload?.color || defaultCategoryStatsColor;
+                const categoryTailwindColor = entry.payload?.color || 'bg-slate-400';
+                const categoryIconName = entry.payload?.icon || defaultCategoryIconName;
                 return (
-                    <li key={`item-${index}`} className="flex items-center">
-                        <span className={`w-3 h-3 rounded-sm mr-1.5 ${categoryTailwindColor}`}></span>
-                        <span className="text-text-muted dark:text-text-dark_muted">{entry.value}</span> {/* entry.value это имя категории (nameKey) */}
+                    <li key={`legend-item-${index}`} className="flex items-center">
+                        <div className={`p-0.5 rounded-sm mr-1.5 ${categoryTailwindColor}`}>
+                            <CategoryIcon iconName={categoryIconName} className="w-2.5 h-2.5 text-white" />
+                        </div>
+                        <span className="text-text-muted dark:text-text-dark_muted">{entry.value}</span>
                     </li>
                 );
             })}
@@ -1380,7 +1691,7 @@ const StatsPage = () => {
         try {
             const [transRes, catRes] = await Promise.all([
                 fetchTransactions(),
-                fetchCategories() // API должен возвращать категории с color
+                fetchCategories()
             ]);
             setTransactions(transRes.data || []);
             setAllCategories(catRes.data || { income: [], expense: [] });
@@ -1401,43 +1712,49 @@ const StatsPage = () => {
         let endDate = new Date(now);
 
         startDate.setHours(0, 0, 0, 0);
-        endDate.setHours(23, 59, 59, 999); // Конец текущего дня по умолчанию
+        endDate.setHours(23, 59, 59, 999);
 
         if (filterPeriod === 'custom') {
             if (customStartDate) {
                 startDate = new Date(customStartDate);
                 startDate.setHours(0, 0, 0, 0);
             } else {
-                // Если начало не указано для custom, можно взять начало текущего года или месяца
-                startDate = new Date(now.getFullYear(), 0, 1); // Начало года
+                startDate = new Date(now.getFullYear(), 0, 1); // Начало текущего года
             }
             if (customEndDate) {
                 endDate = new Date(customEndDate);
                 endDate.setHours(23, 59, 59, 999);
             }
-            // Если endDate не указан для custom, он остается концом текущего дня (уже установлено)
-
-            if (startDate > endDate && customStartDate && customEndDate) { // Только если обе даты введены и старт > конца
+            // Если endDate не указан, он остается концом текущего дня (уже установлено)
+            if (startDate > endDate && customStartDate && customEndDate) {
                 [startDate, endDate] = [endDate, startDate];
             }
-        } else { // 'week', 'month', 'year'
+        } else {
             switch (filterPeriod) {
                 case 'week':
-                    const dayOfWeek = now.getDay();
-                    const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // пн текущей недели
-                    startDate = new Date(now.setDate(diff));
-                    startDate.setHours(0, 0, 0, 0);
-                    // endDate остается концом текущего дня
+                    const dayOfWeek = now.getDay(); // 0 (Sun) - 6 (Sat)
+                    const diffToMonday = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+                    startDate = new Date(now.getFullYear(), now.getMonth(), diffToMonday);
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + 6); // Конец недели (воскресенье)
+                    endDate.setHours(23,59,59,999);
                     break;
                 case 'month':
                     startDate = new Date(now.getFullYear(), now.getMonth(), 1);
-                    // endDate остается концом текущего дня
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Последний день текущего месяца
+                    endDate.setHours(23,59,59,999);
                     break;
                 case 'year':
                     startDate = new Date(now.getFullYear(), 0, 1);
-                    // endDate остается концом текущего дня
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(now.getFullYear(), 11, 31); // 31 декабря
+                    endDate.setHours(23,59,59,999);
                     break;
-                default: // Should not happen
+                default: // Should not happen, but as a fallback
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
                     break;
             }
         }
@@ -1448,8 +1765,6 @@ const StatsPage = () => {
     const filteredTransactions = useMemo(() => {
         if (!transactions.length) return [];
         const { startDate, endDate } = getPeriodDateRange();
-        if (!startDate || !endDate) return [];
-
         return transactions.filter(t => {
             const transactionDate = new Date(t.date);
             return transactionDate >= startDate && transactionDate <= endDate;
@@ -1457,74 +1772,98 @@ const StatsPage = () => {
     }, [transactions, getPeriodDateRange]);
 
     const statsData = useMemo(() => {
-        if (!filteredTransactions.length) {
-            return { totalIncome: 0, totalExpense: 0, netResult: 0, expenseByCategory: [], incomeExpenseByDay: [] };
+        if (!filteredTransactions.length && !allCategories.income.length && !allCategories.expense.length) {
+            return { totalIncome: 0, totalExpense: 0, netResult: 0, expenseByCategory: [], incomeExpenseOverTime: [], balanceOverTime: [] };
         }
 
         let totalIncome = 0;
         let totalExpense = 0;
         const expenseByCategoryMap = new Map();
-        const incomeByDayMap = new Map();
-        const expenseByDayMap = new Map();
+        const dailyDataMap = new Map();
         const { startDate, endDate } = getPeriodDateRange();
 
+        const categoryMap = {};
+        (allCategories.income || []).forEach(cat => categoryMap[cat.id] = cat);
+        (allCategories.expense || []).forEach(cat => categoryMap[cat.id] = cat);
+
         filteredTransactions.forEach(t => {
-            const categoryList = t.type === 'income' ? allCategories.income : allCategories.expense;
-            const category = categoryList?.find(c => c.id === t.categoryId);
-
+            const category = categoryMap[t.categoryId];
             const categoryName = category?.name || 'Без категории';
-            const categoryColor = category?.color || defaultCategoryStatsColor;
+            const categoryColor = category?.color || 'bg-slate-400';
+            const categoryIcon = category?.icon || defaultCategoryIconName;
+            const amount = parseFloat(t.amount);
+            const dateKey = new Date(t.date).toISOString().split('T')[0];
 
-            const dateKey = new Date(t.date).toLocaleDateString('ru-RU', { day:'2-digit', month:'short' });
+            if (!dailyDataMap.has(dateKey)) {
+                dailyDataMap.set(dateKey, { income: 0, expense: 0, balanceChange: 0 });
+            }
+            const dayData = dailyDataMap.get(dateKey);
 
             if (t.type === 'income') {
-                totalIncome += parseFloat(t.amount);
-                incomeByDayMap.set(dateKey, (incomeByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
+                totalIncome += amount;
+                dayData.income += amount;
+                dayData.balanceChange += amount;
             } else {
-                totalExpense += parseFloat(t.amount);
+                totalExpense += amount;
+                dayData.expense += amount;
+                dayData.balanceChange -= amount;
                 const currentCategoryData = expenseByCategoryMap.get(categoryName);
                 expenseByCategoryMap.set(categoryName, {
-                    value: (currentCategoryData?.value || 0) + parseFloat(t.amount),
+                    value: (currentCategoryData?.value || 0) + amount,
                     color: categoryColor,
+                    icon: categoryIcon, // Сохраняем иконку для легенды
                 });
-                expenseByDayMap.set(dateKey, (expenseByDayMap.get(dateKey) || 0) + parseFloat(t.amount));
             }
         });
 
         const expenseByCategory = Array.from(expenseByCategoryMap)
-            .map(([name, data]) => ({ name, value: data.value, color: data.color }))
+            .map(([name, data]) => ({ name, value: data.value, color: data.color, icon: data.icon }))
             .sort((a, b) => b.value - a.value);
 
-        const dayKeysInRange = [];
+        const incomeExpenseOverTime = [];
+        const balanceOverTimeData = [];
+        let runningBalance = 0;
+
+        const timeKeys = [];
         if (startDate && endDate && startDate <= endDate) {
             let currentDateIter = new Date(startDate);
-            currentDateIter.setHours(0,0,0,0); // Нормализация для итерации по дням
-            let endOfDayOfEndDate = new Date(endDate);
-            endOfDayOfEndDate.setHours(0,0,0,0);
+            currentDateIter.setHours(0,0,0,0);
+            const endOfDayOfEndDate = new Date(endDate);
+            endOfDayOfEndDate.setHours(23,59,59,999);
 
             while(currentDateIter <= endOfDayOfEndDate) {
-                dayKeysInRange.push(currentDateIter.toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }));
+                timeKeys.push(currentDateIter.toISOString().split('T')[0]);
                 currentDateIter.setDate(currentDateIter.getDate() + 1);
             }
         }
-        const uniqueDayKeys = [...new Set(dayKeysInRange)];
 
-        const incomeExpenseByDay = uniqueDayKeys.map(dayKey => ({
-            name: dayKey,
-            income: incomeByDayMap.get(dayKey) || 0,
-            expense: expenseByDayMap.get(dayKey) || 0,
-        }));
+        timeKeys.sort();
+
+        timeKeys.forEach(key => {
+            const dayData = dailyDataMap.get(key) || { income: 0, expense: 0, balanceChange: 0 };
+            incomeExpenseOverTime.push({
+                name: new Date(key).toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }),
+                income: dayData.income,
+                expense: dayData.expense,
+            });
+            runningBalance += dayData.balanceChange;
+            balanceOverTimeData.push({
+                name: new Date(key).toLocaleDateString('ru-RU', { day:'2-digit', month:'short' }),
+                balance: runningBalance
+            });
+        });
 
         return {
             totalIncome,
             totalExpense,
             netResult: totalIncome - totalExpense,
             expenseByCategory,
-            incomeExpenseByDay
+            incomeExpenseOverTime,
+            balanceOverTime: balanceOverTimeData,
         };
     }, [filteredTransactions, allCategories, getPeriodDateRange]);
 
-    if (isLoading) {
+    if (isLoading && !transactions.length) {
         return <div className="flex justify-center items-center h-64"><p className="text-lg text-text-muted dark:text-text-dark_muted">Загрузка статистики...</p></div>;
     }
 
@@ -1537,115 +1876,129 @@ const StatsPage = () => {
         );
     }
 
-    const noDataForPeriod = filteredTransactions.length === 0;
+    const noDataForPeriod = filteredTransactions.length === 0 && !isLoading;
 
     return (
         <div className="space-y-6 md:space-y-8">
             <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">Финансовый анализ</h1>
 
-            <section className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+            <section className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
                 <h2 className="text-lg font-medium mb-3 text-text dark:text-text-dark">Выберите период</h2>
                 <div className="flex flex-wrap gap-2 mb-4">
-                    {['week', 'month', 'year'].map(period => (
+                    {[{val: 'week', label: 'Эта неделя'}, {val: 'month', label: 'Этот месяц'}, {val: 'year', label: 'Этот год'}].map(p => (
                         <button
-                            key={period}
-                            onClick={() => { setFilterPeriod(period); setCustomStartDate(''); setCustomEndDate(''); }}
-                            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors
-                                ${filterPeriod === period && !customStartDate && !customEndDate
-                                ? 'bg-primary dark:bg-primary-dark text-white'
+                            key={p.val}
+                            onClick={() => { setFilterPeriod(p.val); setCustomStartDate(''); setCustomEndDate(''); }}
+                            className={`px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-colors
+                                ${filterPeriod === p.val && !customStartDate && !customEndDate
+                                ? 'bg-primary dark:bg-primary-dark text-white shadow-md'
                                 : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600'
                             }`}
                         >
-                            {period === 'week' ? 'Эта неделя' : period === 'month' ? 'Этот месяц' : 'Этот год'}
+                            {p.label}
                         </button>
                     ))}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                     <div>
-                        <label htmlFor="customStartDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Начало периода</label>
+                        <label htmlFor="customStartDate" className="block text-xs font-medium text-text-muted dark:text-text-dark_muted mb-1">Начало периода</label>
                         <input type="date" id="customStartDate" value={customStartDate}
-                               onChange={e => { setCustomStartDate(e.target.value); setFilterPeriod('custom');}}
-                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
+                               onChange={e => { setCustomStartDate(e.target.value); if(e.target.value) setFilterPeriod('custom');}}
+                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark text-sm h-10"
                         />
                     </div>
                     <div>
-                        <label htmlFor="customEndDate" className="block text-sm font-medium text-text dark:text-text-dark_muted mb-1">Конец периода</label>
+                        <label htmlFor="customEndDate" className="block text-xs font-medium text-text-muted dark:text-text-dark_muted mb-1">Конец периода</label>
                         <input type="date" id="customEndDate" value={customEndDate}
-                               onChange={e => { setCustomEndDate(e.target.value); setFilterPeriod('custom');}}
-                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark"
+                               onChange={e => { setCustomEndDate(e.target.value); if(e.target.value) setFilterPeriod('custom');}}
+                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark text-sm h-10"
                                min={customStartDate || undefined}
                         />
                     </div>
                 </div>
                 {(filterPeriod === 'custom' && (!customStartDate || !customEndDate)) && (
-                    <p className="text-xs text-warning dark:text-warning-dark mt-2">
-                        {(!customStartDate && !customEndDate) ? "Для пользовательского периода выберите даты. Иначе используется период по умолчанию." :
-                            !customEndDate ? "Выберите конечную дату. Период будет до текущего дня." :
-                                !customStartDate ? "Выберите начальную дату. Период будет с начала года." : ""
-                        }
+                    <p className="text-xs text-amber-600 dark:text-amber-500 mt-2">
+                        Для пользовательского периода укажите начальную и конечную даты.
                     </p>
                 )}
             </section>
 
-            <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div className="p-5 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
                     <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Общий доход</h3>
-                    <p className="text-3xl font-semibold text-success dark:text-success-dark mt-1">{formatCurrency(statsData.totalIncome)}</p>
+                    <p className="text-2xl sm:text-3xl font-bold text-success dark:text-success-dark mt-1">{formatCurrencyForStat(statsData.totalIncome)}</p>
                 </div>
-                <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                <div className="p-5 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
                     <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Общий расход</h3>
-                    <p className="text-3xl font-semibold text-error dark:text-error-dark mt-1">{formatCurrency(statsData.totalExpense)}</p>
+                    <p className="text-2xl sm:text-3xl font-bold text-error dark:text-error-dark mt-1">{formatCurrencyForStat(statsData.totalExpense)}</p>
                 </div>
-                <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
+                <div className="p-5 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
                     <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Чистый результат</h3>
-                    <p className={`text-3xl font-semibold mt-1 ${statsData.netResult >= 0 ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'}`}>
-                        {formatCurrency(statsData.netResult)}
+                    <p className={`text-2xl sm:text-3xl font-bold mt-1 ${statsData.netResult >= 0 ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'}`}>
+                        {formatCurrencyForStat(statsData.netResult)}
                     </p>
                 </div>
             </section>
 
-            {noDataForPeriod && !isLoading ? (
-                <div className="p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center">
-                    <CalendarDaysIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+            {noDataForPeriod ? (
+                <div className="p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg text-center">
+                    <InformationCircleIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
                     <p className="text-lg font-medium text-text dark:text-text-dark">Нет данных для отображения</p>
                     <p className="text-sm text-text-muted dark:text-text-dark_muted">Попробуйте выбрать другой период или добавить транзакции.</p>
                 </div>
             ) : (
-                <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {statsData.expenseByCategory.length > 0 ? (
-                        <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
-                            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Структура расходов</h3>
-                            <ResponsiveContainer width="100%" height={300}>
-                                <PieChart>
-                                    <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name">
-                                        {statsData.expenseByCategory.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={tailwindToHex(entry.color || defaultCategoryStatsColor)} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip content={<CustomTooltipContent />} />
-                                    <Legend content={<renderCustomPieLegend />} />
-                                </PieChart>
-                            </ResponsiveContainer>
-                        </div>
-                    ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center"><DefaultCategoryIcon className="h-10 w-10 mb-2"/>Нет данных по расходам за период.</div>}
+                <>
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {statsData.expenseByCategory.length > 0 ? (
+                            <div className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                                <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Структура расходов</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <PieChart>
+                                        <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name">
+                                            {statsData.expenseByCategory.map((entry, index) => (
+                                                <Cell key={`cell-expense-${index}`} fill={tailwindToHex(entry.color)} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip content={<CustomTooltipContent type="pie" />} />
+                                        <Legend content={<renderCustomPieLegend />} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center min-h-[200px]"><CalendarDaysIcon className="h-10 w-10 mb-2"/>Нет данных по расходам за период.</div>}
 
-                    {statsData.incomeExpenseByDay.length > 0 ? (
-                        <div className="p-4 bg-surface dark:bg-surface-dark rounded-lg shadow-md">
-                            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Динамика по дням</h3>
+                        {statsData.incomeExpenseOverTime.length > 0 ? (
+                            <div className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                                <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Доходы и расходы</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <BarChart data={statsData.incomeExpenseOverTime} margin={{ top: 5, right: 5, left: -25, bottom: 5 }}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
+                                        <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                        <YAxis tickFormatter={(value) => `${Math.round(value / 1000)}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                        <Tooltip content={<CustomTooltipContent type="bar"/>} />
+                                        <Legend wrapperStyle={{ fontSize: '0.75rem', paddingTop: '10px' }}/>
+                                        <Bar dataKey="income" fill={tailwindToHex('bg-green-500')} name="Доходы" radius={[3, 3, 0, 0]} barSize={12} />
+                                        <Bar dataKey="expense" fill={tailwindToHex('bg-red-500')} name="Расходы" radius={[3, 3, 0, 0]} barSize={12} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center min-h-[200px]"><CalendarDaysIcon className="h-10 w-10 mb-2"/>Нет данных по дням за период.</div>}
+                    </section>
+                    {statsData.balanceOverTime.length > 1 && (
+                        <section className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Изменение баланса за период</h3>
                             <ResponsiveContainer width="100%" height={300}>
-                                <BarChart data={statsData.incomeExpenseByDay} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
+                                <LineChart data={statsData.balanceOverTime} margin={{ top: 5, right: 20, left: -15, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
                                     <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
-                                    <YAxis tickFormatter={(value) => `${value / 1000}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
-                                    <Tooltip content={<CustomTooltipContent />} />
-                                    <Legend wrapperStyle={{ fontSize: '0.8rem' }}/>
-                                    <Bar dataKey="income" fill={tailwindToHex('bg-green-500')} name="Доходы" radius={[4, 4, 0, 0]} barSize={15} />
-                                    <Bar dataKey="expense" fill={tailwindToHex('bg-red-500')} name="Расходы" radius={[4, 4, 0, 0]} barSize={15} />
-                                </BarChart>
+                                    <YAxis tickFormatter={(value) => `${Math.round(value / 1000)}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                    <Tooltip content={<CustomTooltipContent type="line"/>} />
+                                    <Legend wrapperStyle={{ fontSize: '0.75rem', paddingTop: '10px' }} />
+                                    <Line type="monotone" dataKey="balance" name="Баланс" stroke={tailwindToHex('bg-primary')} strokeWidth={2} dot={{ r: 3, fill: tailwindToHex('bg-primary') }} activeDot={{ r: 5, stroke: tailwindToHex('bg-primary-dark'), fill: tailwindToHex('bg-primary') }} />
+                                </LineChart>
                             </ResponsiveContainer>
-                        </div>
-                    ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-lg shadow-md text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center"><CalendarDaysIcon className="h-10 w-10 mb-2"/>Нет данных по дням за период.</div>}
-                </section>
+                        </section>
+                    )}
+                </>
             )}
         </div>
     );
@@ -1782,16 +2135,16 @@ import {
     ChartBarIcon,
     Cog6ToothIcon,
     HomeIcon,
-    CurrencyDollarIcon, // Лого
-    ArrowLeftOnRectangleIcon, // Выход
-    MoonIcon, SunIcon // Тема
+    // CurrencyDollarIcon, // Заменено на img
+    ArrowLeftOnRectangleIcon,
+    MoonIcon, SunIcon
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../context/AuthContext.jsx';
 
 const navigationLinks = [
     { name: 'Дашборд', href: '/dashboard', icon: HomeIcon },
     { name: 'Статистика', href: '/stats', icon: ChartBarIcon },
-    { name: 'Категории', href: '/settings', icon: Cog6ToothIcon }, // Изменил на "Категории" для ясности
+    { name: 'Категории', href: '/settings', icon: Cog6ToothIcon },
 ];
 
 const Sidebar = () => {
@@ -1799,7 +2152,6 @@ const Sidebar = () => {
     const [darkMode, setDarkMode] = useState(() => {
         const theme = localStorage.getItem('theme');
         if (theme) return theme === 'dark';
-        // Если нет сохраненной темы, используем системные предпочтения
         return window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
@@ -1816,10 +2168,10 @@ const Sidebar = () => {
     const toggleDarkMode = () => setDarkMode(!darkMode);
 
     return (
-        <div className="w-64 bg-surface dark:bg-surface-dark text-text dark:text-text-dark_muted flex flex-col fixed h-full shadow-lg border-r border-slate-200 dark:border-slate-700">
+        <div className="w-64 bg-surface dark:bg-surface-dark text-text dark:text-text-dark_muted flex flex-col fixed h-full shadow-lg border-r border-slate-200 dark:border-slate-700 z-30">
             {/* Logo */}
             <div className="h-20 flex items-center justify-center px-4 border-b border-slate-200 dark:border-slate-700">
-                <CurrencyDollarIcon className="h-8 w-8 text-primary dark:text-primary-dark mr-2" />
+                <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-8 w-8 mr-2" />
                 <span className="text-2xl font-semibold text-text dark:text-text-dark">CoinKeeper</span>
             </div>
 
@@ -1832,7 +2184,7 @@ const Sidebar = () => {
                         className={({ isActive }) =>
                             `group flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors
                          ${isActive
-                                ? 'sidebar-link-active' // Стили из index.css
+                                ? 'sidebar-link-active'
                                 : 'text-text-muted dark:text-text-dark_muted hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-text dark:hover:text-text-dark'
                             }`
                         }
@@ -1886,13 +2238,14 @@ export default Sidebar;
 import React, { useState, useEffect, useCallback } from 'react';
 import Button from '../ui/Button.jsx';
 import Input from '../ui/Input.jsx';
-import { fetchCategories, addCategory as apiAddCategory } from '../../api/index.js';
+import { fetchCategories, addCategory as apiAddCategory } from '../../api/index.js'; // addCategory все еще может быть полезно
 import {
     XMarkIcon, CurrencyDollarIcon, CalendarDaysIcon,
-    TrashIcon, PlusIcon
+    TrashIcon, PlusIcon, TagIcon
 } from '@heroicons/react/24/outline';
+import { CategoryIcon, defaultCategoryIconName } from '../ui/CategoryIcons.jsx'; // Импортируем для отображения
 
-const defaultNewCategoryColor = 'bg-slate-500'; // Цвет по умолчанию для быстро добавленной категории
+const defaultNewQuickCategoryColor = 'bg-slate-500'; // Цвет для быстро добавленной категории
 
 const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDelete }) => {
     const [type, setType] = useState('expense');
@@ -1903,15 +2256,16 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
     const [errors, setErrors] = useState({});
     const [allCategories, setAllCategories] = useState({ income: [], expense: [] });
     const [isLoadingCategories, setIsLoadingCategories] = useState(false);
-    const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
-    const [newCategoryName, setNewCategoryName] = useState('');
+
+    const [showNewCategoryInput, setShowNewCategoryInput] = useState(false); // Для "быстрого" добавления
+    const [newCategoryName, setNewCategoryName] = useState(''); // Для "быстрого" добавления
 
     const isEditing = !!transactionToEdit;
 
     const loadCategories = useCallback(async () => {
         setIsLoadingCategories(true);
         try {
-            const response = await fetchCategories(); // API теперь должен возвращать `color` для категорий
+            const response = await fetchCategories(); // API теперь возвращает `icon` и `color`
             setAllCategories(response.data || { income: [], expense: [] });
             setErrors(prev => ({ ...prev, categories: null }));
         } catch (error) {
@@ -1930,30 +2284,40 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                 setCategoryIdState(transactionToEdit.categoryId || '');
                 setDate(transactionToEdit.date ? new Date(transactionToEdit.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]);
                 setComment(transactionToEdit.comment || '');
-                setErrors({});
             } else {
                 setType('expense');
                 setAmount('');
                 setCategoryIdState('');
                 setDate(new Date().toISOString().split('T')[0]);
                 setComment('');
-                setErrors({});
             }
-            setShowNewCategoryInput(false);
-            setNewCategoryName('');
+            setErrors({});
+            setShowNewCategoryInput(false); // Сбрасываем при открытии
+            setNewCategoryName(''); // Сбрасываем при открытии
         }
     }, [isOpen, transactionToEdit, isEditing, loadCategories]);
 
+    useEffect(() => {
+        if (isOpen) {
+            setCategoryIdState('');
+            setShowNewCategoryInput(false);
+            setNewCategoryName('');
+        }
+    }, [type, isOpen]);
+
     const availableCategories = allCategories[type] || [];
-    const selectedCategoryFull = availableCategories.find(cat => cat.id === categoryId);
+    const selectedCategoryDetails = categoryId ? availableCategories.find(c => c.id === categoryId) : null;
 
     const validateForm = () => {
         const newErrors = {};
         if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
             newErrors.amount = 'Введите корректную сумму (больше 0).';
         }
-        if (!categoryId) {
+        if (!showNewCategoryInput && !categoryId) {
             newErrors.category = 'Выберите категорию.';
+        }
+        if (showNewCategoryInput && !newCategoryName.trim()) {
+            newErrors.newCategory = 'Название новой категории не может быть пустым.';
         }
         if (!date) {
             newErrors.date = 'Выберите дату.';
@@ -1962,53 +2326,58 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            const transactionData = {
-                ...(isEditing && { id: transactionToEdit.id }),
-                type,
-                amount: parseFloat(amount),
-                categoryId: categoryId,
-                date: new Date(date).toISOString(),
-                comment,
-            };
-            onSubmit(transactionData);
-        }
-    };
-
-    const handleAddNewCategoryLocal = async () => {
-        if (!newCategoryName.trim()) {
-            setErrors(prev => ({ ...prev, newCategory: "Название категории не может быть пустым." }));
+        if (!validateForm()) {
             return;
         }
-        try {
-            // API addCategory теперь должен принимать name, type, color
-            const response = await apiAddCategory({
-                type,
-                name: newCategoryName.trim(),
-                color: defaultNewCategoryColor
-            });
-            const newCat = response.data;
-            setAllCategories(prev => ({
-                ...prev,
-                [type]: [...(prev[type] || []), newCat]
-            }));
-            setCategoryIdState(newCat.id);
-            setNewCategoryName('');
-            setShowNewCategoryInput(false);
-            setErrors(prev => ({ ...prev, newCategory: null }));
-        } catch (error) {
-            console.error("Failed to add category:", error);
-            setErrors(prev => ({ ...prev, newCategory: error.response?.data?.message || "Ошибка добавления категории." }));
+
+        let finalCategoryId = categoryId;
+
+        if (showNewCategoryInput && newCategoryName.trim()) {
+            // "Быстрое" добавление категории
+            try {
+                const response = await apiAddCategory({
+                    type,
+                    name: newCategoryName.trim(),
+                    color: defaultNewQuickCategoryColor, // Используем цвет по умолчанию
+                    icon: defaultCategoryIconName     // Используем иконку по умолчанию
+                });
+                const newCat = response.data;
+                // Обновляем список категорий в состоянии модального окна
+                setAllCategories(prev => ({
+                    ...prev,
+                    [type]: [...(prev[type] || []), newCat].sort((a,b) => a.name.localeCompare(b.name))
+                }));
+                finalCategoryId = newCat.id;
+                setNewCategoryName('');
+                setShowNewCategoryInput(false);
+                setErrors(prev => ({ ...prev, newCategory: null }));
+            } catch (error) {
+                console.error("Failed to quick add category:", error);
+                setErrors(prev => ({ ...prev, newCategory: error.response?.data?.message || "Ошибка добавления категории." }));
+                return;
+            }
         }
+
+        if (!finalCategoryId) {
+            setErrors(prev => ({...prev, category: "Категория обязательна для транзакции."}));
+            return;
+        }
+
+        const transactionData = {
+            type,
+            amount: parseFloat(amount),
+            categoryId: finalCategoryId,
+            date: new Date(date).toISOString(),
+            comment,
+        };
+        onSubmit(transactionData); // Эта функция (из DashboardPage) обработает создание/обновление
     };
 
     const handleDeleteLocal = () => {
         if (isEditing && onDelete) {
-            if (window.confirm('Вы уверены, что хотите удалить эту транзакцию?')) {
-                onDelete(transactionToEdit.id);
-            }
+            onDelete(transactionToEdit.id);
         }
     };
 
@@ -2017,13 +2386,13 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
             <div className="fixed inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
-            <div className="relative bg-surface dark:bg-surface-dark p-6 md:p-8 rounded-lg shadow-xl w-full max-w-lg m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in">
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-semibold text-text dark:text-text-dark">
+            <div className="relative bg-surface dark:bg-surface-dark p-6 md:p-8 rounded-xl shadow-xl w-full max-w-lg m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in">
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 className="text-xl font-semibold text-text dark:text-text-dark">
                         {isEditing ? 'Редактировать транзакцию' : 'Новая транзакция'}
                     </h2>
                     <button onClick={onClose} className="text-text-muted dark:text-text-dark_muted hover:text-text dark:hover:text-text-dark transition-colors" aria-label="Закрыть">
-                        <XMarkIcon className="h-7 w-7" />
+                        <XMarkIcon className="h-6 w-6" />
                     </button>
                 </div>
 
@@ -2033,20 +2402,20 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                         <div className="flex rounded-md shadow-sm">
                             <button
                                 type="button"
-                                onClick={() => { setType('expense'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
-                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-l-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
+                                onClick={() => setType('expense')}
+                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-l-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-surface-dark border border-r-0
                                   ${type === 'expense'
-                                    ? 'bg-error dark:bg-error-dark text-white focus:ring-error/70 dark:focus:ring-error-dark/70'
-                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
+                                    ? 'bg-red-500/90 hover:bg-red-600 text-white focus:ring-red-400 border-red-500/90'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400 border-slate-300 dark:border-slate-600'
                                 }`}
                             >Расход</button>
                             <button
                                 type="button"
-                                onClick={() => { setType('income'); setCategoryIdState(''); setShowNewCategoryInput(false); }}
-                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-surface-dark
+                                onClick={() => setType('income')}
+                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-surface-dark border
                                   ${type === 'income'
-                                    ? 'bg-success dark:bg-success-dark text-white focus:ring-success/70 dark:focus:ring-success-dark/70'
-                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400'
+                                    ? 'bg-green-500/90 hover:bg-green-600 text-white focus:ring-green-400 border-green-500/90'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400 border-slate-300 dark:border-slate-600'
                                 }`}
                             >Доход</button>
                         </div>
@@ -2057,49 +2426,61 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                         onChange={(e) => setAmount(e.target.value)} error={errors.amount}
                         icon={<CurrencyDollarIcon />}
                         inputClassName="text-lg" inputMode="decimal" step="0.01"
+                        wrapperClassName="mb-0"
                     />
 
                     <div>
                         <label htmlFor="category" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Категория</label>
-                        {isLoadingCategories && <p className="text-sm text-text-muted dark:text-text-dark_muted">Загрузка категорий...</p>}
-                        {errors.categories && !isLoadingCategories && <p className="text-xs text-error dark:text-error-dark mb-2">{errors.categories}</p>}
+                        {isLoadingCategories && <p className="text-sm text-text-muted dark:text-text-dark_muted py-2">Загрузка категорий...</p>}
+                        {errors.categories && !isLoadingCategories && <p className="text-xs text-error dark:text-error-dark mb-2 py-2">{errors.categories}</p>}
 
-                        {!showNewCategoryInput ? (
-                            <div className="flex items-center space-x-2">
+                        {!showNewCategoryInput && !isLoadingCategories && !errors.categories && (
+                            <div className="flex items-stretch space-x-2">
                                 <div className="relative flex-grow">
-                                    {selectedCategoryFull?.color && (
-                                        <span className={`absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full ${selectedCategoryFull.color} border border-black/20 dark:border-white/20`}></span>
-                                    )}
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none">
+                                        {selectedCategoryDetails ? (
+                                            <div className={`p-1 rounded-full ${selectedCategoryDetails.color}`}>
+                                                <CategoryIcon
+                                                    iconName={selectedCategoryDetails.icon || defaultCategoryIconName}
+                                                    className="w-3.5 h-3.5 text-white"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <TagIcon className="w-4 h-4 text-text-muted dark:text-text-dark_muted" />
+                                        )}
+                                    </div>
                                     <select
                                         id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
-                                        className={`block w-full p-2.5 text-sm rounded-lg border ${selectedCategoryFull?.color ? 'pl-8' : ''} ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
-                                        disabled={isLoadingCategories || (!isLoadingCategories && availableCategories.length === 0 && !errors.categories)}
+                                        className={`block w-full p-2.5 pl-10 text-sm rounded-lg border ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
+                                        disabled={availableCategories.length === 0}
                                     >
                                         <option value="">
-                                            {isLoadingCategories ? 'Загрузка...' :
-                                                errors.categories ? 'Ошибка загрузки категорий' :
-                                                    availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода':'расхода'}`
-                                                        : 'Выберите категорию'}
+                                            {availableCategories.length === 0 ? `Нет категорий ${type === 'income' ? 'дохода' : 'расхода'}` : 'Выберите категорию'}
                                         </option>
-                                        {availableCategories.map(cat => (<option key={cat.id} value={cat.id}>{cat.name}</option>))}
+                                        {availableCategories.map(cat => (
+                                            <option key={cat.id} value={cat.id}>
+                                                {cat.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
-                                <Button type="button" onClick={() => setShowNewCategoryInput(true)} variant="secondary" className="p-2.5 flex-shrink-0" title="Добавить новую категорию">
+                                <Button type="button" onClick={() => setShowNewCategoryInput(true)} variant="secondary" className="p-2.5 flex-shrink-0 h-full" title="Добавить новую категорию">
                                     <PlusIcon className="h-5 w-5"/>
                                 </Button>
                             </div>
-                        ) : (
-                            <div className="p-3 border border-slate-300 dark:border-slate-600 rounded-md space-y-3">
+                        )}
+                        {showNewCategoryInput && (
+                            <div className="p-3 border border-dashed border-slate-400 dark:border-slate-500 rounded-md space-y-3 bg-slate-50 dark:bg-slate-700/30">
                                 <Input
-                                    id="newCategoryName" label="Название новой категории" type="text" placeholder="Например, 'Такси'"
+                                    id="newCategoryName" label="Название новой категории (быстрое добавление)" type="text" placeholder="Например, 'Такси'"
                                     value={newCategoryName} onChange={(e) => setNewCategoryName(e.target.value)}
-                                    error={errors.newCategory} wrapperClassName="mb-2"
+                                    error={errors.newCategory} wrapperClassName="mb-0" labelClassName='text-xs'
                                 />
                                 <div className="flex space-x-2">
-                                    <Button type="button" variant="success" onClick={handleAddNewCategoryLocal} className="text-sm py-1.5 px-3">Сохранить</Button>
+                                    {/* Кнопка "Сохранить" для быстрой категории теперь не нужна, т.к. сабмит формы это сделает */}
                                     <Button type="button" variant="secondary" onClick={() => {setShowNewCategoryInput(false); setNewCategoryName(''); setErrors(prev => ({...prev, newCategory: null}))}} className="text-sm py-1.5 px-3">Отмена</Button>
                                 </div>
-                                <p className="text-xs text-text-muted dark:text-text-dark_muted">Цвет для этой категории можно будет настроить позже на странице "Управление категориями".</p>
+                                <p className="text-xs text-text-muted dark:text-text-dark_muted">Категория будет создана с цветом и иконкой по умолчанию. Их можно будет изменить на странице "Управление Категориями".</p>
                             </div>
                         )}
                         {errors.category && !showNewCategoryInput && <p className="mt-1 text-xs text-error dark:text-error-dark">{errors.category}</p>}
@@ -2109,26 +2490,27 @@ const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDele
                         id="date" label="Дата" type="date" value={date}
                         onChange={(e) => setDate(e.target.value)} error={errors.date}
                         icon={<CalendarDaysIcon />}
+                        wrapperClassName="mb-0"
                     />
 
                     <div>
                         <label htmlFor="comment" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Комментарий (необязательно)</label>
-                        <textarea id="comment" rows="3" placeholder="Детали транзакции..." value={comment}
+                        <textarea id="comment" rows="2" placeholder="Детали транзакции..." value={comment}
                                   onChange={(e) => setComment(e.target.value)}
                                   className="block w-full p-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted"
                         ></textarea>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center pt-3 gap-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center pt-4 gap-3 border-t border-slate-200 dark:border-slate-700">
                         {isEditing && onDelete && (
-                            <Button type="button" variant="danger" onClick={handleDeleteLocal} className="w-full sm:w-auto sm:mr-auto" leftIcon={<TrashIcon className="h-5 w-5"/>}>
+                            <Button type="button" variant="danger" onClick={handleDeleteLocal} className="w-full sm:w-auto sm:mr-auto order-last sm:order-first" leftIcon={<TrashIcon className="h-4 w-4"/>}>
                                 Удалить
                             </Button>
                         )}
-                        <div className={`flex flex-1 space-x-3 ${!isEditing ? 'sm:justify-end' : ''}`}>
+                        <div className={`flex flex-1 space-x-3 ${!isEditing || !onDelete ? 'sm:ml-auto' : ''}`}> {/* Условие для ml-auto */}
                             <Button type="button" variant="secondary" onClick={onClose} className="flex-1 sm:flex-initial">Отмена</Button>
                             <Button type="submit" variant="primary" className="flex-1 sm:flex-initial">
-                                {isEditing ? 'Сохранить изменения' : 'Добавить транзакцию'}
+                                {isEditing ? 'Сохранить' : 'Добавить'}
                             </Button>
                         </div>
                     </div>
@@ -2193,6 +2575,91 @@ const Button = ({
 export default Button;
 
 ###############################################################################
+# FILE: src\components\ui\CategoryIcons.jsx
+###############################################################################
+
+// frontend/src/components/ui/CategoryIcons.jsx
+import React from 'react';
+import {
+    ShoppingCartIcon, // Продукты
+    BuildingLibraryIcon, // Зарплата (или BriefcaseIcon)
+    TruckIcon, // Транспорт
+    TicketIcon, // Развлечения (или FilmIcon)
+    HomeModernIcon, // Коммунальные платежи (или BuildingOfficeIcon)
+    AcademicCapIcon, // Образование
+    GiftIcon, // Подарки
+    HeartIcon, // Здоровье
+    CurrencyDollarIcon, // Инвестиции, Общее
+    SparklesIcon, // Хобби
+    WrenchScrewdriverIcon, // Ремонт
+    GlobeAltIcon, // Путешествия
+    PhoneIcon, // Связь
+    ComputerDesktopIcon, // Фриланс, Техника
+    BanknotesIcon, // Сбережения
+    QuestionMarkCircleIcon, // Другое (Placeholder)
+    BriefcaseIcon, // Работа
+    ReceiptPercentIcon, // Налоги, Скидки
+    CreditCardIcon, // Кредиты, Карты
+    ScaleIcon, // Законы, Штрафы
+    UserGroupIcon, // Семья
+    // Добавьте еще по необходимости
+} from '@heroicons/react/24/outline';
+
+export const iconMap = {
+    ShoppingCartIcon,
+    BuildingLibraryIcon,
+    TruckIcon,
+    TicketIcon,
+    HomeModernIcon,
+    AcademicCapIcon,
+    GiftIcon,
+    HeartIcon,
+    CurrencyDollarIcon,
+    SparklesIcon,
+    WrenchScrewdriverIcon,
+    GlobeAltIcon,
+    PhoneIcon,
+    ComputerDesktopIcon,
+    BanknotesIcon,
+    QuestionMarkCircleIcon,
+    BriefcaseIcon,
+    ReceiptPercentIcon,
+    CreditCardIcon,
+    ScaleIcon,
+    UserGroupIcon,
+};
+
+export const defaultCategoryIconName = 'QuestionMarkCircleIcon'; // Иконка по умолчанию
+
+// Компонент для рендеринга иконки по имени
+export const CategoryIcon = ({ iconName, className = "h-5 w-5", ...props }) => {
+    const IconComponent = iconMap[iconName] || iconMap[defaultCategoryIconName];
+    return <IconComponent className={className} {...props} />;
+};
+
+// Список доступных иконок для выбора
+export const availableIconsForPicker = Object.keys(iconMap).map(name => ({
+    name,
+    Component: iconMap[name]
+}));
+
+// Цветовая палитра для выбора (соответствует вашим скриншотам, можно настроить)
+export const availableColorsForPicker = [
+    // Яркие и пастельные цвета
+    'bg-red-400', 'bg-orange-400', 'bg-amber-400', 'bg-yellow-400', 'bg-lime-400',
+    'bg-green-400', 'bg-emerald-400', 'bg-teal-400', 'bg-cyan-400', 'bg-sky-400',
+    'bg-blue-400', 'bg-indigo-400', 'bg-violet-400', 'bg-purple-400', 'bg-fuchsia-400',
+    'bg-pink-400', 'bg-rose-400',
+    // Более темные/насыщенные
+    'bg-red-600', 'bg-orange-600', 'bg-green-600', 'bg-blue-600', 'bg-purple-600',
+    // Нейтральные
+    'bg-slate-500', 'bg-gray-500',
+];
+// Эти цвета уже есть в вашем `SettingsPage.jsx`, можно их оттуда импортировать или оставить здесь
+// Это просто для примера, чтобы показать откуда берутся `availableColorsForPicker`
+// Если у вас `availableColors` в `SettingsPage.jsx`, то просто используйте его.
+
+###############################################################################
 # FILE: src\components\ui\Input.jsx
 ###############################################################################
 
@@ -2204,21 +2671,19 @@ const Input = ({
                    id,
                    icon,
                    error,
-                   className = '', // Для <input> элемента
-                   wrapperClassName = '', // Для div-обертки
-                   inputClassName = '', // Дополнительные классы для <input>, если className уже используется
-                   themeVariant = 'default', // 'default' или 'auth'
+                   className = '',
+                   wrapperClassName = '',
+                   inputClassName = '',
+                   labelClassName = '', // <-- Добавлено
+                   themeVariant = 'default',
                    ...props
                }) => {
     const baseInputStyle = "block w-full p-2.5 text-sm rounded-lg border";
-
     let currentInputStyle = `${baseInputStyle} `;
 
     if (themeVariant === 'auth') {
-        // Стили для полей на формах авторизации
         currentInputStyle += "bg-authInputBg border-authInputBorder placeholder-authPlaceholder text-slate-200 focus:ring-primary-dark focus:border-primary-dark";
     } else {
-        // Стили для обычной темы
         currentInputStyle += "bg-surface border-slate-300 text-text placeholder-slate-400 focus:ring-primary focus:border-primary dark:bg-surface-dark dark:border-slate-600 dark:text-text-dark dark:placeholder-slate-500 dark:focus:ring-primary-dark dark:focus:border-primary-dark";
     }
 
@@ -2229,13 +2694,15 @@ const Input = ({
         : 'focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark';
 
     const errorBorderStyle = error ? 'border-error dark:border-error-dark' : (themeVariant === 'auth' ? 'border-authInputBorder' : 'border-slate-300 dark:border-slate-600');
-
     const ringStyle = error ? errorRingStyle : defaultRingStyle;
-
 
     return (
         <div className={`mb-4 ${wrapperClassName}`}>
-            {label && <label htmlFor={id} className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">{label}</label>}
+            {label && (
+                <label htmlFor={id} className={`block mb-2 text-sm font-medium ${labelClassName || 'text-text dark:text-text-dark_muted'}`}>
+                    {label}
+                </label>
+            )}
             <div className="relative">
                 {icon && (
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -2264,16 +2731,22 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Button from '../../components/ui/Button.jsx';
 import Input from '../../components/ui/Input.jsx';
-import { EnvelopeIcon, LockClosedIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, LockClosedIcon, BuildingStorefrontIcon } from '@heroicons/react/24/outline'; // Changed icon
 import { useAuth } from '../../context/AuthContext.jsx';
+
+// Предполагается, что auth-bg.jpg находится в public или src/assets
+// Если в src/assets, то импортировать: import AuthBackground from '../../assets/auth-bg.jpg';
+// const backgroundStyle = { backgroundImage: `url(${AuthBackground})` };
+// Пока используем градиент, если изображение не настроено.
+const backgroundStyle = { backgroundImage: `url('/auth-bg.jpg')` }; // Если auth-bg.jpg в /public
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [fieldErrors, setFieldErrors] = useState({}); // Для ошибок полей
-    const [formError, setFormError] = useState(''); // Для общих ошибок формы от сервера
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [formError, setFormError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate(); // navigate теперь внутри useAuth().login
     const location = useLocation();
     const { login } = useAuth();
 
@@ -2291,7 +2764,7 @@ const LoginPage = () => {
         setFormError('');
         if (validateFields()) {
             setIsLoading(true);
-            const result = await login(email, password); // login уже делает navigate
+            const result = await login(email, password);
             setIsLoading(false);
             if (!result.success) {
                 setFormError(result.message || "Ошибка входа. Пожалуйста, проверьте ваши данные.");
@@ -2301,43 +2774,49 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-background-dark p-4">
-            <div className="bg-authFormBg backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md">
+        <div
+            className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+            style={backgroundStyle} // Применяем фон
+        >
+            <div className="bg-slate-800/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md border border-slate-700">
                 <div className="flex flex-col items-center mb-8">
-                    <CurrencyDollarIcon className="h-16 w-16 text-primary-dark mb-3" />
+                    {/* <BuildingStorefrontIcon className="h-16 w-16 text-primary dark:text-primary-dark mb-3" /> */}
+                    <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-16 w-16 mb-3" />
                     <h1 className="text-3xl font-bold text-white">CoinKeeper</h1>
-                    <p className="text-text-dark_muted">Войдите, чтобы управлять финансами</p>
+                    <p className="text-slate-300 dark:text-slate-400">Войдите, чтобы управлять финансами</p>
                 </div>
 
                 {formError && (
-                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 rounded-md text-sm text-center">
+                    <div className="mb-4 p-3 bg-red-500/30 border border-red-600 text-red-200 rounded-md text-sm text-center">
                         {formError}
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
                     <Input
                         id="email" type="email" label="Email" placeholder="your@email.com"
                         value={email} onChange={(e) => setEmail(e.target.value)}
                         error={fieldErrors.email} icon={<EnvelopeIcon />}
-                        themeVariant="auth" // Используем специальную тему для инпутов авторизации
+                        themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
                     />
                     <Input
                         id="password" type="password" label="Пароль" placeholder="••••••••"
                         value={password} onChange={(e) => setPassword(e.target.value)}
                         error={fieldErrors.password} icon={<LockClosedIcon />}
                         themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
                     />
-                    <Button type="submit" fullWidth className="mt-8 py-3 text-base" disabled={isLoading}>
+                    <Button type="submit" fullWidth className="mt-8 py-3 text-base !bg-primary hover:!bg-primary-hover dark:!bg-primary-dark dark:hover:!bg-primary-dark_hover" disabled={isLoading}>
                         {isLoading ? 'Вход...' : 'Войти'}
                     </Button>
                 </form>
-                <p className="text-sm text-center mt-8 text-slate-400">
+                <p className="text-sm text-center mt-8 text-slate-400 dark:text-slate-500">
                     Нет аккаунта?{' '}
                     <Link
                         to="/register"
-                        state={{ from: location.state?.from }} // Передаем from для редиректа после регистрации и логина
-                        className="font-medium text-primary-dark hover:underline"
+                        state={{ from: location.state?.from }}
+                        className="font-medium text-primary-light dark:text-primary-dark hover:underline"
                     >
                         Зарегистрироваться
                     </Link>
@@ -2357,8 +2836,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Button from '../../components/ui/Button.jsx';
 import Input from '../../components/ui/Input.jsx';
-import { EnvelopeIcon, LockClosedIcon, UserPlusIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, LockClosedIcon, UserPlusIcon, BuildingStorefrontIcon } from '@heroicons/react/24/outline'; // Changed icon
 import { useAuth } from '../../context/AuthContext.jsx';
+
+// const backgroundStyle = { backgroundImage: `url('/path/to/your/auth-bg.jpg')` };
+// Пока используем градиент, если изображение не настроено.
+const backgroundStyle = { backgroundImage: `url('/auth-bg.jpg')` }; // Если auth-bg.jpg в /public
+
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -2393,11 +2877,10 @@ const RegisterPage = () => {
         setIsSuccess(false);
         if (validateFields()) {
             setIsLoading(true);
-            const result = await register(email, password);
+            const result = await register(email, password); // register из AuthContext
             setIsLoading(false);
             if (result.success) {
                 setIsSuccess(true);
-                // Не перенаправляем сразу, показываем сообщение об успехе
             } else {
                 setFormError(result.message || "Ошибка регистрации. Пожалуйста, попробуйте еще раз.");
             }
@@ -2406,15 +2889,18 @@ const RegisterPage = () => {
 
     if (isSuccess) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-background-dark p-4">
-                <div className="bg-authFormBg backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md text-center">
+            <div
+                className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+                style={backgroundStyle}
+            >
+                <div className="bg-slate-800/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md text-center border border-slate-700">
                     <UserPlusIcon className="h-16 w-16 text-green-400 mx-auto mb-4" />
-                    <h2 className="text-2xl font-semibold text-green-400 mb-4">Регистрация успешна!</h2>
-                    <p className="text-text-dark_muted mb-6">Теперь вы можете войти, используя указанные данные.</p>
+                    <h2 className="text-2xl font-semibold text-green-300 mb-4">Регистрация успешна!</h2>
+                    <p className="text-slate-300 dark:text-slate-400 mb-6">Теперь вы можете войти, используя указанные данные.</p>
                     <Button
-                        onClick={() => navigate('/login', { state: { from: location.state?.from } })} // Передаем from
+                        onClick={() => navigate('/login', { state: { from: location.state?.from } })}
                         fullWidth
-                        className="py-3 text-base"
+                        className="py-3 text-base !bg-primary hover:!bg-primary-hover dark:!bg-primary-dark dark:hover:!bg-primary-dark_hover"
                     >
                         Перейти ко входу
                     </Button>
@@ -2424,49 +2910,56 @@ const RegisterPage = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-background-dark p-4">
-            <div className="bg-authFormBg backdrop-blur-md p-8 rounded-xl shadow-2xl w-full max-w-md">
+        <div
+            className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+            style={backgroundStyle}
+        >
+            <div className="bg-slate-800/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md border border-slate-700">
                 <div className="flex flex-col items-center mb-8">
-                    <CurrencyDollarIcon className="h-16 w-16 text-primary-dark mb-3" />
+                    {/* <BuildingStorefrontIcon className="h-16 w-16 text-primary dark:text-primary-dark mb-3" /> */}
+                    <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-16 w-16 mb-3" />
                     <h1 className="text-3xl font-bold text-white">CoinKeeper</h1>
-                    <p className="text-text-dark_muted">Создайте аккаунт для начала работы</p>
+                    <p className="text-slate-300 dark:text-slate-400">Создайте аккаунт для начала работы</p>
                 </div>
 
                 {formError && (
-                    <div className="mb-4 p-3 bg-red-500/20 border border-red-500 text-red-300 rounded-md text-sm text-center">
+                    <div className="mb-4 p-3 bg-red-500/30 border border-red-600 text-red-200 rounded-md text-sm text-center">
                         {formError}
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
                     <Input
                         id="email" type="email" label="Email" placeholder="your@email.com"
                         value={email} onChange={(e) => setEmail(e.target.value)}
                         error={fieldErrors.email} icon={<EnvelopeIcon />}
                         themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
                     />
                     <Input
                         id="password" type="password" label="Пароль (мин. 6 символов)" placeholder="••••••••"
                         value={password} onChange={(e) => setPassword(e.target.value)}
                         error={fieldErrors.password} icon={<LockClosedIcon />}
                         themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
                     />
                     <Input
                         id="confirmPassword" type="password" label="Подтвердите пароль" placeholder="••••••••"
                         value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                         error={fieldErrors.confirmPassword} icon={<LockClosedIcon />}
                         themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
                     />
-                    <Button type="submit" fullWidth className="mt-8 py-3 text-base" disabled={isLoading}>
+                    <Button type="submit" fullWidth className="mt-8 py-3 text-base !bg-primary hover:!bg-primary-hover dark:!bg-primary-dark dark:hover:!bg-primary-dark_hover" disabled={isLoading}>
                         {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
                     </Button>
                 </form>
-                <p className="text-sm text-center mt-8 text-slate-400">
+                <p className="text-sm text-center mt-8 text-slate-400 dark:text-slate-500">
                     Уже есть аккаунт?{' '}
                     <Link
                         to="/login"
-                        state={{ from: location.state?.from }} // Передаем from
-                        className="font-medium text-primary-dark hover:underline"
+                        state={{ from: location.state?.from }}
+                        className="font-medium text-primary-light dark:text-primary-dark hover:underline"
                     >
                         Войти
                     </Link>
@@ -2479,7 +2972,7 @@ export default RegisterPage;
 
 ###############################################################################
 # SUMMARY
-# Total files: 36
-# Total size: 111.83 KB
-# Processing time: 0.16 seconds
+# Total files: 42
+# Total size: 132.47 KB
+# Processing time: 0.21 seconds
 ###############################################################################

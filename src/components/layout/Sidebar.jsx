@@ -5,16 +5,16 @@ import {
     ChartBarIcon,
     Cog6ToothIcon,
     HomeIcon,
-    CurrencyDollarIcon, // Лого
-    ArrowLeftOnRectangleIcon, // Выход
-    MoonIcon, SunIcon // Тема
+    // CurrencyDollarIcon, // Заменено на img
+    ArrowLeftOnRectangleIcon,
+    MoonIcon, SunIcon
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../context/AuthContext.jsx';
 
 const navigationLinks = [
     { name: 'Дашборд', href: '/dashboard', icon: HomeIcon },
     { name: 'Статистика', href: '/stats', icon: ChartBarIcon },
-    { name: 'Категории', href: '/settings', icon: Cog6ToothIcon }, // Изменил на "Категории" для ясности
+    { name: 'Категории', href: '/settings', icon: Cog6ToothIcon },
 ];
 
 const Sidebar = () => {
@@ -22,7 +22,6 @@ const Sidebar = () => {
     const [darkMode, setDarkMode] = useState(() => {
         const theme = localStorage.getItem('theme');
         if (theme) return theme === 'dark';
-        // Если нет сохраненной темы, используем системные предпочтения
         return window.matchMedia('(prefers-color-scheme: dark)').matches;
     });
 
@@ -39,10 +38,10 @@ const Sidebar = () => {
     const toggleDarkMode = () => setDarkMode(!darkMode);
 
     return (
-        <div className="w-64 bg-surface dark:bg-surface-dark text-text dark:text-text-dark_muted flex flex-col fixed h-full shadow-lg border-r border-slate-200 dark:border-slate-700">
+        <div className="w-64 bg-surface dark:bg-surface-dark text-text dark:text-text-dark_muted flex flex-col fixed h-full shadow-lg border-r border-slate-200 dark:border-slate-700 z-30">
             {/* Logo */}
             <div className="h-20 flex items-center justify-center px-4 border-b border-slate-200 dark:border-slate-700">
-                <CurrencyDollarIcon className="h-8 w-8 text-primary dark:text-primary-dark mr-2" />
+                <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-8 w-8 mr-2" />
                 <span className="text-2xl font-semibold text-text dark:text-text-dark">CoinKeeper</span>
             </div>
 
@@ -55,7 +54,7 @@ const Sidebar = () => {
                         className={({ isActive }) =>
                             `group flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors
                          ${isActive
-                                ? 'sidebar-link-active' // Стили из index.css
+                                ? 'sidebar-link-active'
                                 : 'text-text-muted dark:text-text-dark_muted hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-text dark:hover:text-text-dark'
                             }`
                         }
