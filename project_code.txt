@@ -681,7 +681,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ]
 
 ###############################################################################
-# FILE: server\utils\dataUtils.cjs.js
+# FILE: server\utils\dataUtils.cjs
 ###############################################################################
 
 // server/utils/dataUtils.cjs
