@@ -1,0 +1,18 @@
+{
+  "income": [
+    {
+      "id": "cat_inc_f3d0f1",
+      "name": "чай"
+    },
+    {
+      "id": "cat_inc_b86d47",
+      "name": "ыуау"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_9fca75",
+      "name": "ФЫФЫ"
+    }
+  ]
+}

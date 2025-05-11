@@ -1,0 +1,10 @@
+[
+  {
+    "id": "txn_c64cfd3e",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_bb9b29",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "txn_b6907e49",
+    "type": "income",
+    "amount": 1000,
+    "categoryId": "cat_inc_fcda5d",
+    "date": "2025-05-12T00:00:00.000Z",
+    "comment": "Мтеро "
+  },
+  {
+    "id": "txn_faf88dba",
+    "type": "expense",
+    "amount": 60,
+    "categoryId": "cat_exp_8ebb62",
+    "date": "2025-05-13T00:00:00.000Z",
+    "comment": "Делюкс"
+  },
+  {
+    "id": "txn_aa2c429b",
+    "type": "expense",
+    "amount": 100,
+    "categoryId": "cat_exp_e3a111",
+    "date": "2025-05-12T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_1f0ad72e",
+    "type": "income",
+    "amount": 1000,
+    "categoryId": "cat_inc_f3d0f1",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_3b05ead6",
+    "type": "expense",
+    "amount": 100,
+    "categoryId": "cat_exp_305d8b",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_1f61ecda",
+    "type": "expense",
+    "amount": 50000,
+    "categoryId": "cat_exp_8ebb62",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  }
+]

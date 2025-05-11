@@ -1,0 +1,18 @@
+[
+  {
+    "id": "txn_4f03d616",
+    "type": "income",
+    "amount": 1203203,
+    "categoryId": "cat_inc_e512bf",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_0f1823b3",
+    "type": "expense",
+    "amount": 565465,
+    "categoryId": "cat_exp_a98efb",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  }
+]
