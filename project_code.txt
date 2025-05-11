@@ -1,0 +1,3475 @@
+﻿# PROJECT CODE COMPILATION
+# Generated on 05/12/2025 00:05:07
+# Source: C:\Users\Кажы\OneDrive - International Information Technology University\Рабочий стол\University\front\CoinKeeper-master
+
+
+###############################################################################
+# FILE: eslint.config.js
+###############################################################################
+
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true, node: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'], // Убрал 'server' отсюда
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+  settings: { react: { version: '18.2' } },
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    'react/prop-types': 'off',
+    'no-unused-vars': ['warn', {
+      'vars': 'all',
+      'args': 'after-used',
+      'ignoreRestSiblings': false,
+      'varsIgnorePattern': '^_',
+      'argsIgnorePattern': '^_',
+    }],
+  },
+  overrides: [
+    {
+      files: ['server/**/*.cjs'], // Указываем .cjs для серверных файлов
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'commonjs' },
+      rules: {
+        // Здесь можно добавить специфичные правила для Node.js или отключить браузерные
+        // no-undef для require, module, __dirname, process уже должен обрабатываться env: { node: true }
+        // Если все еще есть проблемы, можно явно добавить:
+        // 'no-undef': 'off',
+      }
+    },
+    {
+      files: ['*.config.js', '*.cjs'], // Для vite.config.js, postcss.config.js, tailwind.config.js, eslintrc.cjs
+      env: { node: true, es2020: true },
+      // sourceType для .config.js (ESM) и .cjs (CommonJS) будет разный.
+      // ESLint должен сам определить по расширению или настройкам package.json
+      // Для явности можно разделить:
+    },
+    {
+      files: ['*.config.js'], // vite.config.js, tailwind.config.js, postcss.config.js (если они ESM)
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'module' },
+    },
+    {
+      files: ['*.cjs'], // eslintrc.cjs, серверные .cjs
+      env: { node: true, es2020: true },
+      parserOptions: { sourceType: 'commonjs' },
+    }
+  ]
+};
+
+###############################################################################
+# FILE: get_project_code.bat
+###############################################################################
+
+@echo off
+echo Running code collection script...
+powershell.exe -ExecutionPolicy Bypass -File "%~dp0CollectCode.ps1"
+
+###############################################################################
+# FILE: index.html
+###############################################################################
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/free-icon-coin-4153647.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoinKeeper</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+###############################################################################
+# FILE: package.json
+###############################################################################
+
+{
+  "name": "coin-keeper",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "server": "node server/server.cjs",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.3",
+    "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-input-color": "^4.0.1",
+    "react-router-dom": "^6.22.3",
+    "recharts": "^2.12.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.0"
+  }
+}
+
+
+###############################################################################
+# FILE: postcss.config.js
+###############################################################################
+
+// postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+
+###############################################################################
+# FILE: README.md
+###############################################################################
+
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+###############################################################################
+# FILE: tailwind.config.js
+###############################################################################
+
+import formsPlugin from '@tailwindcss/forms';
+import defaultTheme from 'tailwindcss/defaultTheme'; // Для fontFamily
+import colors from 'tailwindcss/colors'; // Для цветов
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,jsx}",
+  ],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        background: {
+          DEFAULT: colors.slate[100],
+          dark: '#1A1B2F',
+        },
+        surface: {
+          DEFAULT: colors.white,
+          dark: colors.slate[800],
+        },
+        primary: {
+          DEFAULT: '#037DD6',
+          hover: '#006BC7',
+          dark: '#2F72FA',
+          dark_hover: '#508BFF',
+        },
+        secondary: {
+          DEFAULT: colors.slate[600],
+          dark: colors.slate[400],
+        },
+        accent: {
+          DEFAULT: colors.amber[500],
+          dark: colors.amber[400],
+        },
+        text: {
+          DEFAULT: colors.slate[800],
+          dark: colors.slate[200],
+          muted: colors.slate[500],
+          dark_muted: colors.slate[400],
+        },
+        success: {
+          DEFAULT: colors.green[600],
+          dark: colors.green[500],
+        },
+        error: {
+          DEFAULT: colors.red[600],
+          dark: colors.red[500],
+        },
+        warning: {
+          DEFAULT: colors.amber[500],
+          dark: colors.amber[400],
+        },
+        // Сохраненные для совместимости с формами логина/регистрации, если не успели их полностью переделать
+        authFormBg: `rgba(30, 41, 59, 0.85)`,
+        authInputBg: colors.slate[700],
+        authInputBorder: colors.slate[600],
+        authPlaceholder: colors.slate[400],
+      },
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+      keyframes: {
+        'modal-scale-in': {
+          '0%': { opacity: '0', transform: 'scale(0.90) translateY(-20px)' },
+          '100%': { opacity: '1', transform: 'scale(1) translateY(0px)' },
+        }
+      },
+      animation: {
+        'modal-scale-in': 'modal-scale-in 0.3s ease-out forwards',
+      }
+    },
+  },
+  plugins: [
+    formsPlugin,
+  ],
+};
+
+###############################################################################
+# FILE: vite.config.js
+###############################################################################
+
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+});
+
+###############################################################################
+# FILE: src\App.jsx
+###############################################################################
+
+import React from 'react';
+import AppRouter from './routes/AppRouter.jsx';
+
+function App() {
+    return (
+        <AppRouter />
+    );
+}
+
+export default App;
+
+###############################################################################
+# FILE: src\index.css
+###############################################################################
+
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-text antialiased;
+    font-family: theme('fontFamily.sans');
+  }
+  .dark body {
+    @apply bg-background-dark text-text-dark;
+  }
+}
+
+.sidebar-link-active {
+  @apply bg-primary text-white font-semibold;
+}
+.dark .sidebar-link-active {
+  @apply bg-primary-dark text-white;
+}
+
+.sidebar-link-active svg {
+  @apply text-white;
+}
+
+###############################################################################
+# FILE: src\main.jsx
+###############################################################################
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { BrowserRouter } from 'react-router-dom'; // BrowserRouter здесь, если App его не содержит
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <BrowserRouter> {/* Обертка BrowserRouter здесь, чтобы AuthContext имел доступ к navigate */}
+            <AuthProvider>
+                <App />
+            </AuthProvider>
+        </BrowserRouter>
+    </React.StrictMode>,
+);
+
+###############################################################################
+# FILE: server\data\accounts_34cc776b-9855-43a2-a670-0a0e37265058.json
+###############################################################################
+
+[]
+
+###############################################################################
+# FILE: server\data\categories.json
+###############################################################################
+
+{
+  "income": [
+    { "id": "cat_inc_1", "name": "Зарплата", "color": "#22c55e" },
+    { "id": "cat_inc_2", "name": "Фриланс", "color": "#3b82f6" },
+    { "id": "cat_inc_3", "name": "Подарки", "color": "#eab308" }
+  ],
+  "expense": [
+    { "id": "cat_exp_1", "name": "Продукты", "color": "#f97316" },
+    { "id": "cat_exp_2", "name": "Транспорт", "color": "#0ea5e9" },
+    { "id": "cat_exp_3", "name": "Развлечения", "color": "#a855f7" },
+    { "id": "cat_exp_4", "name": "Коммунальные услуги", "color": "#ef4444" }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_101f19eb-9bb8-4a2b-bb87-916ae309062d.json
+###############################################################################
+
+{
+  "income": [],
+  "expense": [
+    {
+      "id": "cat_exp_adf021",
+      "name": "фцвц"
+    },
+    {
+      "id": "cat_exp_546648",
+      "name": "фцвц"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_34cc776b-9855-43a2-a670-0a0e37265058.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_9969ed",
+      "name": "Зпss",
+      "color": "bg-amber-400",
+      "icon": "TicketIcon"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_ba6255",
+      "name": "Car",
+      "color": "bg-violet-400",
+      "icon": "BriefcaseIcon"
+    },
+    {
+      "id": "cat_exp_ebc182",
+      "name": "Ф",
+      "color": "bg-sky-400",
+      "icon": "SparklesIcon"
+    },
+    {
+      "id": "cat_exp_926de2",
+      "name": "iitu",
+      "color": "bg-orange-400",
+      "icon": "GlobeAltIcon"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_7c8dc353-1978-4f2c-ada5-8e9a8ebe1d6d.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_f3d0f1",
+      "name": "чай"
+    },
+    {
+      "id": "cat_inc_b86d47",
+      "name": "ыуау"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_9fca75",
+      "name": "ФЫФЫ"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_b75a901d-022c-42ab-8524-5fe400886068.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_f3cfc2",
+      "name": "зп"
+    },
+    {
+      "id": "cat_inc_fd403a",
+      "name": "фыфы"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_a534e4",
+      "name": "крфе"
+    },
+    {
+      "id": "cat_exp_73fbde",
+      "name": "awdawd"
+    },
+    {
+      "id": "cat_exp_915ee1",
+      "name": "уаыуа"
+    },
+    {
+      "id": "cat_exp_faf24c",
+      "name": "фцвцфвф"
+    },
+    {
+      "id": "cat_exp_fd3417",
+      "name": "фцвфцв"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_cbff5c62-37a1-4b73-a5cb-3f7e8ec417d5.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_e512bf",
+      "name": "фцвфцв"
+    },
+    {
+      "id": "cat_inc_27170f",
+      "name": "фвфцв"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_a98efb",
+      "name": "аываы"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\categories_cf55b2ed-65d6-49bf-8c81-7e6172b57401.json
+###############################################################################
+
+{
+  "income": [],
+  "expense": []
+}
+
+###############################################################################
+# FILE: server\data\categories_fdbc9681-3fd1-4c67-86cb-e205953497b4.json
+###############################################################################
+
+{
+  "income": [
+    {
+      "id": "cat_inc_d41c80",
+      "name": "фцвц"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_bb9b29",
+      "name": "Такси"
+    },
+    {
+      "id": "cat_exp_2ddc85",
+      "name": "фвфц"
+    }
+  ]
+}
+
+###############################################################################
+# FILE: server\data\transactions.json
+###############################################################################
+
+[
+  {
+    "id": "t_1",
+    "type": "income",
+    "amount": 50000,
+    "categoryId": "cat_inc_1",
+    "date": "2024-05-20T00:00:00.000Z",
+    "comment": "Аванс за май"
+  },
+  {
+    "id": "t_2",
+    "type": "expense",
+    "amount": 3250.50,
+    "categoryId": "cat_exp_1",
+    "date": "2024-05-21T00:00:00.000Z",
+    "comment": "Супермаркет МегаМарт"
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_101f19eb-9bb8-4a2b-bb87-916ae309062d.json
+###############################################################################
+
+[
+  {
+    "id": "txn_17460362",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_adf021",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_34cc776b-9855-43a2-a670-0a0e37265058.json
+###############################################################################
+
+[
+  {
+    "id": "txn_dbae0d5e",
+    "type": "expense",
+    "amount": 4324,
+    "categoryId": "cat_exp_ebc182",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": "",
+    "userId": "34cc776b-9855-43a2-a670-0a0e37265058"
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_7c8dc353-1978-4f2c-ada5-8e9a8ebe1d6d.json
+###############################################################################
+
+[
+  {
+    "id": "txn_b6907e49",
+    "type": "income",
+    "amount": 1000,
+    "categoryId": "cat_inc_fcda5d",
+    "date": "2025-05-12T00:00:00.000Z",
+    "comment": "Мтеро "
+  },
+  {
+    "id": "txn_faf88dba",
+    "type": "expense",
+    "amount": 60,
+    "categoryId": "cat_exp_8ebb62",
+    "date": "2025-05-13T00:00:00.000Z",
+    "comment": "Делюкс"
+  },
+  {
+    "id": "txn_aa2c429b",
+    "type": "expense",
+    "amount": 100,
+    "categoryId": "cat_exp_e3a111",
+    "date": "2025-05-12T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_1f0ad72e",
+    "type": "income",
+    "amount": 1000,
+    "categoryId": "cat_inc_f3d0f1",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_3b05ead6",
+    "type": "expense",
+    "amount": 100,
+    "categoryId": "cat_exp_305d8b",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_1f61ecda",
+    "type": "expense",
+    "amount": 50000,
+    "categoryId": "cat_exp_8ebb62",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_b75a901d-022c-42ab-8524-5fe400886068.json
+###############################################################################
+
+[
+  {
+    "id": "txn_cfb0af7b",
+    "type": "income",
+    "amount": 2000,
+    "categoryId": "cat_inc_f3cfc2",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_7823d86d",
+    "type": "expense",
+    "amount": 2200,
+    "categoryId": "cat_exp_915ee1",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_3d831d16",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_faf24c",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_cbff5c62-37a1-4b73-a5cb-3f7e8ec417d5.json
+###############################################################################
+
+[
+  {
+    "id": "txn_4f03d616",
+    "type": "income",
+    "amount": 1203203,
+    "categoryId": "cat_inc_e512bf",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  },
+  {
+    "id": "txn_0f1823b3",
+    "type": "expense",
+    "amount": 565465,
+    "categoryId": "cat_exp_a98efb",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\transactions_cf55b2ed-65d6-49bf-8c81-7e6172b57401.json
+###############################################################################
+
+[]
+
+###############################################################################
+# FILE: server\data\transactions_fdbc9681-3fd1-4c67-86cb-e205953497b4.json
+###############################################################################
+
+[
+  {
+    "id": "txn_c64cfd3e",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_bb9b29",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]
+
+###############################################################################
+# FILE: server\data\users.json
+###############################################################################
+
+[
+  {
+    "id": "cf55b2ed-65d6-49bf-8c81-7e6172b57401",
+    "email": "test@email.com",
+    "password": "$2a$12$Rk5j5J963jLke4GkXf74keWbsgT/S4t6EUgYAj.nIIm4hE/Jts9A."
+  },
+  {
+    "id": "b75a901d-022c-42ab-8524-5fe400886068",
+    "email": "test1@email.com",
+    "password": "$2a$12$V3aJyvs3mlq.fk5N9QYVGufpej.pLNtlHQ8Zg0ujD9d/HuaOdZwrW"
+  },
+  {
+    "id": "7c8dc353-1978-4f2c-ada5-8e9a8ebe1d6d",
+    "email": "test3@email.com",
+    "password": "$2a$12$AzDgkI6WXYdBgyOi08rgz.IA7.EdQrIu/T805A6WxJfJjl.yhCvoS"
+  },
+  {
+    "id": "fdbc9681-3fd1-4c67-86cb-e205953497b4",
+    "email": "Alikhan@email.com",
+    "password": "$2a$12$TTTpk8knVNmhAGVGooqesecd9Yo0HRotd5Wam7mKBvljpYG8dRk1W"
+  },
+  {
+    "id": "34cc776b-9855-43a2-a670-0a0e37265058",
+    "email": "fildrix@gmail.com",
+    "password": "$2a$12$G6iY5CQBlP3z2UpHFWTXsurUZbNFR8vC3J9IB4g5lIFC4attpaRcK"
+  }
+]
+
+###############################################################################
+# FILE: src\api\index.js
+###############################################################################
+
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:3001/api';
+
+const apiClient = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+// Transactions API
+export const fetchTransactions = () => apiClient.get('/transactions');
+export const addTransaction = (transactionData) => apiClient.post('/transactions', transactionData);
+export const updateTransaction = (id, transactionData) => apiClient.put(`/transactions/${id}`, transactionData);
+export const deleteTransaction = (id) => apiClient.delete(`/transactions/${id}`);
+
+// Categories API
+export const fetchCategories = () => apiClient.get('/categories');
+export const addCategory = (categoryData) => apiClient.post('/categories', categoryData);
+export const updateCategory = (type, id, categoryData) => apiClient.put(`/categories/${type}/${id}`, categoryData);
+export const deleteCategoryAPI = (type, id) => apiClient.delete(`/categories/${type}/${id}`);
+
+// Accounts API
+export const fetchAccounts = () => apiClient.get('/accounts'); // <-- ЭКСПОРТ ДОБАВЛЕН
+export const addAccount = (accountData) => apiClient.post('/accounts', accountData);
+export const updateAccount = (id, accountData) => apiClient.put(`/accounts/${id}`, accountData);
+export const deleteAccountAPI = (id) => apiClient.delete(`/accounts/${id}`);
+
+
+export default apiClient;
+
+###############################################################################
+# FILE: src\context\AuthContext.jsx
+###############################################################################
+
+import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
+import apiClient from '../api/index.js';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+const AuthContext = createContext(null);
+
+export const AuthProvider = ({ children }) => {
+    const [token, setToken] = useState(localStorage.getItem('authToken'));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
+    const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const setAuthData = useCallback((newToken, userData) => {
+        localStorage.setItem('authToken', newToken);
+        localStorage.setItem('authUser', JSON.stringify(userData));
+        setToken(newToken);
+        setUser(userData);
+        if (apiClient.defaults.headers) { 
+            apiClient.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        } else {
+            apiClient.defaults.headers = { common: { 'Authorization': `Bearer ${newToken}` } };
+        }
+    }, []);
+
+    const logout = useCallback(() => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('authUser');
+        setToken(null);
+        setUser(null);
+        if (apiClient.defaults.headers?.common) { 
+            delete apiClient.defaults.headers.common['Authorization'];
+        }
+        navigate('/login', { replace: true });
+    }, [navigate]);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('authToken');
+        const storedUser = JSON.parse(localStorage.getItem('authUser'));
+
+        if (storedToken && storedUser) {
+            if (apiClient.defaults.headers) {
+                apiClient.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
+            } else {
+                apiClient.defaults.headers = { common: { 'Authorization': `Bearer ${storedToken}` } };
+            }
+
+            import('../api/index.js').then(apiModule => { 
+                apiModule.fetchTransactions() // Using fetchTransactions to validate token
+                    .then(() => {
+                        setToken(storedToken);
+                        setUser(storedUser);
+                    })
+                    .catch((error) => {
+                        console.warn("Token validation failed (AuthContext):", error.response?.data?.message || error.message);
+                        logout();
+                    })
+                    .finally(() => {
+                        setIsLoadingAuth(false);
+                    });
+            }).catch(err => {
+                console.error("Failed to dynamically import api/index.js in AuthContext", err);
+                setIsLoadingAuth(false); 
+            });
+        } else {
+            setIsLoadingAuth(false);
+        }
+    }, [logout]); 
+
+    const login = async (email, password) => {
+        try {
+            const response = await apiClient.post('/auth/login', { email, password });
+            const { token: newToken, userId, email: userEmail } = response.data;
+            setAuthData(newToken, { id: userId, email: userEmail });
+            const from = location.state?.from?.pathname || "/dashboard";
+            navigate(from, { replace: true });
+            return { success: true };
+        } catch (error) {
+            console.error("Login failed:", error.response?.data?.message || error.message);
+            return { success: false, message: error.response?.data?.message || "Login failed. Please check your credentials." };
+        }
+    };
+
+    const register = async (email, password) => {
+        try {
+            const response = await apiClient.post('/auth/register', { email, password });
+            return { success: true, message: response.data.message };
+        } catch (error) {
+            console.error("Registration failed:", error.response?.data?.message || error.message);
+            return { success: false, message: error.response?.data?.message || "Registration failed. Please try a different email." };
+        }
+    };
+
+    const value = {
+        token,
+        user,
+        isAuthenticated: !!token,
+        isLoadingAuth,
+        login,
+        register,
+        logout,
+    };
+
+    return (
+        <AuthContext.Provider value={value}>
+            {!isLoadingAuth && children}
+            {isLoadingAuth && ( 
+                <div className="fixed inset-0 flex justify-center items-center bg-background-dark z-[9999]">
+                    <p className="text-xl text-text-dark">Loading...</p>
+                </div>
+            )}
+        </AuthContext.Provider>
+    );
+};
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
+
+###############################################################################
+# FILE: src\pages\AccountsPage.jsx
+###############################################################################
+
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../components/ui/Button.jsx';
+import AccountModal from '../components/accounts/AccountModal.jsx';
+import { fetchAccounts, addAccount, updateAccount, deleteAccountAPI } from '../api/index.js';
+import {
+    PlusCircleIcon, WalletIcon, ExclamationTriangleIcon, InformationCircleIcon,
+    PencilSquareIcon, TrashIcon
+} from '@heroicons/react/24/outline';
+import { useAuth } from '../context/AuthContext.jsx';
+
+const formatCurrency = (amount, currency = 'KZT', showDecimals = true) => {
+    return new Intl.NumberFormat('en-US', { // Using en-US for KZT display
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: showDecimals ? 2 : 0,
+        maximumFractionDigits: showDecimals ? 2 : 0,
+    }).format(amount);
+};
+
+const AccountsPage = () => {
+    const [accounts, setAccounts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [accountToEdit, setAccountToEdit] = useState(null);
+
+    const loadAccounts = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetchAccounts();
+            // Ensure accounts always have a balance, default to 0 if not provided by API
+            const fetchedAccounts = (response.data || []).map(acc => ({
+                ...acc,
+                balance: acc.balance !== undefined ? acc.balance : 0,
+                initialBalance: acc.initialBalance !== undefined ? acc.initialBalance : 0, // Keep initial if present
+            })).sort((a, b) => a.name.localeCompare(b.name));
+            setAccounts(fetchedAccounts);
+        } catch (err) {
+            console.error("Failed to load accounts:", err.response?.data?.message || err.message);
+            setError(err.response?.data?.message || "Failed to load accounts. Please try again.");
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadAccounts();
+    }, [loadAccounts]);
+
+    const openAddModal = () => {
+        setAccountToEdit(null);
+        setIsModalOpen(true);
+    };
+
+    const openEditModal = (account) => {
+        setAccountToEdit(account);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setAccountToEdit(null);
+    };
+
+    const handleModalFormSubmit = async (accountData) => {
+        try {
+            if (accountToEdit) {
+                await updateAccount(accountToEdit.id, accountData);
+            } else {
+                await addAccount(accountData);
+            }
+            loadAccounts();
+            closeModal();
+        } catch (err) {
+            console.error("Failed to save account:", err);
+            alert(`Error saving account: ${err.response?.data?.message || err.message}`);
+        }
+    };
+
+    const handleDeleteAccount = async (accountId, accountName) => {
+        if (window.confirm(`Are you sure you want to delete the account "${accountName}"? This action cannot be undone and might affect existing transactions.`)) {
+            try {
+                await deleteAccountAPI(accountId);
+                loadAccounts();
+            } catch (err) {
+                console.error("Failed to delete account:", err);
+                alert(`Error deleting account: ${err.response?.data?.message || err.message}`);
+            }
+        }
+    };
+    
+    const AccountListItem = ({ account }) => (
+        <li className="bg-surface dark:bg-surface-dark p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-150 ease-in-out">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 dark:bg-primary-dark/20 rounded-full">
+                        <WalletIcon className="h-5 w-5 text-primary dark:text-primary-dark" />
+                    </div>
+                    <div>
+                        <p className="text-md font-medium text-text dark:text-text-dark">{account.name}</p>
+                        <p className="text-sm text-text-muted dark:text-text-dark_muted">
+                            Balance: {formatCurrency(parseFloat(account.balance || 0), 'KZT')}
+                        </p>
+                    </div>
+                </div>
+                <div className="space-x-2">
+                    <Button
+                        onClick={() => openEditModal(account)}
+                        variant="secondary"
+                        className="px-3 py-1.5 text-xs"
+                        leftIcon={<PencilSquareIcon className="h-4 w-4"/>}
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                        onClick={() => handleDeleteAccount(account.id, account.name)}
+                        variant="danger"
+                        className="px-3 py-1.5 text-xs"
+                        leftIcon={<TrashIcon className="h-4 w-4"/>}
+                    >
+                        Delete
+                    </Button>
+                </div>
+            </div>
+        </li>
+    );
+
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <p className="text-lg text-text-muted dark:text-text-dark_muted">Loading accounts...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
+                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+                <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
+                    Please check your internet connection or server status.
+                </p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-6 md:space-y-8">
+            <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">
+                        Manage Accounts
+                    </h1>
+                    <p className="text-sm text-text-muted dark:text-text-dark_muted">
+                        Add, edit, or remove your financial accounts.
+                    </p>
+                </div>
+                <Button
+                    onClick={openAddModal}
+                    variant="primary"
+                    className="w-full sm:w-auto py-2.5 px-5 text-sm"
+                    leftIcon={<PlusCircleIcon className="h-5 w-5"/>}
+                >
+                    Add Account
+                </Button>
+            </header>
+
+            <section>
+                {accounts.length > 0 ? (
+                    <ul className="space-y-3">
+                        {accounts.map((account) => (
+                            <AccountListItem key={account.id} account={account} />
+                        ))}
+                    </ul>
+                ) : (
+                    <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow">
+                        <InformationCircleIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                        <h3 className="text-lg font-medium text-text dark:text-text-dark">No accounts yet</h3>
+                        <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1 mb-4">
+                            Create your first account to start managing your finances.
+                        </p>
+                        <Button onClick={openAddModal} variant="secondary" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
+                            Add First Account
+                        </Button>
+                    </div>
+                )}
+            </section>
+
+            <AccountModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onSubmit={handleModalFormSubmit}
+                accountToEdit={accountToEdit}
+                existingAccountNames={accounts.map(acc => acc.name.toLowerCase())}
+            />
+        </div>
+    );
+};
+
+export default AccountsPage;
+
+###############################################################################
+# FILE: src\pages\DashboardPage.jsx
+###############################################################################
+
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import Button from '../components/ui/Button.jsx';
+import TransactionModal from '../components/transactions/TransactionModal.jsx';
+import {
+    fetchTransactions,
+    addTransaction as apiAddTransaction,
+    updateTransaction as apiUpdateTransaction,
+    deleteTransaction as apiDeleteTransaction,
+    fetchCategories,
+    fetchAccounts // Import fetchAccounts
+} from '../api/index.js';
+import {
+    PlusCircleIcon, WalletIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon,
+    PencilSquareIcon, ExclamationTriangleIcon, InformationCircleIcon, BanknotesIcon
+} from '@heroicons/react/24/outline';
+import { useAuth } from '../context/AuthContext.jsx';
+import { CategoryIcon, defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx';
+import { normalizeCategoryProperties } from '../utils/categoryUtils.js';
+
+const defaultCategoryDisplayColor = "bg-slate-400 dark:bg-slate-600";
+
+const formatCurrency = (amount, currency = 'KZT', showDecimals = true) => {
+    return new Intl.NumberFormat('en-US', { // Using en-US for KZT display
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: showDecimals ? 2 : 0,
+        maximumFractionDigits: showDecimals ? 2 : 0
+    }).format(amount);
+};
+const formatDateForDisplay = (isoDateString) => {
+    if (!isoDateString) return 'N/A';
+    const date = new Date(isoDateString);
+    return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }); // en-GB for dd/mm/yyyy
+};
+
+const SummaryCard = ({ title, amount, icon, trend, trendText, colorClass = "text-text dark:text-text-dark" }) => {
+    const IconComponent = icon;
+    return (
+        <div className="bg-surface dark:bg-surface-dark p-5 rounded-xl shadow-lg hover:shadow-primary/20 dark:hover:shadow-primary-dark/20 transition-shadow duration-200 border border-transparent hover:border-primary/30 dark:hover:border-primary-dark/30">
+            <div className="flex justify-between items-start mb-1">
+                <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">{title}</h3>
+                {IconComponent && <IconComponent className={`h-7 w-7 ${colorClass} opacity-70`} />}
+            </div>
+            <p className={`text-3xl font-bold ${colorClass} tracking-tight`}>
+                {formatCurrency(amount, 'KZT', !Number.isInteger(amount))}
+            </p>
+            {trend && trendText && (
+                <p className={`text-xs mt-1.5 flex items-center ${trend === 'up' ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'}`}>
+                    {trend === 'up' ? <ArrowTrendingUpIcon className="h-3.5 w-3.5 mr-1" /> : <ArrowTrendingDownIcon className="h-3.5 w-3.5 mr-1" />}
+                    {trendText}
+                </p>
+            )}
+        </div>
+    );
+};
+
+const DashboardPage = () => {
+    const { user } = useAuth();
+    const [transactions, setTransactions] = useState([]);
+    const [accounts, setAccounts] = useState([]); // State for accounts
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [transactionToEdit, setTransactionToEdit] = useState(null);
+    const [allCategories, setAllCategories] = useState({ income: [], expense: [] });
+
+
+    const loadInitialData = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const [transactionsRes, categoriesRes, accountsRes] = await Promise.all([
+                fetchTransactions(),
+                fetchCategories(),
+                fetchAccounts() // Fetch accounts
+            ]);
+
+            const fetchedTransactions = transactionsRes.data || [];
+            let fetchedCategoriesData = categoriesRes.data || { income: [], expense: [] };
+            const fetchedAccountsData = (accountsRes.data || []).map(acc => ({
+                ...acc,
+                balance: acc.balance !== undefined ? acc.balance : 0,
+            }));
+            setAccounts(fetchedAccountsData);
+            setAllCategories(fetchedCategoriesData);
+
+
+            fetchedCategoriesData.income = (fetchedCategoriesData.income || []).map(normalizeCategoryProperties);
+            fetchedCategoriesData.expense = (fetchedCategoriesData.expense || []).map(normalizeCategoryProperties);
+
+            const categoryMap = {};
+            (fetchedCategoriesData.income || []).forEach(cat => categoryMap[cat.id] = cat);
+            (fetchedCategoriesData.expense || []).forEach(cat => categoryMap[cat.id] = cat);
+            
+            const accountMap = {};
+            fetchedAccountsData.forEach(acc => accountMap[acc.id] = acc);
+
+            const enrichedTransactions = fetchedTransactions.map(t => {
+                const category = categoryMap[t.categoryId];
+                const account = accountMap[t.accountId];
+                return {
+                    ...t,
+                    categoryName: category?.name || 'Uncategorized',
+                    categoryColor: category?.color || defaultCategoryDisplayColor,
+                    categoryIcon: category?.icon || defaultCategoryIconName,
+                    accountName: account?.name || 'N/A Account' // Add account name
+                };
+            }).sort((a,b) => new Date(b.date) - new Date(a.date));
+
+            setTransactions(enrichedTransactions);
+
+        } catch (err) {
+            console.error("Failed to load initial data:", err.response?.data?.message || err.message);
+            setError(err.response?.data?.message || "Failed to load data. Please refresh the page.");
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadInitialData();
+    }, [loadInitialData]);
+
+    const monthlyStats = useMemo(() => {
+        const now = new Date();
+        const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        const currentMonthTransactions = transactions.filter(t => new Date(t.date) >= currentMonthStart);
+
+        let income = 0;
+        let expense = 0;
+        currentMonthTransactions.forEach(t => {
+            if (t.type === 'income') income += parseFloat(t.amount);
+            else expense += parseFloat(t.amount);
+        });
+        return { income, expense };
+    }, [transactions]);
+
+    const totalBalance = useMemo(() => {
+        // Total balance is now sum of all account balances
+        return accounts.reduce((acc, currAccount) => acc + parseFloat(currAccount.balance || 0), 0);
+    }, [accounts]);
+
+
+    const openAddModal = () => {
+        setTransactionToEdit(null);
+        setIsModalOpen(true);
+    };
+
+    const openEditModal = (transaction) => {
+        // Find the raw transaction to ensure we have accountId etc.
+        const rawTransaction = transactions.find(t => t.id === transaction.id); 
+        if (rawTransaction) {
+             // Exclude enriched properties like categoryName, categoryColor, categoryIcon, accountName
+            const { categoryName, categoryColor, categoryIcon, accountName, ...rest } = rawTransaction;
+            setTransactionToEdit(rest); // Pass the original transaction structure
+        } else {
+            setTransactionToEdit(transaction); // Fallback, though raw should always be found
+        }
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setTransactionToEdit(null);
+    };
+
+    const handleModalFormSubmit = async (transactionDataFromModal) => {
+        try {
+            if (transactionToEdit) {
+                await apiUpdateTransaction(transactionToEdit.id, transactionDataFromModal);
+            } else {
+                await apiAddTransaction(transactionDataFromModal);
+            }
+            loadInitialData(); // Reload all data including accounts for balance updates
+            closeModal();
+        } catch (err) {
+            console.error("Failed to save transaction from modal:", err);
+            alert(`Error saving transaction: ${err.response?.data?.message || err.message}`);
+        }
+    };
+
+    const handleDeleteTransaction = async (transactionId) => {
+        if (window.confirm("Are you sure you want to delete this transaction?")) {
+            try {
+                await apiDeleteTransaction(transactionId);
+                loadInitialData(); // Reload all data
+                closeModal();
+            } catch (err) {
+                console.error("Failed to delete transaction:", err);
+                alert(`Error deleting transaction: ${err.response?.data?.message || err.message}`);
+            }
+        }
+    };
+
+    const TransactionItem = ({ transaction, onEdit }) => {
+        const isIncome = transaction.type === 'income';
+        const amountColor = isIncome ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark';
+        const sign = isIncome ? '+' : '-';
+
+        const categoryColor = transaction.categoryColor;
+        const categoryIconName = transaction.categoryIcon;
+
+        return (
+            <li className="bg-surface dark:bg-surface-dark p-3 sm:p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-150 ease-in-out group">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3 min-w-0 flex-1">
+                        <div className={`p-1.5 sm:p-2 rounded-full ${categoryColor} flex-shrink-0 shadow-sm`}>
+                            <CategoryIcon iconName={categoryIconName} className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                        </div>
+                        <div className="min-w-0">
+                            <p className="text-sm font-medium text-text dark:text-text-dark truncate" title={transaction.categoryName}>{transaction.categoryName}</p>
+                            <p className="text-xs text-text-muted dark:text-text-dark_muted truncate max-w-[100px] sm:max-w-[150px]" title={transaction.comment || 'No description'}>
+                                {transaction.comment || 'No description'}
+                            </p>
+                             <p className="text-xs text-primary dark:text-primary-dark truncate max-w-[100px] sm:max-w-[150px]" title={transaction.accountName}>
+                                Account: {transaction.accountName}
+                            </p>
+                        </div>
+                    </div>
+                    <div className="text-right flex flex-col items-end ml-2 flex-shrink-0">
+                        <p className={`text-sm font-semibold ${amountColor} whitespace-nowrap`}>
+                            {sign} {formatCurrency(parseFloat(transaction.amount), 'KZT', true).replace(/\s?₸/, '')} <span className="text-xs text-text-muted dark:text-text-dark_muted">₸</span>
+                        </p>
+                        <p className="text-xs text-text-muted dark:text-text-dark_muted mt-0.5">{formatDateForDisplay(transaction.date)}</p>
+                    </div>
+                    <button
+                        onClick={() => onEdit(transaction)}
+                        className="ml-2 text-text-muted dark:text-text-dark_muted hover:text-primary dark:hover:text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100 p-1 rounded-md flex-shrink-0"
+                        title="Edit transaction"
+                    >
+                        <PencilSquareIcon className="h-4 w-4 sm:h-5 sm:h-5"/>
+                    </button>
+                </div>
+            </li>
+        );
+    };
+
+    if (isLoading && transactions.length === 0 && accounts.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-64">
+                <p className="text-lg text-text-muted dark:text-text-dark_muted">Loading data...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
+                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+                <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
+                    Please check your internet connection or server status.
+                </p>
+            </div>
+        );
+    }
+    const userName = user?.email?.split('@')[0] || 'user';
+
+    return (
+        <div className="space-y-6 md:space-y-8">
+            <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">
+                        Welcome, <span className="capitalize">{userName}</span>!
+                    </h1>
+                    <p className="text-sm text-text-muted dark:text-text-dark_muted">
+                        Your financial overview.
+                    </p>
+                </div>
+                <Button
+                    onClick={openAddModal}
+                    variant="primary"
+                    className="w-full sm:w-auto py-2.5 px-5 text-sm"
+                    leftIcon={<PlusCircleIcon className="h-5 w-5"/>}
+                >
+                    Add Transaction
+                </Button>
+            </header>
+
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <SummaryCard title="Total Balance" amount={totalBalance} icon={WalletIcon} colorClass="text-primary dark:text-primary-dark" />
+                <SummaryCard title="Income (this month)" amount={monthlyStats.income} icon={ArrowTrendingUpIcon} colorClass="text-success dark:text-success-dark" />
+                <SummaryCard title="Expenses (this month)" amount={monthlyStats.expense} icon={ArrowTrendingDownIcon} colorClass="text-error dark:text-error-dark" />
+            </section>
+            
+            <section>
+                <h2 className="text-xl font-semibold text-text dark:text-text-dark mb-4">Accounts</h2>
+                {accounts.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        {accounts.map(account => (
+                            <div key={account.id} className="bg-surface dark:bg-surface-dark p-4 rounded-xl shadow-lg">
+                                <div className="flex items-center mb-2">
+                                    <BanknotesIcon className="h-6 w-6 text-primary dark:text-primary-dark mr-2" />
+                                    <h3 className="text-md font-medium text-text dark:text-text-dark">{account.name}</h3>
+                                </div>
+                                <p className="text-2xl font-bold text-text dark:text-text-dark tracking-tight">
+                                    {formatCurrency(parseFloat(account.balance || 0), 'KZT')}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                     <div className="text-center py-6 px-4 bg-surface dark:bg-surface-dark rounded-lg shadow">
+                        <InformationCircleIcon className="h-10 w-10 text-text-muted dark:text-text-dark_muted mx-auto mb-2" />
+                        <h3 className="text-md font-medium text-text dark:text-text-dark">No accounts found</h3>
+                        <p className="text-xs text-text-muted dark:text-text-dark_muted mt-1">
+                            Go to 'Accounts' page to add your first account.
+                        </p>
+                    </div>
+                )}
+            </section>
+
+            <section>
+                <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold text-text dark:text-text-dark">Recent Transactions</h2>
+                </div>
+                {transactions.length > 0 ? (
+                    <ul className="space-y-3">
+                        {transactions.slice(0, 7).map((transaction) => (
+                            <TransactionItem key={transaction.id} transaction={transaction} onEdit={openEditModal} />
+                        ))}
+                    </ul>
+                ) : (
+                    <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow">
+                        <InformationCircleIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                        <h3 className="text-lg font-medium text-text dark:text-text-dark">No transactions yet</h3>
+                        <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1 mb-4">
+                            Start tracking your finances by adding your first transaction.
+                        </p>
+                        <Button onClick={openAddModal} variant="secondary" leftIcon={<PlusCircleIcon className="h-5 w-5"/>}>
+                            Add First Transaction
+                        </Button>
+                    </div>
+                )}
+            </section>
+
+            <TransactionModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                onSubmit={handleModalFormSubmit}
+                transactionToEdit={transactionToEdit}
+                onDelete={handleDeleteTransaction}
+                // Pass accounts and categories for the modal to use
+                accounts={accounts} 
+                allCategories={allCategories}
+            />
+        </div>
+    );
+};
+export default DashboardPage;
+
+###############################################################################
+# FILE: src\pages\SettingsPage.jsx
+###############################################################################
+
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../components/ui/Button.jsx';
+import Input from '../components/ui/Input.jsx';
+import { fetchCategories, addCategory, updateCategory, deleteCategoryAPI } from '../api/index.js';
+import {
+    XMarkIcon, ExclamationTriangleIcon, InformationCircleIcon, PencilIcon, TrashIcon
+} from '@heroicons/react/24/outline';
+import { CategoryIcon, availableIconsForPicker, defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx';
+import { normalizeCategoryProperties } from '../utils/categoryUtils.js';
+
+const categoryColorPalette = [
+    'bg-red-400', 'bg-orange-400', 'bg-amber-400', 'bg-yellow-400', 'bg-lime-400', 'bg-green-400',
+    'bg-emerald-400', 'bg-teal-400', 'bg-cyan-400', 'bg-sky-400', 'bg-blue-400', 'bg-indigo-400',
+    'bg-violet-400', 'bg-purple-400', 'bg-fuchsia-400', 'bg-pink-400', 'bg-rose-400', 'bg-slate-400'
+];
+const defaultNewCategoryColor = 'bg-sky-400';
+
+const CategoryModal = ({ isOpen, onClose, onSubmit, categoryToEdit, currentCategories }) => {
+    const [name, setName] = useState('');
+    const [type, setType] = useState('expense');
+    const [selectedColor, setSelectedColor] = useState(defaultNewCategoryColor);
+    const [selectedIconName, setSelectedIconName] = useState(defaultCategoryIconName);
+    const [error, setError] = useState('');
+
+    const isEditing = !!categoryToEdit;
+
+    useEffect(() => {
+        if (isOpen) {
+            if (isEditing && categoryToEdit) {
+                setName(categoryToEdit.name);
+                setType(categoryToEdit.originalType || categoryToEdit.type || 'expense');
+                setSelectedColor(categoryToEdit.color || defaultNewCategoryColor);
+                setSelectedIconName(categoryToEdit.icon || defaultCategoryIconName);
+            } else {
+                setName('');
+                setType('expense');
+                setSelectedColor(defaultNewCategoryColor);
+                setSelectedIconName(defaultCategoryIconName);
+            }
+            setError('');
+        }
+    }, [isOpen, categoryToEdit, isEditing]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        if (!name.trim()) {
+            setError("Category name cannot be empty.");
+            return;
+        }
+
+        const categoriesOfType = currentCategories[type] || [];
+        const existingCategory = categoriesOfType.find(
+            cat => cat.name.toLowerCase() === name.trim().toLowerCase() &&
+                (!isEditing || cat.id !== categoryToEdit.id)
+        );
+
+        if (existingCategory) {
+            setError(`Category with name "${name.trim()}" already exists for type "${type === 'income' ? 'Income' : 'Expense'}".`);
+            return;
+        }
+
+        const categoryData = {
+            name: name.trim(),
+            type: type, // API expects 'type' for new categories
+            color: selectedColor,
+            icon: selectedIconName,
+        };
+        // For update, API expects originalType in path, but body might just be name, color, icon
+        // The addCategory/updateCategory functions in api/index.js handle this structure.
+        onSubmit(categoryData, isEditing ? categoryToEdit.id : null, isEditing ? categoryToEdit.originalType : type);
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+            <div className="relative bg-surface dark:bg-slate-800 p-6 rounded-lg shadow-xl w-full max-w-md m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in text-text dark:text-text-dark border border-slate-300 dark:border-slate-700">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-semibold text-text dark:text-text-dark">
+                        {isEditing ? 'Edit Category' : 'Add Category'}
+                    </h2>
+                    <button onClick={onClose} className="text-text-muted dark:text-text-dark_muted hover:text-text dark:hover:text-text-dark transition-colors" aria-label="Close">
+                        <XMarkIcon className="h-6 w-6" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <Input
+                        id="categoryNameModal" label="Category Name:" type="text"
+                        value={name} onChange={(e) => setName(e.target.value)}
+                        labelClassName="text-text-muted dark:text-text-dark_muted"
+                        wrapperClassName="mb-0"
+                    />
+                    <div>
+                        <label className="block mb-1.5 text-sm font-medium text-text-muted dark:text-text-dark_muted">Category Type:</label>
+                        <div className="flex space-x-4">
+                            {[{label: 'Expense', value: 'expense'}, {label: 'Income', value: 'income'}].map(option => (
+                                <label key={option.value} className="flex items-center space-x-2 cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="categoryTypeModal"
+                                        value={option.value}
+                                        checked={type === option.value}
+                                        onChange={() => setType(option.value)}
+                                        className="form-radio h-4 w-4 text-amber-500 bg-slate-100 dark:bg-slate-600 border-slate-400 dark:border-slate-500 focus:ring-amber-500"
+                                        disabled={isEditing && categoryToEdit?.originalType && categoryToEdit.originalType !== option.value}
+                                    />
+                                    <span className={`text-sm text-text dark:text-text-dark ${isEditing && categoryToEdit?.originalType && categoryToEdit.originalType !== option.value ? 'text-text-muted dark:text-text-dark_muted opacity-70' : ''}`}>{option.label}</span>
+                                </label>
+                            ))}
+                        </div>
+                        {isEditing && categoryToEdit?.originalType && <p className="text-xs text-text-muted dark:text-text-dark_muted opacity-70 mt-1">Category type cannot be changed after creation.</p>}
+                    </div>
+
+                    <div>
+                        <label className="block mb-1.5 text-sm font-medium text-text-muted dark:text-text-dark_muted">Color:</label>
+                        <div className="flex flex-wrap gap-2">
+                            {categoryColorPalette.map(color => (
+                                <button
+                                    type="button" key={color}
+                                    onClick={() => setSelectedColor(color)}
+                                    className={`w-7 h-7 rounded-full ${color} border-2 transition-all
+                                        ${selectedColor === color ? 'ring-2 ring-offset-2 ring-offset-surface dark:ring-offset-slate-800 ring-primary dark:ring-primary-dark scale-110' : 'border-transparent hover:opacity-80'}`}
+                                    aria-label={`Select color ${color}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block mb-1.5 text-sm font-medium text-text-muted dark:text-text-dark_muted">Icon:</label>
+                        <div className="grid grid-cols-6 sm:grid-cols-8 gap-2 p-2 bg-slate-100 dark:bg-slate-700/50 rounded-md max-h-32 overflow-y-auto">
+                            {availableIconsForPicker.map(iconItem => (
+                                <button
+                                    type="button" key={iconItem.name}
+                                    onClick={() => setSelectedIconName(iconItem.name)}
+                                    className={`p-1.5 rounded-md flex items-center justify-center transition-all
+                                        ${selectedIconName === iconItem.name ? 'bg-amber-500 text-white scale-110' : 'bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-600 dark:hover:bg-slate-500 dark:text-slate-300'}`}
+                                    aria-label={`Select icon ${iconItem.name.replace('Icon', '')}`}
+                                >
+                                    <iconItem.Component className="w-5 h-5" />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-4 p-3 bg-slate-100 dark:bg-slate-700/50 rounded-md">
+                        <p className="text-sm font-medium text-text-muted dark:text-text-dark_muted mb-1">Preview:</p>
+                        <div className="flex items-center space-x-3">
+                            <div className={`p-2 rounded-full ${selectedColor}`}>
+                                <CategoryIcon iconName={selectedIconName} className="w-5 h-5 text-white" />
+                            </div>
+                            <div>
+                                <p className="font-medium text-text dark:text-text-dark">{name || "Category Name"}</p>
+                                <p className="text-xs text-text-muted dark:text-text-dark_muted">
+                                    {type === 'income' ? "Income Only" : "Expense Only"}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {error && <p className="mt-2 text-xs text-red-500 dark:text-red-400 text-center">{error}</p>}
+
+                    <div className="flex justify-end space-x-3 pt-5">
+                        <Button type="button" onClick={onClose} variant="secondary" className="px-6">Cancel</Button>
+                        <Button type="submit" className="bg-amber-500 hover:bg-amber-600 text-white px-6">Save</Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+
+const SettingsPage = () => {
+    const [categories, setCategories] = useState({ income: [], expense: [] });
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [categoryToEdit, setCategoryToEdit] = useState(null);
+
+    const loadCategories = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetchCategories();
+            let fetched = response.data || { income: [], expense: [] };
+
+            fetched.income = (fetched.income || [])
+                .map(cat => ({ ...normalizeCategoryProperties(cat), originalType: 'income' }))
+                .sort((a, b) => a.name.localeCompare(b.name));
+            fetched.expense = (fetched.expense || [])
+                .map(cat => ({ ...normalizeCategoryProperties(cat), originalType: 'expense' }))
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+            setCategories(fetched);
+        } catch (err) {
+            setError(err.response?.data?.message || "Failed to load categories.");
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadCategories();
+    }, [loadCategories]);
+
+    const handleOpenModal = (catToEdit = null) => {
+        setCategoryToEdit(catToEdit);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setCategoryToEdit(null);
+    };
+
+    const handleFormSubmit = async (categoryData, editingId, originalApiType) => {
+        try {
+            if (editingId) {
+                // For update, server expects type in path, and data in body
+                // `updateCategory` API function should handle the structure
+                await updateCategory(originalApiType, editingId, categoryData);
+            } else {
+                // For add, server expects type in body
+                await addCategory(categoryData);
+            }
+            await loadCategories();
+            handleCloseModal();
+        } catch (err) {
+            console.error("Failed to save category:", err.response || err);
+            alert(`Error saving category: ${err.response?.data?.message || err.message}`);
+        }
+    };
+
+    const handleDeleteCategory = async (catToDelete) => {
+        if (window.confirm(`Are you sure you want to delete category "${catToDelete.name}"?`)) {
+            try {
+                await deleteCategoryAPI(catToDelete.originalType, catToDelete.id);
+                await loadCategories();
+            } catch (err) {
+                alert(`Error deleting category: ${err.response?.data?.message || err.message}`);
+            }
+        }
+    };
+
+    const CategoryListItem = ({ category }) => (
+        <div className="flex items-center justify-between p-3 bg-surface dark:bg-slate-700 rounded-md shadow hover:shadow-md transition-shadow">
+            <div className="flex items-center space-x-3">
+                <div className={`p-2 rounded-full ${category.color}`}>
+                    <CategoryIcon iconName={category.icon} className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                    <p className="font-medium text-text dark:text-text-dark">{category.name}</p>
+                    <p className="text-xs text-text-muted dark:text-text-dark_muted">
+                        {category.originalType === 'income' ? "Income Only" : "Expense Only"}
+                    </p>
+                </div>
+            </div>
+            <div className="space-x-2">
+                <Button onClick={() => handleOpenModal(category)} variant="secondary" className="text-xs px-3 py-1">
+                    <PencilIcon className="w-3 h-3 inline mr-1"/> Edit
+                </Button>
+                <Button onClick={() => handleDeleteCategory(category)} variant="danger" className="text-xs px-3 py-1">
+                    <TrashIcon className="w-3 h-3 inline mr-1"/> Delete
+                </Button>
+            </div>
+        </div>
+    );
+
+    if (isLoading) return <div className="p-6 text-center text-text-muted dark:text-text-dark_muted">Loading categories...</div>;
+    if (error && !categories.income.length && !categories.expense.length) {
+        return (
+            <div className="p-6 text-center text-error dark:text-error-dark bg-error/10 dark:bg-error-dark/20 rounded-md">
+                <ExclamationTriangleIcon className="h-8 w-8 mx-auto mb-2"/>
+                {error}
+            </div>
+        );
+    }
+
+    const allUserCategories = [
+        ...(categories.income || []),
+        ...(categories.expense || [])
+    ].sort((a,b) => a.name.localeCompare(b.name));
+
+    return (
+        <div className="p-4 sm:p-6 md:p-8 bg-background dark:bg-background-dark min-h-screen text-text dark:text-text-dark">
+            <div className="max-w-3xl mx-auto">
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-2xl font-semibold text-text dark:text-text-dark">Manage Categories</h1>
+                    <Button onClick={() => handleOpenModal()} className="bg-amber-500 hover:bg-amber-600 text-white">
+                        Add Category
+                    </Button>
+                </div>
+
+                {allUserCategories.length > 0 ? (
+                    <div className="space-y-3">
+                        {allUserCategories.map(cat => (
+                            <CategoryListItem key={cat.id} category={cat} />
+                        ))}
+                    </div>
+                ) : (
+                    !isLoading && (
+                        <div className="text-center py-10 px-6 bg-surface dark:bg-surface-dark rounded-lg shadow">
+                            <InformationCircleIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                            <h3 className="text-lg font-medium text-text dark:text-text-dark">No categories yet</h3>
+                            <p className="text-sm text-text-muted dark:text-text-dark_muted mt-1">
+                                Add your first category to get started.
+                            </p>
+                        </div>
+                    )
+                )}
+            </div>
+
+            <CategoryModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onSubmit={handleFormSubmit}
+                categoryToEdit={categoryToEdit}
+                currentCategories={categories}
+            />
+        </div>
+    );
+};
+
+export default SettingsPage;
+
+###############################################################################
+# FILE: src\pages\StatsPage.jsx
+###############################################################################
+
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import {
+    PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line
+} from 'recharts';
+import { fetchTransactions, fetchCategories } from '../api/index.js';
+import { ExclamationTriangleIcon, CalendarDaysIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { CategoryIcon, defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx';
+import { normalizeCategoryProperties } from '../utils/categoryUtils.js';
+
+const defaultCategoryStatsColorHex = '#64748b'; // slate-500 hex for charts
+
+const formatCurrencyForStat = (amount, currency = 'KZT') => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency, minimumFractionDigits: 0, maximumFractionDigits:0 }).format(amount);
+};
+
+const tailwindToHex = (tailwindColorClass) => {
+    if (!tailwindColorClass) return defaultCategoryStatsColorHex;
+    if (tailwindColorClass.startsWith('#')) return tailwindColorClass; 
+
+    const map = {
+        'bg-slate-100': '#f1f5f9', 
+        'bg-slate-200': '#e2e8f0',
+        'bg-slate-300': '#cbd5e1',
+        'bg-slate-400': '#94a3b8', 
+        'bg-slate-500': '#64748b', 
+        'bg-slate-600': '#475569',
+        'bg-slate-700': '#334155',
+        'bg-slate-800': '#1e293b',
+        'bg-gray-500': '#6b7280',
+        'bg-red-400': '#f87171', 'bg-red-500': '#ef4444', 'bg-red-600': '#dc2626',
+        'bg-orange-400': '#fb923c', 'bg-orange-500': '#f97316', 'bg-orange-600': '#ea580c',
+        'bg-amber-400': '#fbbf24', 'bg-amber-500': '#f59e0b',
+        'bg-yellow-400': '#facc15', 'bg-yellow-500': '#eab308',
+        'bg-lime-400': '#a3e635', 'bg-lime-500': '#84cc16',
+        'bg-green-400': '#4ade80', 'bg-green-500': '#22c55e', 'bg-green-600': '#16a34a',
+        'bg-emerald-400': '#34d399', 'bg-emerald-500': '#10b981',
+        'bg-teal-400': '#2dd4bf', 'bg-teal-500': '#14b8a6',
+        'bg-cyan-400': '#22d3ee', 'bg-cyan-500': '#06b6d4',
+        'bg-sky-400': '#38bdf8', 'bg-sky-500': '#0ea5e9', 
+        'bg-blue-400': '#60a5fa', 'bg-blue-500': '#3b82f6', 'bg-blue-600': '#2563eb',
+        'bg-indigo-400': '#818cf8', 'bg-indigo-500': '#6366f1',
+        'bg-violet-400': '#a78bfa', 'bg-violet-500': '#8b5cf6',
+        'bg-purple-400': '#c084fc', 'bg-purple-500': '#a855f7', 'bg-purple-600': '#9333ea',
+        'bg-fuchsia-400': '#e879f9', 'bg-fuchsia-500': '#d946ef',
+        'bg-pink-400': '#f472b6', 'bg-pink-500': '#ec4899',
+        'bg-rose-400': '#fb7185', 'bg-rose-500': '#f43f5e',
+        'bg-primary': '#037DD6',
+        'bg-primary-dark': '#2F72FA'
+    };
+    return map[tailwindColorClass] || defaultCategoryStatsColorHex;
+};
+
+
+const CustomTooltipContent = ({ active, payload, label, type }) => {
+    if (active && payload && payload.length) {
+        if (type === "pie" && payload[0].payload) {
+            const data = payload[0].payload; 
+            return (
+                <div className="bg-surface dark:bg-slate-800/90 backdrop-blur-sm p-2.5 rounded-md shadow-lg border border-slate-300 dark:border-slate-700 text-xs">
+                    <div className="flex items-center">
+                        {data.icon ? (
+                            <div className={`p-0.5 mr-1.5 rounded-sm ${data.color}`}>
+                                <CategoryIcon iconName={data.icon} className="w-3 h-3 text-white" />
+                            </div>
+                        ) : ( 
+                            data.color && <span style={{ backgroundColor: tailwindToHex(data.color), width: '10px', height: '10px', borderRadius: '2px', marginRight: '6px', display: 'inline-block' }}></span>
+                        )}
+                        <p className="text-text dark:text-text-dark">
+                            {data.name}: <span className="font-semibold">{formatCurrencyForStat(data.value, 'KZT')}</span>
+                        </p>
+                    </div>
+                    {payload[0].percent && (
+                        <p className="text-text-muted dark:text-text-dark_muted ml-4">({(payload[0].percent * 100).toFixed(1)}%)</p>
+                    )}
+                </div>
+            );
+        }
+        if ((type === "bar" || type === "line") && label) {
+            return (
+                <div className="bg-surface dark:bg-slate-800/90 backdrop-blur-sm p-2.5 rounded-md shadow-lg border border-slate-300 dark:border-slate-700 text-xs">
+                    <p className="font-semibold text-text dark:text-text-dark mb-1">{label}</p>
+                    {payload.map((item, index) => (
+                        <div key={`tooltip-item-${index}`} className="flex items-center">
+                            <span style={{ backgroundColor: item.color , width: '8px', height: '8px', borderRadius: '2px', marginRight: '6px' }}></span>
+                            <p className="text-text dark:text-text-dark">
+                                {item.name}: <span className="font-semibold">{formatCurrencyForStat(item.value, 'KZT')}</span>
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+    }
+    return null;
+};
+
+const renderCustomPieLegend = (props) => {
+    const { payload } = props; 
+    return (
+        <ul className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-xs mt-4 max-w-md mx-auto">
+            {payload.map((entry, index) => {
+                const categoryTailwindColor = entry.payload?.color || 'bg-slate-500'; 
+                const categoryIconName = entry.payload?.icon || defaultCategoryIconName;
+                return (
+                    <li key={`legend-item-${index}`} className="flex items-center">
+                        <div className={`p-0.5 rounded-sm mr-1.5 ${categoryTailwindColor}`}>
+                            <CategoryIcon iconName={categoryIconName} className="w-2.5 h-2.5 text-white" />
+                        </div>
+                        <span className="text-text-muted dark:text-text-dark_muted">{entry.value}</span>
+                    </li>
+                );
+            })}
+        </ul>
+    );
+};
+
+
+const StatsPage = () => {
+    const [transactions, setTransactions] = useState([]);
+    const [allCategories, setAllCategories] = useState({ income: [], expense: [] });
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [filterPeriod, setFilterPeriod] = useState('month');
+    const [customStartDate, setCustomStartDate] = useState('');
+    const [customEndDate, setCustomEndDate] = useState('');
+
+    const loadData = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const [transRes, catRes] = await Promise.all([
+                fetchTransactions(),
+                fetchCategories()
+            ]);
+            setTransactions(transRes.data || []);
+
+            let fetchedCategories = catRes.data || { income: [], expense: [] };
+            fetchedCategories.income = (fetchedCategories.income || []).map(normalizeCategoryProperties);
+            fetchedCategories.expense = (fetchedCategories.expense || []).map(normalizeCategoryProperties);
+            setAllCategories(fetchedCategories);
+
+        } catch (err) {
+            console.error("Failed to load data for stats:", err);
+            setError(err.response?.data?.message || "Failed to load data for statistics.");
+        }
+        setIsLoading(false);
+    }, []);
+
+    useEffect(() => {
+        loadData();
+    }, [loadData]);
+
+    const getPeriodDateRange = useCallback(() => {
+        const now = new Date();
+        let startDate = new Date(now);
+        let endDate = new Date(now);
+
+        startDate.setHours(0, 0, 0, 0);
+        endDate.setHours(23, 59, 59, 999);
+
+        if (filterPeriod === 'custom') {
+            if (customStartDate) {
+                startDate = new Date(customStartDate);
+                startDate.setHours(0, 0, 0, 0);
+            } else {
+                startDate = new Date(now.getFullYear(), 0, 1); // Default to start of year if no custom start
+            }
+            if (customEndDate) {
+                endDate = new Date(customEndDate);
+                endDate.setHours(23, 59, 59, 999);
+            } else if (customStartDate) { // If only start date is set, set end date to today
+                 endDate = new Date(now);
+                 endDate.setHours(23, 59, 59, 999);
+            }
+            
+            if (startDate > endDate && customStartDate && customEndDate) {
+                [startDate, endDate] = [endDate, startDate]; // Swap if start is after end
+            }
+        } else {
+            switch (filterPeriod) {
+                case 'week':
+                    const dayOfWeek = now.getDay(); // 0 (Sun) - 6 (Sat)
+                    const diffToMonday = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to Monday
+                    startDate = new Date(now.getFullYear(), now.getMonth(), diffToMonday);
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + 6); // Monday + 6 days = Sunday
+                    endDate.setHours(23,59,59,999);
+                    break;
+                case 'month':
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Last day of current month
+                    endDate.setHours(23,59,59,999);
+                    break;
+                case 'year':
+                    startDate = new Date(now.getFullYear(), 0, 1); // First day of current year
+                    startDate.setHours(0,0,0,0);
+                    endDate = new Date(now.getFullYear(), 11, 31); // Last day of current year
+                    endDate.setHours(23,59,59,999);
+                    break;
+                default: // Default to month
+                    startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                    endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+                    break;
+            }
+        }
+        return { startDate, endDate };
+    }, [filterPeriod, customStartDate, customEndDate]);
+
+
+    const filteredTransactions = useMemo(() => {
+        if (!transactions.length) return [];
+        const { startDate, endDate } = getPeriodDateRange();
+        return transactions.filter(t => {
+            const transactionDate = new Date(t.date);
+            return transactionDate >= startDate && transactionDate <= endDate;
+        });
+    }, [transactions, getPeriodDateRange]);
+
+    const statsData = useMemo(() => {
+        if (!filteredTransactions.length && !allCategories.income.length && !allCategories.expense.length) {
+            return { totalIncome: 0, totalExpense: 0, netResult: 0, expenseByCategory: [], incomeExpenseOverTime: [], balanceOverTime: [] };
+        }
+
+        let totalIncome = 0;
+        let totalExpense = 0;
+        const expenseByCategoryMap = new Map();
+        const dailyDataMap = new Map(); // For income/expense and balance over time
+        const { startDate, endDate } = getPeriodDateRange();
+
+        const categoryMap = {};
+        (allCategories.income || []).forEach(cat => categoryMap[cat.id] = cat);
+        (allCategories.expense || []).forEach(cat => categoryMap[cat.id] = cat);
+
+        filteredTransactions.forEach(t => {
+            const category = categoryMap[t.categoryId]; 
+            const categoryName = category?.name || 'Uncategorized';
+            const categoryColor = category?.color; 
+            const categoryIcon = category?.icon;  
+            const amount = parseFloat(t.amount);
+            const dateKey = new Date(t.date).toISOString().split('T')[0]; // YYYY-MM-DD
+
+            if (!dailyDataMap.has(dateKey)) {
+                dailyDataMap.set(dateKey, { income: 0, expense: 0, balanceChange: 0 });
+            }
+            const dayData = dailyDataMap.get(dateKey);
+
+            if (t.type === 'income') {
+                totalIncome += amount;
+                dayData.income += amount;
+                dayData.balanceChange += amount;
+            } else { // expense
+                totalExpense += amount;
+                dayData.expense += amount;
+                dayData.balanceChange -= amount;
+                const currentCategoryData = expenseByCategoryMap.get(categoryName);
+                expenseByCategoryMap.set(categoryName, {
+                    value: (currentCategoryData?.value || 0) + amount,
+                    color: categoryColor, 
+                    icon: categoryIcon,   
+                });
+            }
+        });
+
+        const expenseByCategory = Array.from(expenseByCategoryMap)
+            .map(([name, data]) => ({
+                name,
+                value: data.value,
+                color: data.color, 
+                icon: data.icon    
+            }))
+            .sort((a, b) => b.value - a.value);
+
+        const incomeExpenseOverTime = [];
+        const balanceOverTimeData = [];
+        let runningBalance = 0; // This balance is for the selected period's cash flow
+
+        // Create a sorted list of all dates within the period that have transactions or fill gaps
+        const timeKeys = [];
+        if (startDate && endDate && startDate <= endDate) {
+            let currentDateIter = new Date(startDate);
+            currentDateIter.setHours(0,0,0,0); // Normalize to start of day
+            const endOfDayOfEndDate = new Date(endDate);
+            endOfDayOfEndDate.setHours(23,59,59,999); // Normalize to end of day
+
+            while(currentDateIter <= endOfDayOfEndDate) {
+                timeKeys.push(currentDateIter.toISOString().split('T')[0]);
+                currentDateIter.setDate(currentDateIter.getDate() + 1);
+            }
+        }
+        timeKeys.sort(); // Ensure chronological order
+
+        timeKeys.forEach(key => {
+            const dayData = dailyDataMap.get(key) || { income: 0, expense: 0, balanceChange: 0 }; // Use 0 if no data for a day
+            incomeExpenseOverTime.push({
+                name: new Date(key + 'T00:00:00Z').toLocaleDateString('en-GB', { day:'2-digit', month:'short' }), // UTC to avoid timezone shifts
+                income: dayData.income,
+                expense: dayData.expense,
+            });
+            runningBalance += dayData.balanceChange;
+            balanceOverTimeData.push({
+                name: new Date(key + 'T00:00:00Z').toLocaleDateString('en-GB', { day:'2-digit', month:'short' }),
+                balance: runningBalance
+            });
+        });
+
+        return {
+            totalIncome,
+            totalExpense,
+            netResult: totalIncome - totalExpense,
+            expenseByCategory, 
+            incomeExpenseOverTime,
+            balanceOverTime: balanceOverTimeData,
+        };
+    }, [filteredTransactions, allCategories, getPeriodDateRange]);
+
+    if (isLoading && !transactions.length) {
+        return <div className="flex justify-center items-center h-64"><p className="text-lg text-text-muted dark:text-text-dark_muted">Loading statistics...</p></div>;
+    }
+
+    if (error) {
+        return (
+            <div className="text-center py-10 px-6 bg-error/10 dark:bg-error-dark/20 rounded-lg shadow border border-error/30 dark:border-error-dark/50">
+                <ExclamationTriangleIcon className="h-12 w-12 text-error dark:text-error-dark mx-auto mb-3" />
+                <h3 className="text-lg font-medium text-error dark:text-error-dark">{error}</h3>
+            </div>
+        );
+    }
+
+    const noDataForPeriod = filteredTransactions.length === 0 && !isLoading;
+
+    return (
+        <div className="space-y-6 md:space-y-8">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-text dark:text-text-dark">Financial Analysis</h1>
+
+            <section className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                <h2 className="text-lg font-medium mb-3 text-text dark:text-text-dark">Select Period</h2>
+                <div className="flex flex-wrap gap-2 mb-4">
+                    {[{val: 'week', label: 'This Week'}, {val: 'month', label: 'This Month'}, {val: 'year', label: 'This Year'}].map(p => (
+                        <button
+                            key={p.val}
+                            onClick={() => { setFilterPeriod(p.val); setCustomStartDate(''); setCustomEndDate(''); }}
+                            className={`px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-colors
+                                ${filterPeriod === p.val && !customStartDate && !customEndDate
+                                ? 'bg-primary dark:bg-primary-dark text-white shadow-md'
+                                : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600'
+                            }`}
+                        >
+                            {p.label}
+                        </button>
+                    ))}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                    <div>
+                        <label htmlFor="customStartDate" className="block text-xs font-medium text-text-muted dark:text-text-dark_muted mb-1">Start Date</label>
+                        <input type="date" id="customStartDate" value={customStartDate}
+                               onChange={e => { setCustomStartDate(e.target.value); if(e.target.value || customEndDate) setFilterPeriod('custom');}}
+                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark text-sm h-10"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="customEndDate" className="block text-xs font-medium text-text-muted dark:text-text-dark_muted mb-1">End Date</label>
+                        <input type="date" id="customEndDate" value={customEndDate}
+                               onChange={e => { setCustomEndDate(e.target.value); if(e.target.value || customStartDate) setFilterPeriod('custom');}}
+                               className="w-full p-2 border border-slate-300 dark:border-slate-600 rounded-md bg-surface dark:bg-surface-dark text-text dark:text-text-dark focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark text-sm h-10"
+                               min={customStartDate || undefined}
+                        />
+                    </div>
+                </div>
+                {(filterPeriod === 'custom' && (!customStartDate || !customEndDate)) && (
+                    <p className="text-xs text-amber-600 dark:text-amber-500 mt-2">
+                        For a custom period, please specify both start and end dates.
+                    </p>
+                )}
+            </section>
+
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                <div className="p-5 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                    <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Total Income</h3>
+                    <p className="text-2xl sm:text-3xl font-bold text-success dark:text-success-dark mt-1">{formatCurrencyForStat(statsData.totalIncome, 'KZT')}</p>
+                </div>
+                <div className="p-5 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                    <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Total Expense</h3>
+                    <p className="text-2xl sm:text-3xl font-bold text-error dark:text-error-dark mt-1">{formatCurrencyForStat(statsData.totalExpense, 'KZT')}</p>
+                </div>
+                <div className="p-5 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                    <h3 className="text-sm font-medium text-text-muted dark:text-text-dark_muted">Net Result</h3>
+                    <p className={`text-2xl sm:text-3xl font-bold mt-1 ${statsData.netResult >= 0 ? 'text-success dark:text-success-dark' : 'text-error dark:text-error-dark'}`}>
+                        {formatCurrencyForStat(statsData.netResult, 'KZT')}
+                    </p>
+                </div>
+            </section>
+
+            {noDataForPeriod ? (
+                <div className="p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg text-center">
+                    <InformationCircleIcon className="h-12 w-12 text-text-muted dark:text-text-dark_muted mx-auto mb-3" />
+                    <p className="text-lg font-medium text-text dark:text-text-dark">No data to display</p>
+                    <p className="text-sm text-text-muted dark:text-text-dark_muted">Try selecting a different period or adding transactions.</p>
+                </div>
+            ) : (
+                <>
+                    <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {statsData.expenseByCategory.length > 0 ? (
+                            <div className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                                <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Expense Breakdown</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <PieChart>
+                                        <Pie data={statsData.expenseByCategory} cx="50%" cy="50%" labelLine={false} outerRadius={100} dataKey="value" nameKey="name">
+                                            {statsData.expenseByCategory.map((entry, index) => (
+                                                <Cell key={`cell-expense-${index}`} fill={tailwindToHex(entry.color)} />
+                                            ))}
+                                        </Pie>
+                                        <Tooltip content={<CustomTooltipContent type="pie" />} />
+                                        <Legend content={<renderCustomPieLegend />} />
+                                    </PieChart>
+                                </ResponsiveContainer>
+                            </div>
+                        ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center min-h-[200px]"><CalendarDaysIcon className="h-10 w-10 mb-2"/>No expense data for this period.</div>}
+
+                        {statsData.incomeExpenseOverTime.length > 0 ? (
+                            <div className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                                <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Income & Expenses</h3>
+                                <ResponsiveContainer width="100%" height={300}>
+                                    <BarChart data={statsData.incomeExpenseOverTime} margin={{ top: 5, right: 5, left: -25, bottom: 5 }}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
+                                        <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                        <YAxis tickFormatter={(value) => `${Math.round(value / 1000)}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                        <Tooltip content={<CustomTooltipContent type="bar"/>} />
+                                        <Legend wrapperStyle={{ fontSize: '0.75rem', paddingTop: '10px' }}/>
+                                        <Bar dataKey="income" fill={tailwindToHex('bg-green-500')} name="Income" radius={[3, 3, 0, 0]} barSize={12} />
+                                        <Bar dataKey="expense" fill={tailwindToHex('bg-red-500')} name="Expenses" radius={[3, 3, 0, 0]} barSize={12} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        ) : <div className="lg:col-span-1 p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg text-center text-text-muted dark:text-text-dark_muted flex flex-col justify-center items-center min-h-[200px]"><CalendarDaysIcon className="h-10 w-10 mb-2"/>No daily data for this period.</div>}
+                    </section>
+                    {statsData.balanceOverTime.length > 1 && (
+                        <section className="p-4 sm:p-6 bg-surface dark:bg-surface-dark rounded-xl shadow-lg">
+                            <h3 className="text-lg font-semibold mb-4 text-text dark:text-text-dark text-center">Balance Over Time (Period Cash Flow)</h3>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <LineChart data={statsData.balanceOverTime} margin={{ top: 5, right: 20, left: -15, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(128,128,128,0.1)" />
+                                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                    <YAxis tickFormatter={(value) => `${Math.round(value / 1000)}k`} tick={{ fontSize: 10, fill: 'currentColor' }} className="text-text-muted dark:text-text-dark_muted" />
+                                    <Tooltip content={<CustomTooltipContent type="line"/>} />
+                                    <Legend wrapperStyle={{ fontSize: '0.75rem', paddingTop: '10px' }} />
+                                    <Line type="monotone" dataKey="balance" name="Balance" stroke={tailwindToHex('bg-primary')} strokeWidth={2} dot={{ r: 3, fill: tailwindToHex('bg-primary') }} activeDot={{ r: 5, stroke: tailwindToHex('bg-primary-dark'), fill: tailwindToHex('bg-primary') }} />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </section>
+                    )}
+                </>
+            )}
+        </div>
+    );
+};
+
+export default StatsPage;
+
+###############################################################################
+# FILE: src\routes\AppRouter.jsx
+###############################################################################
+
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from '../pages/Auth/LoginPage.jsx';
+import RegisterPage from '../pages/Auth/RegisterPage.jsx';
+import DashboardPage from '../pages/DashboardPage.jsx';
+import StatsPage from '../pages/StatsPage.jsx';
+import SettingsPage from '../pages/SettingsPage.jsx';
+import AccountsPage from '../pages/AccountsPage.jsx'; // Import AccountsPage
+import ProtectedRoute from './ProtectedRoute.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+
+const AppRouter = () => {
+    const { isAuthenticated, isLoadingAuth } = useAuth();
+
+    if (isLoadingAuth && !localStorage.getItem('authToken')) { 
+        return (
+            <div className="flex justify-center items-center h-screen bg-background-dark">
+                <p className="text-xl text-text-dark">Loading application...</p>
+            </div>
+        );
+    }
+
+    return (
+        <Routes>
+            <Route
+                path="/login"
+                element={!isAuthenticated ? <LoginPage /> : <Navigate to="/dashboard" replace />}
+            />
+            <Route
+                path="/register"
+                element={!isAuthenticated ? <RegisterPage /> : <Navigate to="/dashboard" replace />}
+            />
+
+            <Route element={<ProtectedRoute />}>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="dashboard" element={<DashboardPage />} />
+                <Route path="stats" element={<StatsPage />} />
+                <Route path="settings" element={<SettingsPage />} /> {/* Categories settings */}
+                <Route path="accounts" element={<AccountsPage />} /> {/* Accounts management */}
+            </Route>
+
+            <Route
+                path="*"
+                element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />}
+            />
+        </Routes>
+    );
+};
+
+export default AppRouter;
+
+###############################################################################
+# FILE: src\routes\ProtectedRoute.jsx
+###############################################################################
+
+import React from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
+import AppLayout from '../components/layout/AppLayout.jsx';
+
+const ProtectedRoute = () => {
+    const { isAuthenticated, isLoadingAuth } = useAuth();
+    const location = useLocation();
+
+    if (isLoadingAuth) {
+        return (
+            <div className="flex justify-center items-center h-screen bg-background-dark">
+                <p className="text-xl text-text-dark">Authorizing...</p>
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    return (
+        <AppLayout>
+            <Outlet /> 
+        </AppLayout>
+    );
+};
+
+export default ProtectedRoute;
+
+###############################################################################
+# FILE: src\utils\categoryUtils.js
+###############################################################################
+
+import { defaultCategoryIconName } from '../components/ui/CategoryIcons.jsx';
+
+const defaultTailwindColor = 'bg-slate-500'; // Consistent default Tailwind color
+
+// This map helps convert HEX colors (potentially from default/legacy categories.json)
+// to the Tailwind CSS classes used throughout the frontend.
+const hexToTailwindMap = {
+    '#22c55e': 'bg-green-500', // Salary
+    '#3b82f6': 'bg-blue-500',   // Freelance
+    '#eab308': 'bg-yellow-500', // Gifts
+    '#f97316': 'bg-orange-500', // Groceries
+    '#0ea5e9': 'bg-sky-500',    // Transport
+    '#a855f7': 'bg-purple-500', // Entertainment
+    '#ef4444': 'bg-red-500',     // Utilities
+    // Add more mappings if your default categories.json uses other hex codes
+};
+
+export function normalizeCategoryProperties(category) {
+    if (!category) return null; 
+
+    let color = category.color;
+
+    if (!color) {
+        color = defaultTailwindColor;
+    } else if (color.startsWith('#')) { 
+        color = hexToTailwindMap[color.toLowerCase()] || defaultTailwindColor;
+    } else if (!color.startsWith('bg-')) { 
+        color = defaultTailwindColor;
+    }
+
+    return {
+        ...category,
+        color: color, 
+        icon: category.icon || defaultCategoryIconName 
+    };
+}
+
+###############################################################################
+# FILE: src\components\accounts\AccountModal.jsx
+###############################################################################
+
+import React, { useState, useEffect } from 'react';
+import Button from '../ui/Button.jsx';
+import Input from '../ui/Input.jsx';
+import { XMarkIcon, BanknotesIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
+
+const AccountModal = ({ isOpen, onClose, onSubmit, accountToEdit, existingAccountNames }) => {
+    const [name, setName] = useState('');
+    const [initialBalance, setInitialBalance] = useState('');
+    const [error, setError] = useState('');
+
+    const isEditing = !!accountToEdit;
+
+    useEffect(() => {
+        if (isOpen) {
+            if (isEditing && accountToEdit) {
+                setName(accountToEdit.name);
+                // In edit mode, initialBalance might not be directly editable if balance is server-managed
+                // For this example, we'll allow editing 'initialBalance' if it exists, or display current balance
+                setInitialBalance(accountToEdit.initialBalance !== undefined ? accountToEdit.initialBalance.toString() : (accountToEdit.balance !== undefined ? accountToEdit.balance.toString() : '0'));
+            } else {
+                setName('');
+                setInitialBalance('0');
+            }
+            setError('');
+        }
+    }, [isOpen, accountToEdit, isEditing]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setError('');
+        if (!name.trim()) {
+            setError("Account name cannot be empty.");
+            return;
+        }
+        if (existingAccountNames.includes(name.trim().toLowerCase()) && (!isEditing || name.trim().toLowerCase() !== accountToEdit.name.toLowerCase())) {
+            setError(`An account with the name "${name.trim()}" already exists.`);
+            return;
+        }
+
+        const balanceValue = parseFloat(initialBalance);
+        if (isNaN(balanceValue)) {
+            setError("Initial balance must be a valid number.");
+            return;
+        }
+        
+        // If editing, the API might only expect the name if balance is server-calculated
+        // If adding, initialBalance is important.
+        const accountData = {
+            name: name.trim(),
+            // Only send initialBalance if it's a new account or if we specifically allow editing it
+            // For simplicity, we'll send it. The backend decides how to use it.
+            initialBalance: balanceValue 
+        };
+        if (isEditing && accountToEdit.id) {
+            accountData.id = accountToEdit.id; // Include ID for update
+        }
+
+        onSubmit(accountData);
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+            <div className="relative bg-surface dark:bg-slate-800 p-6 rounded-lg shadow-xl w-full max-w-md m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in text-text dark:text-text-dark border border-slate-300 dark:border-slate-700">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-semibold text-text dark:text-text-dark">
+                        {isEditing ? 'Edit Account' : 'Add New Account'}
+                    </h2>
+                    <button onClick={onClose} className="text-text-muted dark:text-text-dark_muted hover:text-text dark:hover:text-text-dark transition-colors" aria-label="Close">
+                        <XMarkIcon className="h-6 w-6" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <Input
+                        id="accountNameModal"
+                        label="Account Name:"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        icon={<BanknotesIcon />}
+                        labelClassName="text-text-muted dark:text-text-dark_muted"
+                        wrapperClassName="mb-0"
+                        placeholder="e.g., Cash, Bank Card"
+                    />
+                    <Input
+                        id="initialBalanceModal"
+                        label={isEditing ? "Current / Initial Balance (KZT):" : "Initial Balance (KZT):"}
+                        type="number"
+                        value={initialBalance}
+                        onChange={(e) => setInitialBalance(e.target.value)}
+                        icon={<CurrencyDollarIcon />}
+                        inputMode="decimal"
+                        step="0.01"
+                        labelClassName="text-text-muted dark:text-text-dark_muted"
+                        wrapperClassName="mb-0"
+                        placeholder="0.00"
+                        // disabled={isEditing} // Optionally disable if balance is purely server-managed post-creation
+                    />
+                     {isEditing && <p className="text-xs text-text-muted dark:text-text-dark_muted opacity-70 mt-1">Note: Modifying balance here might be for reference or initial setup. Actual balance is updated by transactions.</p>}
+
+
+                    {error && <p className="mt-2 text-xs text-red-500 dark:text-red-400 text-center">{error}</p>}
+
+                    <div className="flex justify-end space-x-3 pt-5">
+                        <Button type="button" onClick={onClose} variant="secondary" className="px-6">Cancel</Button>
+                        <Button type="submit" className="bg-amber-500 hover:bg-amber-600 text-white px-6">
+                            {isEditing ? 'Save Changes' : 'Add Account'}
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default AccountModal;
+
+###############################################################################
+# FILE: src\components\layout\AppLayout.jsx
+###############################################################################
+
+// src/components/layout/AppLayout.jsx
+import React from 'react';
+import Sidebar from './Sidebar.jsx';
+
+const AppLayout = ({ children }) => { // Принимает children
+    return (
+        <div className="flex h-screen bg-background dark:bg-background-dark text-text dark:text-text-dark">
+            <Sidebar />
+            <div className="flex-1 flex flex-col ml-64 overflow-x-hidden"> {/* ml-64 to offset fixed sidebar, overflow-x-hidden */}
+                <main className="flex-1 p-4 sm:p-6 overflow-y-auto"> {/* Добавлены sm:p-6 для больших экранов */}
+                    {children} {/* Отображаем то, что передано как children (это будет <Outlet /> из ProtectedRoute) */}
+                </main>
+            </div>
+        </div>
+    );
+};
+
+export default AppLayout;
+
+###############################################################################
+# FILE: src\components\layout\Sidebar.jsx
+###############################################################################
+
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import {
+    ChartBarIcon,
+    Cog6ToothIcon,
+    HomeIcon,
+    BanknotesIcon, // Icon for Accounts
+    ArrowLeftOnRectangleIcon,
+    MoonIcon, SunIcon
+} from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext.jsx';
+
+const navigationLinks = [
+    { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
+    { name: 'Accounts', href: '/accounts', icon: BanknotesIcon }, // New Accounts link
+    { name: 'Statistics', href: '/stats', icon: ChartBarIcon },
+    { name: 'Categories', href: '/settings', icon: Cog6ToothIcon },
+];
+
+const Sidebar = () => {
+    const { user, logout } = useAuth();
+    const [darkMode, setDarkMode] = useState(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme) return theme === 'dark';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [darkMode]);
+
+    const toggleDarkMode = () => setDarkMode(!darkMode);
+
+    return (
+        <div className="w-64 bg-surface dark:bg-surface-dark text-text dark:text-text-dark_muted flex flex-col fixed h-full shadow-lg border-r border-slate-200 dark:border-slate-700 z-30">
+            <div className="h-20 flex items-center justify-center px-4 border-b border-slate-200 dark:border-slate-700">
+                <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-8 w-8 mr-2" />
+                <span className="text-2xl font-semibold text-text dark:text-text-dark">CoinKeeper</span>
+            </div>
+
+            <nav className="flex-1 px-3 py-4 space-y-1.5 overflow-y-auto">
+                {navigationLinks.map((item) => (
+                    <NavLink
+                        key={item.name}
+                        to={item.href}
+                        className={({ isActive }) =>
+                            `group flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors
+                         ${isActive
+                                ? 'sidebar-link-active'
+                                : 'text-text-muted dark:text-text-dark_muted hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-text dark:hover:text-text-dark'
+                            }`
+                        }
+                    >
+                        <item.icon className="mr-3 h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                        {item.name}
+                    </NavLink>
+                ))}
+            </nav>
+
+            <div className="px-3 py-3 border-t border-slate-200 dark:border-slate-700 space-y-3">
+                <button
+                    onClick={toggleDarkMode}
+                    className="w-full flex items-center justify-start px-3 py-2 text-sm font-medium rounded-md text-text-muted dark:text-text-dark_muted hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-text dark:hover:text-text-dark transition-colors"
+                    title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                >
+                    {darkMode ? <SunIcon className="h-5 w-5 mr-3"/> : <MoonIcon className="h-5 w-5 mr-3"/>}
+                    <span>{darkMode ? 'Light Mode' : 'Dark Mode'}</span>
+                </button>
+
+                {user && (
+                    <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
+                        <p className="text-xs text-text-muted dark:text-slate-500 px-3 mb-1">Logged in as:</p>
+                        <div className="px-3 mb-2">
+                            <p className="text-sm font-medium text-text dark:text-text-dark truncate" title={user.email}>
+                                {user.email}
+                            </p>
+                        </div>
+                        <button
+                            onClick={logout}
+                            className="w-full flex items-center justify-start px-3 py-2.5 text-sm font-medium rounded-md text-text-muted dark:text-text-dark_muted bg-slate-100 dark:bg-slate-700 hover:bg-red-100 dark:hover:bg-error/30 hover:text-error dark:hover:text-error-dark transition-colors"
+                        >
+                            <ArrowLeftOnRectangleIcon className="mr-3 h-5 w-5" />
+                            Log Out
+                        </button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+export default Sidebar;
+
+###############################################################################
+# FILE: src\components\transactions\TransactionModal.jsx
+###############################################################################
+
+import React, { useState, useEffect, useCallback } from 'react';
+import Button from '../ui/Button.jsx';
+import Input from '../ui/Input.jsx';
+import { fetchCategories, addCategory as apiAddCategory, fetchAccounts } from '../../api/index.js'; // fetchAccounts здесь уже был, но убедимся, что он экспортируется из api/index.js
+import {
+    XMarkIcon, CurrencyDollarIcon, CalendarDaysIcon, BanknotesIcon, 
+    TrashIcon, PlusIcon, TagIcon
+} from '@heroicons/react/24/outline';
+import { CategoryIcon, defaultCategoryIconName } from '../ui/CategoryIcons.jsx';
+import { normalizeCategoryProperties } from '../../utils/categoryUtils.js';
+
+const defaultNewQuickCategoryTailwindColor = 'bg-slate-500';
+
+const TransactionModal = ({ isOpen, onClose, onSubmit, transactionToEdit, onDelete, accounts: propAccounts, allCategories: propAllCategories }) => {
+    const [type, setType] = useState('expense');
+    const [amount, setAmount] = useState('');
+    const [categoryId, setCategoryIdState] = useState('');
+    const [accountId, setAccountIdState] = useState(''); 
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [comment, setComment] = useState('');
+    const [errors, setErrors] = useState({});
+    
+    const [allCategories, setAllCategories] = useState(propAllCategories || { income: [], expense: [] });
+    const [accounts, setAccounts] = useState(propAccounts || []);
+    
+    const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+    const [isLoadingAccounts, setIsLoadingAccounts] = useState(false);
+
+
+    const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
+    const [newCategoryName, setNewCategoryName] = useState('');
+
+    const isEditing = !!transactionToEdit;
+
+    const loadDataForModal = useCallback(async () => {
+        let categoriesLoaded = false;
+        let accountsLoaded = false;
+
+        if (!propAllCategories || (!propAllCategories.income?.length && !propAllCategories.expense?.length)) {
+            setIsLoadingCategories(true);
+            try {
+                const response = await fetchCategories();
+                let fetchedCategories = response.data || { income: [], expense: [] };
+                fetchedCategories.income = (fetchedCategories.income || []).map(normalizeCategoryProperties);
+                fetchedCategories.expense = (fetchedCategories.expense || []).map(normalizeCategoryProperties);
+                setAllCategories(fetchedCategories);
+                setErrors(prev => ({ ...prev, categories: null }));
+                categoriesLoaded = true;
+            } catch (error) {
+                console.error("Failed to fetch categories for modal:", error);
+                setErrors(prev => ({ ...prev, categories: "Could not load categories." }));
+            }
+            setIsLoadingCategories(false);
+        } else {
+             setAllCategories(propAllCategories);
+             categoriesLoaded = true;
+        }
+
+        if (!propAccounts || propAccounts.length === 0) {
+            setIsLoadingAccounts(true);
+            try {
+                const response = await fetchAccounts();
+                const fetchedAccountsData = (response.data || []).map(acc => ({...acc, balance: acc.balance !== undefined ? acc.balance : 0 }));
+                setAccounts(fetchedAccountsData);
+                setErrors(prev => ({ ...prev, accounts: null }));
+                accountsLoaded = true;
+                // Default accountId if adding new and accounts just loaded
+                if (!isEditing && fetchedAccountsData.length > 0 && !accountId) {
+                    setAccountIdState(fetchedAccountsData[0].id);
+                }
+            } catch (error) {
+                console.error("Failed to fetch accounts for modal:", error);
+                setErrors(prev => ({ ...prev, accounts: "Could not load accounts." }));
+            }
+            setIsLoadingAccounts(false);
+        } else {
+            setAccounts(propAccounts);
+            accountsLoaded = true;
+            // Default accountId if adding new and accounts are from props
+            if (!isEditing && propAccounts.length > 0 && !accountId) {
+                 setAccountIdState(propAccounts[0].id);
+            }
+        }
+        
+        // If editing, ensure the accountId from transactionToEdit is set after accounts are loaded/available
+        if (isEditing && transactionToEdit && transactionToEdit.accountId && accountsLoaded) {
+            setAccountIdState(transactionToEdit.accountId);
+        }
+
+
+    }, [propAllCategories, propAccounts, isEditing, transactionToEdit, accountId]); // Added accountId to ensure it's stable before trying to set default
+
+
+    useEffect(() => {
+        if (isOpen) {
+            loadDataForModal(); // Load data
+
+            // Set initial form state (this part was mostly correct)
+            if (isEditing && transactionToEdit) {
+                setType(transactionToEdit.type || 'expense');
+                setAmount(transactionToEdit.amount?.toString() || '');
+                setCategoryIdState(transactionToEdit.categoryId || '');
+                // accountId will be set by loadDataForModal or if already present in transactionToEdit
+                setDate(transactionToEdit.date ? new Date(transactionToEdit.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]);
+                setComment(transactionToEdit.comment || '');
+            } else { // New transaction
+                setType('expense');
+                setAmount('');
+                setCategoryIdState('');
+                // Default accountId is handled in loadDataForModal after accounts are fetched/set
+                // setAccountIdState(accounts.length > 0 ? accounts[0].id : ''); // This might run before accounts are loaded
+                setDate(new Date().toISOString().split('T')[0]);
+                setComment('');
+            }
+            setErrors({});
+            setShowNewCategoryInput(false);
+            setNewCategoryName('');
+        }
+    }, [isOpen, transactionToEdit, isEditing, loadDataForModal]);
+
+    useEffect(() => {
+        if (isOpen) {
+            setCategoryIdState('');
+            setShowNewCategoryInput(false);
+            setNewCategoryName('');
+        }
+    }, [type, isOpen]);
+
+    const availableCategories = allCategories[type] || [];
+    const selectedCategoryDetails = categoryId ? availableCategories.find(c => c.id === categoryId) : null;
+    // const selectedAccountDetails = accountId ? accounts.find(a => a.id === accountId) : null; // Not directly used for display in select
+
+
+    const validateForm = () => {
+        const newErrors = {};
+        if (!amount || isNaN(parseFloat(amount)) || parseFloat(amount) <= 0) {
+            newErrors.amount = 'Enter a valid amount (greater than 0).';
+        }
+        if (!showNewCategoryInput && !categoryId) {
+            newErrors.category = 'Select a category.';
+        }
+        if (showNewCategoryInput && !newCategoryName.trim()) {
+            newErrors.newCategory = 'New category name cannot be empty.';
+        }
+        if (!accountId) { 
+            newErrors.account = 'Select an account.';
+        }
+        if (!date) {
+            newErrors.date = 'Select a date.';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateForm()) {
+            return;
+        }
+
+        let finalCategoryId = categoryId;
+
+        if (showNewCategoryInput && newCategoryName.trim()) {
+            try {
+                const response = await apiAddCategory({
+                    type,
+                    name: newCategoryName.trim(),
+                    color: defaultNewQuickCategoryTailwindColor,
+                    icon: defaultCategoryIconName
+                });
+                const newCat = normalizeCategoryProperties(response.data);
+                setAllCategories(prev => ({
+                    ...prev,
+                    [type]: [...(prev[type] || []), newCat].sort((a,b) => a.name.localeCompare(b.name))
+                }));
+                finalCategoryId = newCat.id;
+                setNewCategoryName('');
+                setShowNewCategoryInput(false);
+                setErrors(prev => ({ ...prev, newCategory: null, category: null }));
+                setCategoryIdState(newCat.id);
+            } catch (error) {
+                console.error("Failed to quick add category:", error);
+                setErrors(prev => ({ ...prev, newCategory: error.response?.data?.message || "Error adding category." }));
+                return;
+            }
+        }
+        
+        if (!finalCategoryId && !showNewCategoryInput) { 
+            setErrors(prev => ({...prev, category: "Category is required."}));
+            return;
+        }
+        if (!accountId) { 
+             setErrors(prev => ({...prev, account: "Account is required."}));
+            return;
+        }
+
+
+        const transactionData = {
+            type,
+            amount: parseFloat(amount),
+            categoryId: finalCategoryId,
+            accountId: accountId, 
+            date: new Date(date).toISOString(),
+            comment,
+        };
+        onSubmit(transactionData);
+    };
+
+    const handleDeleteLocal = () => {
+        if (isEditing && onDelete) {
+            onDelete(transactionToEdit.id);
+        }
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
+            <div className="fixed inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+            <div className="relative bg-surface dark:bg-surface-dark p-6 md:p-8 rounded-xl shadow-xl w-full max-w-lg m-auto transform transition-all duration-300 ease-out scale-95 opacity-0 animate-modal-scale-in">
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <h2 className="text-xl font-semibold text-text dark:text-text-dark">
+                        {isEditing ? 'Edit Transaction' : 'New Transaction'}
+                    </h2>
+                    <button onClick={onClose} className="text-text-muted dark:text-text-dark_muted hover:text-text dark:hover:text-text-dark transition-colors" aria-label="Close">
+                        <XMarkIcon className="h-6 w-6" />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Transaction Type</label>
+                        <div className="flex rounded-md shadow-sm">
+                            <button
+                                type="button"
+                                onClick={() => setType('expense')}
+                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-l-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-surface-dark border border-r-0
+                                  ${type === 'expense'
+                                    ? 'bg-red-500/90 hover:bg-red-600 text-white focus:ring-red-400 border-red-500/90'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400 border-slate-300 dark:border-slate-600'
+                                }`}
+                            >Expense</button>
+                            <button
+                                type="button"
+                                onClick={() => setType('income')}
+                                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-r-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-surface-dark border
+                                  ${type === 'income'
+                                    ? 'bg-green-500/90 hover:bg-green-600 text-white focus:ring-green-400 border-green-500/90'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-text dark:text-text-dark hover:bg-slate-300 dark:hover:bg-slate-600 focus:ring-slate-400 border-slate-300 dark:border-slate-600'
+                                }`}
+                            >Income</button>
+                        </div>
+                    </div>
+
+                    <Input
+                        id="amount" label="Amount (KZT)" type="number" placeholder="0.00" value={amount}
+                        onChange={(e) => setAmount(e.target.value)} error={errors.amount}
+                        icon={<CurrencyDollarIcon />}
+                        inputClassName="text-lg" inputMode="decimal" step="0.01"
+                        wrapperClassName="mb-0"
+                    />
+                    
+                    <div>
+                        <label htmlFor="account" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Account</label>
+                        {isLoadingAccounts && <p className="text-sm text-text-muted dark:text-text-dark_muted py-2">Loading accounts...</p>}
+                        {errors.accounts && !isLoadingAccounts && <p className="text-xs text-error dark:text-error-dark mb-2 py-2">{errors.accounts}</p>}
+                        {!isLoadingAccounts && !errors.accounts && (
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none">
+                                    <BanknotesIcon className="w-4 h-4 text-text-muted dark:text-text-dark_muted" />
+                                </div>
+                                <select
+                                    id="account" value={accountId} onChange={(e) => setAccountIdState(e.target.value)}
+                                    className={`block w-full p-2.5 pl-10 text-sm rounded-lg border ${errors.account ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
+                                    disabled={accounts.length === 0}
+                                >
+                                    <option value="">
+                                        {accounts.length === 0 ? 'No accounts available' : 'Select an account'}
+                                    </option>
+                                    {accounts.map(acc => (
+                                        <option key={acc.id} value={acc.id}>
+                                            {acc.name} ({acc.balance?.toLocaleString('en-US', { style: 'currency', currency: 'KZT', minimumFractionDigits: 0, maximumFractionDigits: 0 })})
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+                        {errors.account && <p className="mt-1 text-xs text-error dark:text-error-dark">{errors.account}</p>}
+                    </div>
+
+
+                    <div>
+                        <label htmlFor="category" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Category</label>
+                        {isLoadingCategories && <p className="text-sm text-text-muted dark:text-text-dark_muted py-2">Loading categories...</p>}
+                        {errors.categories && !isLoadingCategories && <p className="text-xs text-error dark:text-error-dark mb-2 py-2">{errors.categories}</p>}
+
+                        {!showNewCategoryInput && !isLoadingCategories && !errors.categories && (
+                            <div className="flex items-stretch space-x-2">
+                                <div className="relative flex-grow">
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none">
+                                        {selectedCategoryDetails ? (
+                                            <div className={`p-1 rounded-full ${selectedCategoryDetails.color}`}>
+                                                <CategoryIcon
+                                                    iconName={selectedCategoryDetails.icon}
+                                                    className="w-3.5 h-3.5 text-white"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <TagIcon className="w-4 h-4 text-text-muted dark:text-text-dark_muted" />
+                                        )}
+                                    </div>
+                                    <select
+                                        id="category" value={categoryId} onChange={(e) => setCategoryIdState(e.target.value)}
+                                        className={`block w-full p-2.5 pl-10 text-sm rounded-lg border ${errors.category ? 'border-error dark:border-error-dark focus:ring-error dark:focus:ring-error-dark' : 'border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark'} bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted`}
+                                        disabled={availableCategories.length === 0}
+                                    >
+                                        <option value="">
+                                            {availableCategories.length === 0 ? `No ${type === 'income' ? 'income' : 'expense'} categories` : 'Select a category'}
+                                        </option>
+                                        {availableCategories.map(cat => (
+                                            <option key={cat.id} value={cat.id}>
+                                                {cat.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <Button type="button" onClick={() => setShowNewCategoryInput(true)} variant="secondary" className="p-2.5 flex-shrink-0 h-full" title="Add new category">
+                                    <PlusIcon className="h-5 w-5"/>
+                                </Button>
+                            </div>
+                        )}
+                        {showNewCategoryInput && (
+                            <div className="p-3 border border-dashed border-slate-400 dark:border-slate-500 rounded-md space-y-3 bg-slate-50 dark:bg-slate-700/30">
+                                <Input
+                                    id="newCategoryName" label="New category name (quick add)" type="text" placeholder="e.g., 'Taxi'"
+                                    value={newCategoryName} onChange={(e) => setNewCategoryName(e.target.value)}
+                                    error={errors.newCategory} wrapperClassName="mb-0" labelClassName='text-xs'
+                                />
+                                <div className="flex space-x-2">
+                                    <Button type="button" variant="secondary" onClick={() => {setShowNewCategoryInput(false); setNewCategoryName(''); setErrors(prev => ({...prev, newCategory: null}))}} className="text-sm py-1.5 px-3">Cancel</Button>
+                                </div>
+                                <p className="text-xs text-text-muted dark:text-text-dark_muted">Category will be created with default color/icon. Edit in 'Manage Categories'.</p>
+                            </div>
+                        )}
+                        {errors.category && !showNewCategoryInput && <p className="mt-1 text-xs text-error dark:text-error-dark">{errors.category}</p>}
+                    </div>
+
+                    <Input
+                        id="date" label="Date" type="date" value={date}
+                        onChange={(e) => setDate(e.target.value)} error={errors.date}
+                        icon={<CalendarDaysIcon />}
+                        wrapperClassName="mb-0"
+                    />
+
+                    <div>
+                        <label htmlFor="comment" className="block mb-2 text-sm font-medium text-text dark:text-text-dark_muted">Comment (optional)</label>
+                        <textarea id="comment" rows="2" placeholder="Transaction details..." value={comment}
+                                  onChange={(e) => setComment(e.target.value)}
+                                  className="block w-full p-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-600 focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark bg-surface dark:bg-surface-dark text-text dark:text-text-dark placeholder-text-muted dark:placeholder-text-dark_muted"
+                        ></textarea>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row sm:items-center pt-4 gap-3 border-t border-slate-200 dark:border-slate-700">
+                        {isEditing && onDelete && (
+                            <Button type="button" variant="danger" onClick={handleDeleteLocal} className="w-full sm:w-auto sm:mr-auto order-last sm:order-first" leftIcon={<TrashIcon className="h-4 w-4"/>}>
+                                Delete
+                            </Button>
+                        )}
+                        <div className={`flex flex-1 space-x-3 ${!isEditing || !onDelete ? 'sm:ml-auto' : ''}`}>
+                            <Button type="button" variant="secondary" onClick={onClose} className="flex-1 sm:flex-initial">Cancel</Button>
+                            <Button type="submit" variant="primary" className="flex-1 sm:flex-initial">
+                                {isEditing ? 'Save' : 'Add'}
+                            </Button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default TransactionModal;
+
+###############################################################################
+# FILE: src\components\ui\Button.jsx
+###############################################################################
+
+// src/components/ui/Button.jsx
+import React from 'react';
+
+const Button = ({
+                    children,
+                    variant = 'primary',
+                    fullWidth = false,
+                    className = '',
+                    leftIcon, // Новый проп для иконки слева
+                    rightIcon, // Новый проп для иконки справа
+                    disabled, // Стандартный HTML атрибут
+                    ...props
+                }) => {
+    const baseStyle = "inline-flex items-center justify-center py-2.5 px-5 text-sm font-medium rounded-lg focus:outline-none focus:ring-4 transition-all duration-150 ease-in-out disabled:opacity-60 disabled:cursor-not-allowed";
+    const widthStyle = fullWidth ? "w-full" : "";
+
+    let variantStyle = '';
+    switch (variant) {
+        case 'secondary':
+            variantStyle = "text-text bg-surface dark:text-text-dark dark:bg-surface-dark border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 focus:ring-slate-300 dark:focus:ring-slate-500";
+            break;
+        case 'danger':
+            variantStyle = "text-white bg-error dark:bg-error-dark hover:bg-red-700 dark:hover:bg-red-600 focus:ring-red-300 dark:focus:ring-red-900";
+            break;
+        case 'success': // Добавим вариант success
+            variantStyle = "text-white bg-success dark:bg-success-dark hover:bg-green-700 dark:hover:bg-green-600 focus:ring-green-300 dark:focus:ring-green-800";
+            break;
+        case 'primary':
+        default:
+            variantStyle = "text-white bg-primary dark:bg-primary-dark hover:bg-primary-hover dark:hover:bg-primary-dark_hover focus:ring-primary/50 dark:focus:ring-primary-dark/50";
+            break;
+    }
+
+    return (
+        <button
+            className={`${baseStyle} ${variantStyle} ${widthStyle} ${className}`}
+            disabled={disabled}
+            {...props}
+        >
+            {leftIcon && <span className="mr-2">{leftIcon}</span>}
+            {children}
+            {rightIcon && <span className="ml-2">{rightIcon}</span>}
+        </button>
+    );
+};
+
+export default Button;
+
+###############################################################################
+# FILE: src\components\ui\CategoryIcons.jsx
+###############################################################################
+
+// frontend/src/components/ui/CategoryIcons.jsx
+import React from 'react';
+import {
+    ShoppingCartIcon, // Продукты
+    BuildingLibraryIcon, // Зарплата (или BriefcaseIcon)
+    TruckIcon, // Транспорт
+    TicketIcon, // Развлечения (или FilmIcon)
+    HomeModernIcon, // Коммунальные платежи (или BuildingOfficeIcon)
+    AcademicCapIcon, // Образование
+    GiftIcon, // Подарки
+    HeartIcon, // Здоровье
+    CurrencyDollarIcon, // Инвестиции, Общее
+    SparklesIcon, // Хобби
+    WrenchScrewdriverIcon, // Ремонт
+    GlobeAltIcon, // Путешествия
+    PhoneIcon, // Связь
+    ComputerDesktopIcon, // Фриланс, Техника
+    BanknotesIcon, // Сбережения
+    QuestionMarkCircleIcon, // Другое (Placeholder)
+    BriefcaseIcon, // Работа
+    ReceiptPercentIcon, // Налоги, Скидки
+    CreditCardIcon, // Кредиты, Карты
+    ScaleIcon, // Законы, Штрафы
+    UserGroupIcon, // Семья
+    // Добавьте еще по необходимости
+} from '@heroicons/react/24/outline';
+
+export const iconMap = {
+    ShoppingCartIcon,
+    BuildingLibraryIcon,
+    TruckIcon,
+    TicketIcon,
+    HomeModernIcon,
+    AcademicCapIcon,
+    GiftIcon,
+    HeartIcon,
+    CurrencyDollarIcon,
+    SparklesIcon,
+    WrenchScrewdriverIcon,
+    GlobeAltIcon,
+    PhoneIcon,
+    ComputerDesktopIcon,
+    BanknotesIcon,
+    QuestionMarkCircleIcon,
+    BriefcaseIcon,
+    ReceiptPercentIcon,
+    CreditCardIcon,
+    ScaleIcon,
+    UserGroupIcon,
+};
+
+export const defaultCategoryIconName = 'QuestionMarkCircleIcon'; // Иконка по умолчанию
+
+// Компонент для рендеринга иконки по имени
+export const CategoryIcon = ({ iconName, className = "h-5 w-5", ...props }) => {
+    const IconComponent = iconMap[iconName] || iconMap[defaultCategoryIconName];
+    return <IconComponent className={className} {...props} />;
+};
+
+// Список доступных иконок для выбора
+export const availableIconsForPicker = Object.keys(iconMap).map(name => ({
+    name,
+    Component: iconMap[name]
+}));
+
+// Цветовая палитра для выбора (соответствует вашим скриншотам, можно настроить)
+export const availableColorsForPicker = [
+    // Яркие и пастельные цвета
+    'bg-red-400', 'bg-orange-400', 'bg-amber-400', 'bg-yellow-400', 'bg-lime-400',
+    'bg-green-400', 'bg-emerald-400', 'bg-teal-400', 'bg-cyan-400', 'bg-sky-400',
+    'bg-blue-400', 'bg-indigo-400', 'bg-violet-400', 'bg-purple-400', 'bg-fuchsia-400',
+    'bg-pink-400', 'bg-rose-400',
+    // Более темные/насыщенные
+    'bg-red-600', 'bg-orange-600', 'bg-green-600', 'bg-blue-600', 'bg-purple-600',
+    // Нейтральные
+    'bg-slate-500', 'bg-gray-500',
+];
+// Эти цвета уже есть в вашем `SettingsPage.jsx`, можно их оттуда импортировать или оставить здесь
+// Это просто для примера, чтобы показать откуда берутся `availableColorsForPicker`
+// Если у вас `availableColors` в `SettingsPage.jsx`, то просто используйте его.
+
+###############################################################################
+# FILE: src\components\ui\Input.jsx
+###############################################################################
+
+// src/components/ui/Input.jsx
+import React from 'react';
+
+const Input = ({
+                   label,
+                   id,
+                   icon,
+                   error,
+                   className = '',
+                   wrapperClassName = '',
+                   inputClassName = '',
+                   labelClassName = '', // <-- Добавлено
+                   themeVariant = 'default',
+                   ...props
+               }) => {
+    const baseInputStyle = "block w-full p-2.5 text-sm rounded-lg border";
+    let currentInputStyle = `${baseInputStyle} `;
+
+    if (themeVariant === 'auth') {
+        currentInputStyle += "bg-authInputBg border-authInputBorder placeholder-authPlaceholder text-slate-200 focus:ring-primary-dark focus:border-primary-dark";
+    } else {
+        currentInputStyle += "bg-surface border-slate-300 text-text placeholder-slate-400 focus:ring-primary focus:border-primary dark:bg-surface-dark dark:border-slate-600 dark:text-text-dark dark:placeholder-slate-500 dark:focus:ring-primary-dark dark:focus:border-primary-dark";
+    }
+
+    const iconPadding = icon ? "pl-10" : "";
+    const errorRingStyle = 'focus:ring-error dark:focus:ring-error-dark focus:border-error dark:focus:border-error-dark';
+    const defaultRingStyle = themeVariant === 'auth'
+        ? 'focus:ring-primary-dark focus:border-primary-dark'
+        : 'focus:ring-primary dark:focus:ring-primary-dark focus:border-primary dark:focus:border-primary-dark';
+
+    const errorBorderStyle = error ? 'border-error dark:border-error-dark' : (themeVariant === 'auth' ? 'border-authInputBorder' : 'border-slate-300 dark:border-slate-600');
+    const ringStyle = error ? errorRingStyle : defaultRingStyle;
+
+    return (
+        <div className={`mb-4 ${wrapperClassName}`}>
+            {label && (
+                <label htmlFor={id} className={`block mb-2 text-sm font-medium ${labelClassName || 'text-text dark:text-text-dark_muted'}`}>
+                    {label}
+                </label>
+            )}
+            <div className="relative">
+                {icon && (
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        {React.cloneElement(icon, { className: `${icon.props.className || ''} h-5 w-5 text-text-muted dark:text-text-dark_muted` })}
+                    </div>
+                )}
+                <input
+                    id={id}
+                    className={`${currentInputStyle} ${iconPadding} ${errorBorderStyle} ${ringStyle} ${inputClassName} ${className}`}
+                    {...props}
+                />
+            </div>
+            {error && <p className="mt-1 text-xs text-error dark:text-error-dark">{error}</p>}
+        </div>
+    );
+};
+
+export default Input;
+
+###############################################################################
+# FILE: src\pages\Auth\LoginPage.jsx
+###############################################################################
+
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Button from '../../components/ui/Button.jsx';
+import Input from '../../components/ui/Input.jsx';
+import { EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext.jsx';
+
+const backgroundStyle = { backgroundImage: `url('/auth-bg.jpg')` }; 
+
+const LoginPage = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [formError, setFormError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const location = useLocation();
+    const { login } = useAuth();
+
+    const validateFields = () => {
+        const newErrors = {};
+        if (!email) newErrors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Invalid email format";
+        if (!password) newErrors.password = "Password is required";
+        setFieldErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormError('');
+        if (validateFields()) {
+            setIsLoading(true);
+            const result = await login(email, password);
+            setIsLoading(false);
+            if (!result.success) {
+                setFormError(result.message || "Login failed. Please check your credentials.");
+            }
+        }
+    };
+
+    return (
+        <div
+            className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+            style={backgroundStyle} 
+        >
+            <div className="bg-slate-800/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md border border-slate-700">
+                <div className="flex flex-col items-center mb-8">
+                    <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-16 w-16 mb-3" />
+                    <h1 className="text-3xl font-bold text-white">CoinKeeper</h1>
+                    <p className="text-slate-300 dark:text-slate-400">Log in to manage your finances</p>
+                </div>
+
+                {formError && (
+                    <div className="mb-4 p-3 bg-red-500/30 border border-red-600 text-red-200 rounded-md text-sm text-center">
+                        {formError}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                    <Input
+                        id="email" type="email" label="Email" placeholder="your@email.com"
+                        value={email} onChange={(e) => setEmail(e.target.value)}
+                        error={fieldErrors.email} icon={<EnvelopeIcon />}
+                        themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
+                    />
+                    <Input
+                        id="password" type="password" label="Password" placeholder="••••••••"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
+                        error={fieldErrors.password} icon={<LockClosedIcon />}
+                        themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
+                    />
+                    <Button type="submit" fullWidth className="mt-8 py-3 text-base !bg-primary hover:!bg-primary-hover dark:!bg-primary-dark dark:hover:!bg-primary-dark_hover" disabled={isLoading}>
+                        {isLoading ? 'Logging In...' : 'Log In'}
+                    </Button>
+                </form>
+                <p className="text-sm text-center mt-8 text-slate-400 dark:text-slate-500">
+                    No account?{' '}
+                    <Link
+                        to="/register"
+                        state={{ from: location.state?.from }}
+                        className="font-medium text-primary-light dark:text-primary-dark hover:underline"
+                    >
+                        Sign Up
+                    </Link>
+                </p>
+            </div>
+        </div>
+    );
+};
+export default LoginPage;
+
+###############################################################################
+# FILE: src\pages\Auth\RegisterPage.jsx
+###############################################################################
+
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Button from '../../components/ui/Button.jsx';
+import Input from '../../components/ui/Input.jsx';
+import { EnvelopeIcon, LockClosedIcon, UserPlusIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../../context/AuthContext.jsx';
+
+const backgroundStyle = { backgroundImage: `url('/auth-bg.jpg')` }; 
+
+
+const RegisterPage = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [fieldErrors, setFieldErrors] = useState({});
+    const [formError, setFormError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { register } = useAuth();
+
+    const validateFields = () => {
+        const newErrors = {};
+        if (!email) newErrors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "Invalid email format";
+
+        if (!password) newErrors.password = "Password is required";
+        else if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+
+        if (!confirmPassword) newErrors.confirmPassword = "Password confirmation is required";
+        else if (password !== confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+
+        setFieldErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setFormError('');
+        setIsSuccess(false);
+        if (validateFields()) {
+            setIsLoading(true);
+            const result = await register(email, password); 
+            setIsLoading(false);
+            if (result.success) {
+                setIsSuccess(true);
+            } else {
+                setFormError(result.message || "Registration failed. Please try again.");
+            }
+        }
+    };
+
+    if (isSuccess) {
+        return (
+            <div
+                className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+                style={backgroundStyle}
+            >
+                <div className="bg-slate-800/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md text-center border border-slate-700">
+                    <UserPlusIcon className="h-16 w-16 text-green-400 mx-auto mb-4" />
+                    <h2 className="text-2xl font-semibold text-green-300 mb-4">Registration Successful!</h2>
+                    <p className="text-slate-300 dark:text-slate-400 mb-6">You can now log in using your credentials.</p>
+                    <Button
+                        onClick={() => navigate('/login', { state: { from: location.state?.from } })}
+                        fullWidth
+                        className="py-3 text-base !bg-primary hover:!bg-primary-hover dark:!bg-primary-dark dark:hover:!bg-primary-dark_hover"
+                    >
+                        Go to Login
+                    </Button>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div
+            className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center"
+            style={backgroundStyle}
+        >
+            <div className="bg-slate-800/80 dark:bg-slate-900/80 backdrop-blur-md p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md border border-slate-700">
+                <div className="flex flex-col items-center mb-8">
+                    <img src="/free-icon-coin-4153647.png" alt="CoinKeeper Logo" className="h-16 w-16 mb-3" />
+                    <h1 className="text-3xl font-bold text-white">CoinKeeper</h1>
+                    <p className="text-slate-300 dark:text-slate-400">Create an account to get started</p>
+                </div>
+
+                {formError && (
+                    <div className="mb-4 p-3 bg-red-500/30 border border-red-600 text-red-200 rounded-md text-sm text-center">
+                        {formError}
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                    <Input
+                        id="email" type="email" label="Email" placeholder="your@email.com"
+                        value={email} onChange={(e) => setEmail(e.target.value)}
+                        error={fieldErrors.email} icon={<EnvelopeIcon />}
+                        themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
+                    />
+                    <Input
+                        id="password" type="password" label="Password (min. 6 characters)" placeholder="••••••••"
+                        value={password} onChange={(e) => setPassword(e.target.value)}
+                        error={fieldErrors.password} icon={<LockClosedIcon />}
+                        themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
+                    />
+                    <Input
+                        id="confirmPassword" type="password" label="Confirm Password" placeholder="••••••••"
+                        value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                        error={fieldErrors.confirmPassword} icon={<LockClosedIcon />}
+                        themeVariant="auth"
+                        labelClassName="text-slate-300 dark:text-slate-400"
+                    />
+                    <Button type="submit" fullWidth className="mt-8 py-3 text-base !bg-primary hover:!bg-primary-hover dark:!bg-primary-dark dark:hover:!bg-primary-dark_hover" disabled={isLoading}>
+                        {isLoading ? 'Registering...' : 'Sign Up'}
+                    </Button>
+                </form>
+                <p className="text-sm text-center mt-8 text-slate-400 dark:text-slate-500">
+                    Already have an account?{' '}
+                    <Link
+                        to="/login"
+                        state={{ from: location.state?.from }}
+                        className="font-medium text-primary-light dark:text-primary-dark hover:underline"
+                    >
+                        Log In
+                    </Link>
+                </p>
+            </div>
+        </div>
+    );
+};
+export default RegisterPage;
+
+###############################################################################
+# SUMMARY
+# Total files: 47
+# Total size: 144.75 KB
+# Processing time: 0.65 seconds
+###############################################################################

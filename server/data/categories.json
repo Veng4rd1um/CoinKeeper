@@ -1,0 +1,13 @@
+{
+  "income": [
+    { "id": "cat_inc_1", "name": "Зарплата", "color": "#22c55e" },
+    { "id": "cat_inc_2", "name": "Фриланс", "color": "#3b82f6" },
+    { "id": "cat_inc_3", "name": "Подарки", "color": "#eab308" }
+  ],
+  "expense": [
+    { "id": "cat_exp_1", "name": "Продукты", "color": "#f97316" },
+    { "id": "cat_exp_2", "name": "Транспорт", "color": "#0ea5e9" },
+    { "id": "cat_exp_3", "name": "Развлечения", "color": "#a855f7" },
+    { "id": "cat_exp_4", "name": "Коммунальные услуги", "color": "#ef4444" }
+  ]
+}

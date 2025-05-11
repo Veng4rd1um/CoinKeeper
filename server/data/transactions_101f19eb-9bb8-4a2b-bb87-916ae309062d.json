@@ -1,0 +1,10 @@
+[
+  {
+    "id": "txn_17460362",
+    "type": "expense",
+    "amount": 1000,
+    "categoryId": "cat_exp_adf021",
+    "date": "2025-05-10T00:00:00.000Z",
+    "comment": ""
+  }
+]

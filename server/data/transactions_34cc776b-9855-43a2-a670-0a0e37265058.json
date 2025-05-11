@@ -1,0 +1,11 @@
+[
+  {
+    "id": "txn_dbae0d5e",
+    "type": "expense",
+    "amount": 4324,
+    "categoryId": "cat_exp_ebc182",
+    "date": "2025-05-11T00:00:00.000Z",
+    "comment": "",
+    "userId": "34cc776b-9855-43a2-a670-0a0e37265058"
+  }
+]

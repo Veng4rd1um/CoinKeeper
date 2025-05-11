@@ -1,0 +1,34 @@
+{
+  "income": [
+    {
+      "id": "cat_inc_f3cfc2",
+      "name": "зп"
+    },
+    {
+      "id": "cat_inc_fd403a",
+      "name": "фыфы"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_a534e4",
+      "name": "крфе"
+    },
+    {
+      "id": "cat_exp_73fbde",
+      "name": "awdawd"
+    },
+    {
+      "id": "cat_exp_915ee1",
+      "name": "уаыуа"
+    },
+    {
+      "id": "cat_exp_faf24c",
+      "name": "фцвцфвф"
+    },
+    {
+      "id": "cat_exp_fd3417",
+      "name": "фцвфцв"
+    }
+  ]
+}

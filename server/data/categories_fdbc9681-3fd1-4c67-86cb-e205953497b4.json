@@ -1,0 +1,18 @@
+{
+  "income": [
+    {
+      "id": "cat_inc_d41c80",
+      "name": "фцвц"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_bb9b29",
+      "name": "Такси"
+    },
+    {
+      "id": "cat_exp_2ddc85",
+      "name": "фвфц"
+    }
+  ]
+}

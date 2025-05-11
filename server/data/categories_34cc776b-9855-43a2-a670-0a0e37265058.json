@@ -1,0 +1,30 @@
+{
+  "income": [
+    {
+      "id": "cat_inc_9969ed",
+      "name": "Зпss",
+      "color": "bg-amber-400",
+      "icon": "TicketIcon"
+    }
+  ],
+  "expense": [
+    {
+      "id": "cat_exp_ba6255",
+      "name": "Car",
+      "color": "bg-violet-400",
+      "icon": "BriefcaseIcon"
+    },
+    {
+      "id": "cat_exp_ebc182",
+      "name": "Ф",
+      "color": "bg-sky-400",
+      "icon": "SparklesIcon"
+    },
+    {
+      "id": "cat_exp_926de2",
+      "name": "iitu",
+      "color": "bg-orange-400",
+      "icon": "GlobeAltIcon"
+    }
+  ]
+}

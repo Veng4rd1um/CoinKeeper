@@ -1,0 +1,18 @@
+[
+  {
+    "id": "t_1",
+    "type": "income",
+    "amount": 50000,
+    "categoryId": "cat_inc_1",
+    "date": "2024-05-20T00:00:00.000Z",
+    "comment": "Аванс за май"
+  },
+  {
+    "id": "t_2",
+    "type": "expense",
+    "amount": 3250.50,
+    "categoryId": "cat_exp_1",
+    "date": "2024-05-21T00:00:00.000Z",
+    "comment": "Супермаркет МегаМарт"
+  }
+]
